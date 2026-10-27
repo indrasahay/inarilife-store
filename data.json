@@ -11,16 +11,16 @@
     "phone": "+91 90000 00000",
     "whatsapp": "919000000000",
     "email": "care@inarilife.com",
-    "address": "Inari Life, 2nd Floor, 100 Ft Road, Indiranagar, Bengaluru, Karnataka 560038",
-    "hours": "Mon–Sat, 10:00 AM – 6:00 PM IST",
+    "address": "Inari Life, B1005, Plot no GH16C, Sector - 1, Greater Noida",
+    "hours": "Mon\u2013Sat, 10:00 AM \u2013 6:00 PM IST",
     "instagram": "https://instagram.com/",
     "facebook": "https://facebook.com/",
     "youtube": "https://youtube.com/",
-    "announcement": "Launch offer: flat 10% off your first order with code FIRST10 · Free shipping above ₹499",
+    "announcement": "Launch offer: flat 10% off your first order with code FIRST10 \u00b7 Free shipping above \u20b9499",
     "shipCharge": 49,
     "freeShipAbove": 499,
     "codLimit": 5000,
-    "dispatch": "Dispatched within 24–48 working hours",
+    "dispatch": "Dispatched within 24\u201348 working hours",
     "returnDays": 7,
     "gst": "Prices are inclusive of all taxes.",
     "amazonDisclaimer": "Buy Now opens the product page on Amazon.in. Checkout, payment and delivery for those orders are handled by Amazon."
@@ -72,7 +72,7 @@
   "banners": [
     {
       "id": "b1",
-      "eyebrow": "Home & Travel · 2026",
+      "eyebrow": "Home & Travel \u00b7 2026",
       "title": "Smart organization,<br>for everyday living.",
       "subtitle": "Discover our new range of practical storage, travel gear, and home essentials.",
       "ctaText": "Shop the collection",
@@ -182,7 +182,7 @@
     },
     {
       "id": "p4",
-      "name": "60 × 180 cm Yoga Mat",
+      "name": "60 \u00d7 180 cm Yoga Mat",
       "sku": "0524_60x180_cm_yogamat",
       "category": "fitness",
       "price": 499,
@@ -194,9 +194,9 @@
       "reviews": 195,
       "image": "",
       "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-4",
-      "short": "A practical fitness essential from Inari Life: 60 × 180 cm Yoga Mat. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "short": "A practical fitness essential from Inari Life: 60 \u00d7 180 cm Yoga Mat. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
       "features": [
-        "The source name specifies a 60 × 180 format; confirm the measurement unit before publishing.",
+        "The source name specifies a 60 \u00d7 180 format; confirm the measurement unit before publishing.",
         "Designed for the everyday use stated in the product name.",
         "A practical addition to home, work or travel routines.",
         "Keeps the relevant task or item organized in one place.",
@@ -208,7 +208,7 @@
     },
     {
       "id": "p5",
-      "name": "Blue 60 × 180 cm Yoga Mat",
+      "name": "Blue 60 \u00d7 180 cm Yoga Mat",
       "sku": "1667_blue_60x180_cm_yogamat",
       "category": "fitness",
       "price": 799,
@@ -220,9 +220,9 @@
       "reviews": 291,
       "image": "",
       "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-5",
-      "short": "A practical fitness essential from Inari Life: Blue 60 × 180 cm Yoga Mat. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "short": "A practical fitness essential from Inari Life: Blue 60 \u00d7 180 cm Yoga Mat. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
       "features": [
-        "The source name specifies a 60 × 180 format; confirm the measurement unit before publishing.",
+        "The source name specifies a 60 \u00d7 180 format; confirm the measurement unit before publishing.",
         "Designed for the everyday use stated in the product name.",
         "A practical addition to home, work or travel routines.",
         "Keeps the relevant task or item organized in one place.",
@@ -267,7 +267,7 @@
       "stock": 3,
       "unit": "1 unit",
       "badge": "",
-      "rating": 5,
+      "rating": 5.0,
       "reviews": 88,
       "image": "",
       "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-7",
@@ -368,7 +368,7 @@
       "stock": 39,
       "unit": "1 unit",
       "badge": "",
-      "rating": 4,
+      "rating": 4.0,
       "reviews": 297,
       "image": "",
       "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-11",
@@ -411,7 +411,7 @@
     },
     {
       "id": "p13",
-      "name": "Garbage Bags 30 × 50",
+      "name": "Garbage Bags 30 \u00d7 50",
       "sku": "1576_garbage_bags_30x50",
       "category": "home-utility",
       "price": 1499,
@@ -423,9 +423,9 @@
       "reviews": 49,
       "image": "",
       "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-13",
-      "short": "A practical home & utility essential from Inari Life: Garbage Bags 30 × 50. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "short": "A practical home & utility essential from Inari Life: Garbage Bags 30 \u00d7 50. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
       "features": [
-        "The source name specifies a 30 × 50 format; confirm the measurement unit before publishing.",
+        "The source name specifies a 30 \u00d7 50 format; confirm the measurement unit before publishing.",
         "Helps group belongings and reduce everyday clutter.",
         "Useful for organizing items at home, work or while travelling.",
         "Keeps stored or carried items together in one place.",
@@ -513,7 +513,7 @@
     },
     {
       "id": "p17",
-      "name": "14 × 16 Plain Poly Bag",
+      "name": "14 \u00d7 16 Plain Poly Bag",
       "sku": "0929_14x16_plain_poly_bag",
       "category": "home-utility",
       "price": 299,
@@ -525,9 +525,9 @@
       "reviews": 216,
       "image": "",
       "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-17",
-      "short": "A practical home & utility essential from Inari Life: 14 × 16 Plain Poly Bag. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "short": "A practical home & utility essential from Inari Life: 14 \u00d7 16 Plain Poly Bag. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
       "features": [
-        "The source name specifies a 14 × 16 format; confirm the measurement unit before publishing.",
+        "The source name specifies a 14 \u00d7 16 format; confirm the measurement unit before publishing.",
         "Helps group belongings and reduce everyday clutter.",
         "Useful for organizing items at home, work or while travelling.",
         "Keeps stored or carried items together in one place.",
@@ -547,7 +547,7 @@
       "stock": 16,
       "unit": "1 unit",
       "badge": "Bestseller",
-      "rating": 4,
+      "rating": 4.0,
       "reviews": 209,
       "image": "",
       "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-18",
@@ -597,7 +597,7 @@
       "stock": 45,
       "unit": "1 unit",
       "badge": "New",
-      "rating": 4,
+      "rating": 4.0,
       "reviews": 35,
       "image": "",
       "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-20",
@@ -640,7 +640,7 @@
     },
     {
       "id": "p22",
-      "name": "Foldable Cloth Storage Bag 46 × 27 cm",
+      "name": "Foldable Cloth Storage Bag 46 \u00d7 27 cm",
       "sku": "4331_foldable_cloth_storage_bag_46x27cm",
       "category": "storage-travel",
       "price": 1299,
@@ -652,9 +652,9 @@
       "reviews": 282,
       "image": "",
       "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-22",
-      "short": "A practical storage & travel essential from Inari Life: Foldable Cloth Storage Bag 46 × 27 cm. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "short": "A practical storage & travel essential from Inari Life: Foldable Cloth Storage Bag 46 \u00d7 27 cm. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
       "features": [
-        "The source name specifies a 46 × 27 format; confirm the measurement unit before publishing.",
+        "The source name specifies a 46 \u00d7 27 format; confirm the measurement unit before publishing.",
         "Helps group belongings and reduce everyday clutter.",
         "Useful for organizing items at home, work or while travelling.",
         "Keeps stored or carried items together in one place.",
@@ -768,7 +768,7 @@
     },
     {
       "id": "p27",
-      "name": "Garbage Bags 24 × 32",
+      "name": "Garbage Bags 24 \u00d7 32",
       "sku": "1575_garbage_bags_24x32",
       "category": "home-utility",
       "price": 1299,
@@ -780,9 +780,9 @@
       "reviews": 66,
       "image": "",
       "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-27",
-      "short": "A practical home & utility essential from Inari Life: Garbage Bags 24 × 32. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "short": "A practical home & utility essential from Inari Life: Garbage Bags 24 \u00d7 32. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
       "features": [
-        "The source name specifies a 24 × 32 format; confirm the measurement unit before publishing.",
+        "The source name specifies a 24 \u00d7 32 format; confirm the measurement unit before publishing.",
         "Helps group belongings and reduce everyday clutter.",
         "Useful for organizing items at home, work or while travelling.",
         "Keeps stored or carried items together in one place.",
@@ -1049,7 +1049,7 @@
     },
     {
       "id": "p38",
-      "name": "Garbage Bag 17 × 19",
+      "name": "Garbage Bag 17 \u00d7 19",
       "sku": "1574_garbage_bag_17x19",
       "category": "home-utility",
       "price": 1499,
@@ -1061,9 +1061,9 @@
       "reviews": 250,
       "image": "",
       "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-38",
-      "short": "A practical home & utility essential from Inari Life: Garbage Bag 17 × 19. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "short": "A practical home & utility essential from Inari Life: Garbage Bag 17 \u00d7 19. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
       "features": [
-        "The source name specifies a 17 × 19 format; confirm the measurement unit before publishing.",
+        "The source name specifies a 17 \u00d7 19 format; confirm the measurement unit before publishing.",
         "Helps group belongings and reduce everyday clutter.",
         "Useful for organizing items at home, work or while travelling.",
         "Keeps stored or carried items together in one place.",
@@ -1109,7 +1109,7 @@
       "stock": 6,
       "unit": "1 unit",
       "badge": "",
-      "rating": 4,
+      "rating": 4.0,
       "reviews": 12,
       "image": "",
       "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-40",
@@ -1340,7 +1340,7 @@
       "stock": 0,
       "unit": "1 unit",
       "badge": "",
-      "rating": 4,
+      "rating": 4.0,
       "reviews": 199,
       "image": "",
       "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-49",
@@ -1384,7 +1384,7 @@
     },
     {
       "id": "p51",
-      "name": "Garbage Bags 19 × 21",
+      "name": "Garbage Bags 19 \u00d7 21",
       "sku": "1504_garbage_bags_19x21",
       "category": "home-utility",
       "price": 299,
@@ -1396,9 +1396,9 @@
       "reviews": 226,
       "image": "",
       "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-51",
-      "short": "A practical home & utility essential from Inari Life: Garbage Bags 19 × 21. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "short": "A practical home & utility essential from Inari Life: Garbage Bags 19 \u00d7 21. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
       "features": [
-        "The source name specifies a 19 × 21 format; confirm the measurement unit before publishing.",
+        "The source name specifies a 19 \u00d7 21 format; confirm the measurement unit before publishing.",
         "Helps group belongings and reduce everyday clutter.",
         "Useful for organizing items at home, work or while travelling.",
         "Keeps stored or carried items together in one place.",
@@ -1605,7 +1605,7 @@
   "promotions": {
     "strip": {
       "enabled": true,
-      "text": "Free shipping above ₹499 · COD up to ₹5,000 · Dispatch in 24–48 hours"
+      "text": "Free shipping above \u20b9499 \u00b7 COD up to \u20b95,000 \u00b7 Dispatch in 24\u201348 hours"
     },
     "popup": {
       "enabled": false,
@@ -1625,13 +1625,13 @@
       {
         "id": "pr2",
         "title": "Free shipping",
-        "text": "On all orders above ₹499",
+        "text": "On all orders above \u20b9499",
         "icon": "truck"
       },
       {
         "id": "pr3",
         "title": "COD available",
-        "text": "Pay on delivery up to ₹5,000",
+        "text": "Pay on delivery up to \u20b95,000",
         "icon": "wallet"
       },
       {
@@ -1646,7 +1646,7 @@
     "shipCharge": 49,
     "freeShipAbove": 499,
     "codLimit": 5000,
-    "dispatch": "Dispatched within 24–48 working hours",
+    "dispatch": "Dispatched within 24\u201348 working hours",
     "notServiceable": "We do not deliver to this PIN code yet.",
     "pincodes": []
   },

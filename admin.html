@@ -116,6 +116,7 @@ td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 }
 @media(max-width:560px){.grid2,.grid3,.grid4,.stat-grid{grid-template-columns:1fr}.topbar h2{font-size:.95rem}}
 </style>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 </head>
 <body>
 
@@ -148,6 +149,7 @@ td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
         <span class="pill" id="dirty">No unsaved changes</span>
         <button class="btn btn-o btn-sm" id="btnPreview">Preview site</button>
         <button class="btn btn-o btn-sm" id="btnImport">Import JSON</button>
+        <button class="btn btn-o btn-sm" id="btnBulk" title="Upload Excel/CSV to update Prices and Stock based on SKU">Bulk Update (Excel/CSV)</button>
         <button class="btn btn-g btn-sm" id="btnExport">Export data.json</button>
       </div>
     </div>
@@ -164,6 +166,7 @@ td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 </div>
 
 <input type="file" id="fileIn" accept="application/json,.json" style="display:none">
+<input type="file" id="bulkIn" accept=".csv, .xlsx, .xls" style="display:none">
 <div class="toast" id="toast"></div>
 
 <script>
@@ -180,7 +183,7 @@ window.INARI_DATA={
     "phone": "+91 90000 00000",
     "whatsapp": "919000000000",
     "email": "care@inarilife.com",
-    "address": "Inari Life, 2nd Floor, 100 Ft Road, Indiranagar, Bengaluru, Karnataka 560038",
+    "address": "Inari Life, B1005, Plot no GH16C, Sector - 1, Greater Noida",
     "hours": "Mon\u2013Sat, 10:00 AM \u2013 6:00 PM IST",
     "instagram": "https://instagram.com/",
     "facebook": "https://facebook.com/",
@@ -2436,6 +2439,41 @@ function copy(txt){
 }
 $("#btnExport").onclick=exportJSON;
 $("#btnImport").onclick=function(){ $("#fileIn").click() };
+
+$("#btnBulk").onclick=function(){ $("#bulkIn").click() };
+$("#bulkIn").onchange=function(e){
+  var f=e.target.files[0]; if(!f) return;
+  var r=new FileReader();
+  r.onload=function(evt){
+    try{
+      var data = new Uint8Array(evt.target.result);
+      var workbook = XLSX.read(data, {type: 'array'});
+      var firstSheet = workbook.SheetNames[0];
+      var rows = XLSX.utils.sheet_to_json(workbook.Sheets[firstSheet]);
+      var updated = 0;
+      rows.forEach(function(row){
+        var sku = row.SKU || row.sku || row['Seller SKU'];
+        var price = row.Price || row.price || row['Selling price'];
+        var stock = row.Stock || row.stock || row.Inventory || row.inventory || row['Stock quantity'];
+        if(sku) {
+          var p = DATA.products.filter(function(x){ return String(x.sku).trim() === String(sku).trim() })[0];
+          if(p) {
+            if(price !== undefined && price !== "") p.price = Number(price);
+            if(stock !== undefined && stock !== "") p.stock = Number(stock);
+            updated++;
+          }
+        }
+      });
+      if(updated > 0) {
+          dirty=true; markDirty(); render(); toast("Bulk updated " + updated + " products");
+      } else {
+          toast("No matching SKUs found to update.");
+      }
+    }catch(err){ alert("Error processing file. Ensure it is a valid Excel/CSV with SKU, Price, and Stock columns."); console.error(err); }
+  };
+  r.readAsArrayBuffer(f); e.target.value="";
+};
+
 $("#fileIn").onchange=function(e){
   var f=e.target.files[0]; if(!f) return;
   var r=new FileReader();
