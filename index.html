@@ -2257,7 +2257,7 @@ window.INARI_DATA={
     return out;
   }
   function brandHTML() {
-    return '<a class="brand" href="#/" style="padding-top:4px"><img src="assets/logo.png" alt="' + esc(S.brand || 'Inari Life') + '" style="height:44px; width:auto; object-fit:contain;"></a>';
+    return '<a class="brand" href="#/" style="padding-top:4px"><img src="assets/Inari_Life_Logo_High_res_3.png" alt="' + esc(S.brand || 'Inari Life') + '" style="height:44px; width:auto; object-fit:contain;"></a>';
   }
 
   function renderShell() {
@@ -2716,7 +2716,8 @@ window.INARI_DATA={
         if (hero) hero.style.display = 'none'; // Hide the giant header for direct search view
         
         var sec = document.querySelector('#app section.sec');
-        if(sec) sec.style.paddingTop = '20px'; // Reduce top spacing
+        if(sec) sec.style.padding = '0'; // Completely remove padding for search results
+        if(sec) sec.style.paddingBottom = '60px'; // Just keep bottom padding
       }, 60);
     }
     var go = document.getElementById('searchGo'); if (go) go.onclick = doSearch;

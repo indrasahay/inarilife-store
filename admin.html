@@ -2460,10 +2460,24 @@ $("#bulkIn").onchange=function(e){
           if(p) {
             if(price !== undefined && price !== "") p.price = Number(price);
             if(stock !== undefined && stock !== "") p.stock = Number(stock);
+            if(row.Name !== undefined) p.name = row.Name;
+            if(row.Category !== undefined) p.category = row.Category;
+            if(row.MRP !== undefined && row.MRP !== "") p.mrp = Number(row.MRP);
+            if(row.Image !== undefined) p.image = row.Image;
+            if(row.ShortDescription !== undefined) p.short = row.ShortDescription;
+            if(row.Features !== undefined) {
+               p.features = String(row.Features).split('|').map(s => s.trim()).filter(Boolean);
+            }
+            if(row.AmazonLink !== undefined) p.amazon = row.AmazonLink;
+            if(row.Delete !== undefined && String(row.Delete).toLowerCase() === 'yes') {
+               p._delete = true;
+            }
             updated++;
           }
         }
       });
+      
+      DATA.products = DATA.products.filter(p => !p._delete);
       if(updated > 0) {
           dirty=true; markDirty(); render(); toast("Bulk updated " + updated + " products");
       } else {
