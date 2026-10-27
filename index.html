@@ -1,0 +1,2781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Inari Life — Millets, Cold-Pressed Oils & Herbal Wellness</title>
+<meta name="description" content="Inari Life: unpolished millets, wood-pressed oils and short-ingredient wellness. Shop on Amazon, or browse the full catalogue here." />
+<meta property="og:title" content="Inari Life — Rooted in nature. Made for everyday." />
+<meta property="og:description" content="Unpolished millets, cold-pressed oils and herbal wellness from small Indian farms." />
+<meta property="og:type" content="website" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231C2A43'/%3E%3Cpath d='M16 25c0-6 3-10 9-11-1 7-4 10-9 11Z' fill='%23D37A33'/%3E%3Cpath d='M16 25c0-6-3-10-9-11 1 7 4 10 9 11Z' fill='%23E8D9A8'/%3E%3C/svg%3E">
+<style>
+/* ============ 1. TOKENS ============ */
+:root{
+  --forest:#1C2A43; --forest-2:#283A59; --forest-3:#111A29;
+  --sand:#F4F6F8; --sand-2:#E9ECEF; --cream:#FFFFFF;
+  --gold:#D37A33; --gold-soft:#EAA573;
+  --ink:#1B1A17; --ink-2:#4A473F; --ink-3:#7C786D;
+  --line:rgba(28,42,67,.14);
+  --ok:#2F7D4F; --warn:#D37A33; --bad:#A32B2B;
+  --r-sm:8px; --r:14px; --r-lg:22px;
+  --sh-1:0 1px 2px rgba(28,42,67,.05), 0 4px 14px rgba(28,42,67,.05);
+  --sh-2:0 10px 34px rgba(28,42,67,.10);
+  --ff-d:"Montserrat",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --ff-b:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --wrap:1200px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--ff-b);background:var(--cream);color:var(--ink);font-size:15.5px;line-height:1.62;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+h1,h2,h3,h4{font-family:var(--ff-d);font-weight:500;letter-spacing:-.015em;line-height:1.12;margin:0}
+h1{font-size:clamp(2.1rem,4.6vw,3.75rem)}
+h2{font-size:clamp(1.6rem,2.9vw,2.35rem)}
+h3{font-size:1.12rem}
+p{margin:0 0 1em}
+.wrap{width:100%;max-width:var(--wrap);margin:0 auto;padding:0 20px}
+.eyebrow{font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:0 0 14px}
+.eyebrow.dark{color:var(--forest-2)}
+.lede{color:var(--ink-2);font-size:1.02rem;max-width:62ch}
+.sec{padding:clamp(48px,6vw,86px) 0}
+.sec-tight{padding:clamp(32px,4vw,54px) 0}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:34px;flex-wrap:wrap}
+.sec-head .lede{margin:8px 0 0}
+.link-arrow{display:inline-flex;align-items:center;gap:7px;font-size:.86rem;font-weight:600;color:var(--forest);border-bottom:1px solid var(--line);padding-bottom:2px;white-space:nowrap}
+.link-arrow:hover{border-color:var(--forest)}
+.link-arrow svg{width:14px;height:14px}
+:focus-visible{outline:2px solid var(--forest);outline-offset:3px;border-radius:4px}
+.skip{position:absolute;left:-9999px;top:0;background:var(--forest);color:#fff;padding:10px 16px;z-index:300;border-radius:0 0 8px 0}
+.skip:focus{left:0}
+
+/* ============ 2. BUTTONS ============ */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:13px 24px;border-radius:100px;font-size:.875rem;font-weight:600;letter-spacing:.01em;transition:.2s ease;white-space:nowrap;border:1px solid transparent}
+.btn svg{width:16px;height:16px;flex:none}
+.btn-p{background:var(--forest);color:#fff}
+.btn-p:hover{background:var(--forest-3);transform:translateY(-1px);box-shadow:var(--sh-2)}
+.btn-gold{background:var(--gold);color:#221c05}
+.btn-gold:hover{background:#d8b23a;transform:translateY(-1px)}
+.btn-out{border-color:var(--forest);color:var(--forest)}
+.btn-out:hover{background:var(--forest);color:#fff}
+.btn-light{border-color:rgba(255,255,255,.42);color:#fff}
+.btn-light:hover{background:rgba(255,255,255,.12);border-color:#fff}
+.btn-amz{background:#FFD814;color:#0F1111;border-color:#FCD200;font-weight:700}
+.btn-amz:hover{background:#F7CA00}
+.btn-sm{padding:9px 16px;font-size:.8rem}
+.btn-block{width:100%}
+
+/* ============ 3. ANNOUNCEMENT + HEADER ============ */
+.ann{background:var(--forest);color:#EDE4D4;font-size:.78rem;letter-spacing:.02em;text-align:center;padding:9px 16px;display:flex;justify-content:center;align-items:center;gap:10px}
+.ann strong{color:var(--gold-soft);font-weight:600}
+.ann .x{position:absolute;right:14px;opacity:.6;font-size:1rem;line-height:1}
+.ann-wrap{position:relative;display:flex;align-items:center;justify-content:center}
+header.site{position:sticky;top:0;z-index:60;background:rgba(252,250,245,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.hd{display:flex;align-items:center;gap:26px;height:74px}
+.brand{display:flex;align-items:center;gap:11px;flex:none}
+.brand-mark{width:38px;height:38px;border-radius:11px;background:var(--forest);display:grid;place-items:center;flex:none}
+.brand-mark svg{width:22px;height:22px}
+.brand-txt{display:flex;flex-direction:column;line-height:1.05}
+.brand-txt b{font-family:var(--ff-d);font-size:1.22rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
+.brand-txt span{font-size:.58rem;letter-spacing:.19em;text-transform:uppercase;color:var(--ink-3);margin-top:3px}
+nav.main{display:flex;align-items:center;gap:4px;margin-left:6px}
+nav.main a{padding:9px 12px;font-size:.855rem;font-weight:500;color:var(--ink-2);border-radius:8px;transition:.15s}
+nav.main a:hover{color:var(--forest);background:var(--sand)}
+nav.main a.on{color:var(--forest);font-weight:600}
+.hd-tools{margin-left:auto;display:flex;align-items:center;gap:8px}
+.icon-btn{width:40px;height:40px;border-radius:11px;display:grid;place-items:center;color:var(--ink-2);border:1px solid transparent;transition:.15s;position:relative}
+.icon-btn:hover{background:var(--sand);color:var(--forest);border-color:var(--line)}
+.icon-btn svg{width:19px;height:19px}
+.hd-pin{display:flex;align-items:center;gap:7px;height:40px;padding:0 14px;border:1px solid var(--line);border-radius:100px;font-size:.78rem;font-weight:500;color:var(--ink-2);background:#fff}
+.hd-pin svg{width:15px;height:15px;color:var(--forest)}
+.burger{display:none}
+/* search */
+.searchbar{max-height:0;overflow:hidden;transition:max-height .3s ease;border-top:0 solid var(--line)}
+.searchbar.open{max-height:110px;border-top:1px solid var(--line)}
+.searchrow{display:flex;align-items:center;gap:12px;padding:14px 0}
+.searchrow svg{width:19px;height:19px;color:var(--ink-3);flex:none}
+.searchrow input{flex:1;border:0;background:none;font-size:1.02rem;color:var(--ink);outline:none;padding:8px 0}
+.searchrow input::placeholder{color:var(--ink-3)}
+/* mobile drawer */
+.mnav{display:none;position:fixed;inset:0;z-index:100;background:rgba(18,40,27,.5);backdrop-filter:blur(3px)}
+.mnav.open{display:block}
+.mnav-panel{position:absolute;right:0;top:0;bottom:0;width:min(86vw,360px);background:var(--cream);padding:22px;overflow-y:auto;box-shadow:-10px 0 40px rgba(0,0,0,.2);animation:slideIn .28s ease}
+@keyframes slideIn{from{transform:translateX(100%)}to{transform:translateX(0)}}
+.mnav-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}
+.mnav a{display:block;padding:13px 4px;font-size:1rem;font-weight:500;border-bottom:1px solid var(--line)}
+.mnav .m-sub{padding-left:12px;font-size:.9rem;color:var(--ink-2);font-weight:400}
+
+/* ============ 4. HERO CAROUSEL ============ */
+.hero{position:relative;background:var(--forest);overflow:hidden}
+.slide{display:none;position:relative}
+.slide.on{display:block;animation:fade .55s ease}
+@keyframes fade{from{opacity:0;transform:scale(1.01)}to{opacity:1;transform:none}}
+.slide-grid{display:grid;grid-template-columns:1.05fr .95fr;min-height:min(560px,74vh);align-items:center;gap:30px}
+.slide-copy{padding:clamp(34px,5vw,64px) 0;color:#fff;position:relative;z-index:2}
+.slide-copy .eyebrow{color:var(--gold-soft)}
+.slide-copy h1{color:#fff;margin-bottom:18px}
+.slide-copy h1 br{display:block}
+.slide-copy p{color:rgba(255,255,255,.78);font-size:1.02rem;max-width:46ch;margin-bottom:28px}
+.slide-cta{display:flex;gap:12px;flex-wrap:wrap}
+.slide-art{position:relative;align-self:stretch;min-height:320px;display:grid;place-items:center;padding:24px}
+.slide-art::before{content:"";position:absolute;inset:8% 4%;border-radius:50% 50% 46% 54%/54% 46% 54% 46%;background:radial-gradient(circle at 30% 30%,rgba(232,217,168,.28),rgba(232,217,168,.05) 62%,transparent 70%);filter:blur(2px)}
+.slide-art svg{width:min(100%,420px);height:auto;position:relative;filter:drop-shadow(0 22px 40px rgba(0,0,0,.28))}
+.hero[data-theme="gold"]{background:linear-gradient(135deg,#8A6A12,#C9A227 60%,#E0BE49)}
+.hero[data-theme="gold"] .slide-copy p{color:rgba(34,28,5,.78)}
+.hero[data-theme="gold"] .slide-copy h1{color:#211b04}
+.hero[data-theme="gold"] .eyebrow{color:#4a3a06}
+.hero[data-theme="gold"] .btn-p{background:#211b04;color:#F6E9BE}
+.hero[data-theme="gold"] .btn-light{border-color:rgba(33,27,4,.4);color:#211b04}
+.hero[data-theme="sand"]{background:linear-gradient(135deg,#EDE4D4,#D9C9AC)}
+.hero[data-theme="sand"] .slide-copy h1{color:var(--forest-3)}
+.hero[data-theme="sand"] .slide-copy p{color:rgba(18,40,27,.72)}
+.hero[data-theme="sand"] .eyebrow{color:#8A6A12}
+.hero[data-theme="sand"] .slide-copy .btn-p{background:var(--forest)}
+.hero[data-theme="sand"] .btn-light{border-color:rgba(18,40,27,.35);color:var(--forest-3)}
+.hero-nav{position:absolute;bottom:22px;left:0;right:0;display:flex;justify-content:center;gap:8px;z-index:5}
+.dot{width:26px;height:3px;border-radius:2px;background:rgba(255,255,255,.34);transition:.25s}
+.dot.on{background:#fff;width:40px}
+.hero[data-theme="sand"] .dot{background:rgba(18,40,27,.24)}
+.hero[data-theme="sand"] .dot.on{background:var(--forest)}
+.hero[data-theme="gold"] .dot{background:rgba(33,27,4,.25)}
+.hero[data-theme="gold"] .dot.on{background:#211b04}
+.hero-arrow{position:absolute;top:50%;transform:translateY(-50%);width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);display:grid;place-items:center;color:#fff;z-index:5;transition:.2s}
+.hero-arrow:hover{background:rgba(255,255,255,.28)}
+.hero-arrow.prev{left:14px}.hero-arrow.next{right:14px}
+.hero-arrow svg{width:18px;height:18px}
+
+/* ============ 5. PROMO STRIP ============ */
+.promos{background:var(--sand);border-bottom:1px solid var(--line)}
+.promo-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.promo{display:flex;align-items:center;gap:13px;padding:19px 22px;border-right:1px solid var(--line)}
+.promo:last-child{border-right:0}
+.promo .ic{width:34px;height:34px;flex:none;display:grid;place-items:center;color:var(--forest)}
+.promo .ic svg{width:22px;height:22px}
+.promo b{display:block;font-size:.84rem;font-weight:600;line-height:1.3}
+.promo span{font-size:.76rem;color:var(--ink-3)}
+
+/* ============ 6. CATEGORIES ============ */
+.cat-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+.cat{position:relative;border:1px solid var(--line);border-radius:var(--r);background:#fff;padding:20px 16px;text-align:center;transition:.22s;overflow:hidden}
+.cat:hover{transform:translateY(-3px);box-shadow:var(--sh-2);border-color:rgba(31,61,43,.3)}
+.cat .ic{width:56px;height:56px;margin:0 auto 12px;border-radius:50%;display:grid;place-items:center;background:var(--sand);color:var(--forest)}
+.cat .ic svg{width:28px;height:28px}
+.cat b{display:block;font-size:.86rem;font-weight:600;margin-bottom:2px}
+.cat span{font-size:.72rem;color:var(--ink-3);line-height:1.4;display:block}
+.cat .count{position:absolute;top:10px;right:12px;font-size:.66rem;color:var(--ink-3)}
+
+/* ============ 7. PRODUCT CARDS ============ */
+.p-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;transition:.22s;position:relative}
+.card:hover{box-shadow:var(--sh-2);transform:translateY(-3px);border-color:rgba(31,61,43,.26)}
+.card-media{position:relative;aspect-ratio:1/1;background:var(--sand);overflow:hidden;display:block}
+.card-media img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+.card:hover .card-media img{transform:scale(1.045)}
+.badges{position:absolute;top:10px;left:10px;display:flex;flex-direction:column;gap:6px;z-index:2}
+.bdg{font-size:.63rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:5px 9px;border-radius:4px;background:var(--forest);color:#fff}
+.bdg.gold{background:var(--gold);color:#241d05}
+.bdg.warn{background:var(--warn);color:#fff}
+.bdg.bad{background:#5c5952;color:#fff}
+.card-body{padding:14px 15px 16px;display:flex;flex-direction:column;flex:1;background:#fff;position:relative;z-index:1}
+.card-cat{font-size:.65rem;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-bottom:5px}
+.card h3{font-family:var(--ff-b);font-size:.9rem;font-weight:600;line-height:1.42;letter-spacing:0;margin:0 0 5px;color:var(--ink);display:block}
+.card h3 a{color:var(--ink);display:inline;text-decoration:none}
+.card h3 a:hover{color:var(--forest-2);text-decoration:underline}
+.card .unit{font-size:.72rem;color:var(--ink-3);margin-bottom:9px}
+.price-row{display:flex;align-items:baseline;gap:7px;margin-bottom:4px}
+.price{font-size:1.02rem;font-weight:700;letter-spacing:-.02em}
+.mrp{font-size:.8rem;color:var(--ink-3);text-decoration:line-through}
+.off{font-size:.72rem;font-weight:700;color:var(--ok)}
+.stars{display:flex;align-items:center;gap:5px;font-size:.72rem;color:var(--ink-3);margin-bottom:12px}
+.stars .s{color:var(--gold);letter-spacing:1px}
+.card-actions{margin-top:auto;display:grid;gap:7px}
+.stock-note{font-size:.72rem;margin-bottom:9px;display:flex;align-items:center;gap:5px}
+.in-stock{color:var(--ok)}.low-stock{color:var(--warn)}.no-stock{color:var(--ink-3)}
+.stock-note .dot-live{width:6px;height:6px;border-radius:50%;background:currentColor;flex:none}
+/* SVG placeholder artwork */
+.ph{position:absolute;inset:0;display:grid;place-items:center;overflow:hidden}
+.ph-in{position:relative;z-index:2;text-align:center;padding:16px}
+.ph-in svg{width:52%;height:auto;margin:0 auto 10px;opacity:.92}
+.ph-in b{display:block;font-family:var(--ff-d);font-size:.82rem;font-weight:600;color:rgba(255,255,255,.95);letter-spacing:.02em;line-height:1.25}
+.ph-in i{display:block;font-style:normal;font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.7);margin-top:6px}
+.ph-1{background:linear-gradient(150deg,#2C5740,#1F3D2B 62%,#173021)}
+.ph-2{background:linear-gradient(150deg,#A8821C,#7C5F10 62%,#5C460A)}
+.ph-3{background:linear-gradient(150deg,#6B8E6F,#43664A 62%,#2F4D35)}
+.ph-4{background:linear-gradient(150deg,#A9744F,#7E5334 62%,#5C3A22)}
+.ph-5{background:linear-gradient(150deg,#8E8A6B,#6A6650 62%,#4C4938)}
+.ph-6{background:linear-gradient(150deg,#9A6B8E,#6E4A64 62%,#4E3347)}
+.ph::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 72% 18%,rgba(255,255,255,.18),transparent 52%)}
+
+/* ============ 8. DEALS BAND ============ */
+.deals{background:var(--forest);color:#fff;position:relative;overflow:hidden}
+.deals::before{content:"";position:absolute;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(201,162,39,.18),transparent 66%);top:-160px;right:-90px}
+.deals .sec-head h2{color:#fff}
+.deals .lede{color:rgba(255,255,255,.7)}
+.countdown{display:flex;gap:8px;align-items:center;margin-top:20px}
+.cd-box{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);border-radius:9px;padding:8px 12px;text-align:center;min-width:58px}
+.cd-box b{display:block;font-family:var(--ff-d);font-size:1.3rem;line-height:1;color:#fff}
+.cd-box span{font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.58)}
+.deals .card{background:rgba(255,255,255,.97)}
+
+/* ============ 9. PIN CHECKER ============ */
+.pinsec{background:var(--sand-2)}
+.pinbox{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:clamp(24px,3.4vw,40px);display:grid;grid-template-columns:1.1fr 1fr;gap:36px;align-items:center;box-shadow:var(--sh-1)}
+.pinform{display:flex;gap:10px;margin:20px 0 12px;flex-wrap:wrap}
+.pinform input{flex:1;min-width:150px;padding:13px 16px;border:1px solid var(--line);border-radius:100px;font-size:.95rem;letter-spacing:.08em;outline:none;background:var(--cream)}
+.pinform input:focus{border-color:var(--forest);background:#fff}
+.pinresult{margin-top:6px;font-size:.86rem;min-height:24px}
+.pinresult .ok{color:var(--ok);font-weight:600}
+.pinresult .bad{color:var(--bad);font-weight:600}
+.pin-chips{display:flex;gap:7px;flex-wrap:wrap;margin-top:14px}
+.chip{font-size:.73rem;padding:6px 11px;border-radius:100px;background:var(--sand);border:1px solid var(--line);color:var(--ink-2);transition:.15s}
+.chip:hover{background:var(--forest);color:#fff;border-color:var(--forest)}
+.pin-side{border-left:1px solid var(--line);padding-left:36px}
+.pin-side ul{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.pin-side li{display:flex;gap:12px;font-size:.85rem;color:var(--ink-2)}
+.pin-side li svg{width:18px;height:18px;color:var(--forest);flex:none;margin-top:2px}
+.pin-side li b{display:block;color:var(--ink);font-size:.85rem}
+
+/* ============ 10. VIDEO ============ */
+.vid-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.vid{border-radius:var(--r);overflow:hidden;background:#000;position:relative;aspect-ratio:16/9;border:1px solid var(--line)}
+.vid iframe{width:100%;height:100%;border:0;display:block}
+.vid-thumb{position:relative;width:100%;height:100%;cursor:pointer;background:#12281B}
+.vid-thumb img{width:100%;height:100%;object-fit:cover;opacity:.82;transition:.3s}
+.vid-thumb:hover img{opacity:1;transform:scale(1.03)}
+.vid-play{position:absolute;inset:0;display:grid;place-items:center}
+.vid-play span{width:58px;height:58px;border-radius:50%;background:rgba(255,255,255,.94);display:grid;place-items:center;box-shadow:0 6px 22px rgba(0,0,0,.35);transition:.2s}
+.vid-thumb:hover .vid-play span{transform:scale(1.08);background:#fff}
+.vid-play svg{width:20px;height:20px;color:var(--forest);margin-left:3px}
+.vid-cap{position:absolute;left:0;right:0;bottom:0;padding:26px 14px 12px;background:linear-gradient(transparent,rgba(0,0,0,.82));color:#fff;font-size:.8rem;font-weight:500}
+
+/* ============ 11. ABOUT ============ */
+.about{background:var(--cream)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,64px);align-items:center}
+.about-art{position:relative;border-radius:var(--r-lg);overflow:hidden;min-height:380px;background:linear-gradient(150deg,#2C5740,#12281B);display:grid;place-items:center;padding:28px}
+.about-art svg{width:88%;height:auto;opacity:.95}
+.about-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px;border-top:1px solid var(--line);padding-top:24px}
+.about-stats b{display:block;font-family:var(--ff-d);font-size:1.6rem;color:var(--forest);line-height:1}
+.about-stats span{font-size:.74rem;color:var(--ink-3);letter-spacing:.04em}
+.ticks{list-style:none;padding:0;margin:18px 0 0;display:grid;gap:11px}
+.ticks li{display:flex;gap:10px;font-size:.88rem;color:var(--ink-2)}
+.ticks svg{width:17px;height:17px;color:var(--ok);flex:none;margin-top:3px}
+
+/* ============ 12. TESTIMONIALS ============ */
+.testi{background:var(--sand)}
+.t-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.tcard{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:26px 24px;display:flex;flex-direction:column}
+.tcard .s{color:var(--gold);letter-spacing:3px;font-size:.85rem;margin-bottom:12px}
+.tcard p{font-size:.9rem;color:var(--ink-2);line-height:1.68;flex:1;margin-bottom:16px}
+.tcard .who{display:flex;align-items:center;gap:11px;border-top:1px solid var(--line);padding-top:14px}
+.avatar{width:36px;height:36px;border-radius:50%;background:var(--forest);color:#fff;display:grid;place-items:center;font-size:.8rem;font-weight:600;flex:none}
+.tcard .who b{display:block;font-size:.82rem;line-height:1.2}
+.tcard .who span{font-size:.72rem;color:var(--ink-3)}
+
+/* ============ 13. NEWSLETTER + CONTACT ============ */
+.news{background:var(--forest-3);color:#fff;text-align:center;position:relative;overflow:hidden}
+.news::after{content:"";position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(201,162,39,.13),transparent 62%);left:50%;top:100%;transform:translate(-50%,-50%)}
+.news h2{color:#fff;position:relative}
+.news p{color:rgba(255,255,255,.68);max-width:52ch;margin:12px auto 26px;position:relative}
+.news-form{display:flex;gap:9px;max-width:470px;margin:0 auto;position:relative;flex-wrap:wrap}
+.news-form input{flex:1;min-width:200px;padding:14px 20px;border-radius:100px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.07);color:#fff;font-size:.9rem;outline:none}
+.news-form input::placeholder{color:rgba(255,255,255,.5)}
+.news-form input:focus{border-color:var(--gold-soft);background:rgba(255,255,255,.12)}
+.news small{display:block;margin-top:14px;font-size:.72rem;color:rgba(255,255,255,.44);position:relative}
+.contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.ccard{border:1px solid var(--line);border-radius:var(--r);padding:24px;background:#fff}
+.ccard .ic{width:40px;height:40px;border-radius:10px;background:var(--sand);display:grid;place-items:center;color:var(--forest);margin-bottom:14px}
+.ccard .ic svg{width:20px;height:20px}
+.ccard h3{font-family:var(--ff-b);font-size:.92rem;font-weight:600;margin-bottom:6px}
+.ccard p,.ccard a{font-size:.85rem;color:var(--ink-2);line-height:1.6;margin:0}
+.ccard a:hover{color:var(--forest);text-decoration:underline}
+
+/* ============ 14. FOOTER ============ */
+footer.site{background:var(--forest-3);color:rgba(255,255,255,.62);padding:56px 0 0;font-size:.83rem}
+.f-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:36px;padding-bottom:40px}
+footer.site h4{color:#fff;font-family:var(--ff-b);font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin-bottom:16px}
+footer.site ul{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+footer.site a:hover{color:#fff}
+.f-brand .brand-txt b{color:#fff}
+.f-brand .brand-txt span{color:rgba(255,255,255,.4)}
+.f-brand p{margin:16px 0;max-width:34ch;line-height:1.7}
+.socials{display:flex;gap:9px}
+.socials a{width:34px;height:34px;border-radius:9px;border:1px solid rgba(255,255,255,.16);display:grid;place-items:center;transition:.15s}
+.socials a:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.4);color:#fff}
+.socials svg{width:15px;height:15px}
+.f-bot{border-top:1px solid rgba(255,255,255,.1);padding:20px 0;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:.74rem;color:rgba(255,255,255,.42)}
+.f-note{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:10px;padding:12px 15px;font-size:.72rem;line-height:1.6;color:rgba(255,255,255,.5);margin-bottom:22px;display:flex;gap:10px}
+.f-note svg{width:16px;height:16px;flex:none;color:var(--gold-soft);margin-top:1px}
+
+/* ============ 15. MODAL / DRAWER ============ */
+.modal{position:fixed;inset:0;z-index:120;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(18,40,27,.55);backdrop-filter:blur(4px)}
+.modal.open{display:flex;animation:fade .2s ease}
+.modal-box{background:var(--cream);border-radius:var(--r-lg);max-width:880px;width:100%;max-height:90vh;overflow-y:auto;display:grid;grid-template-columns:.9fr 1.1fr;box-shadow:0 30px 80px rgba(0,0,0,.3);position:relative;animation:pop .25s ease}
+@keyframes pop{from{transform:scale(.97);opacity:0}to{transform:none;opacity:1}}
+.modal-x{position:absolute;top:12px;right:12px;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.9);display:grid;place-items:center;z-index:5;border:1px solid var(--line)}
+.modal-x svg{width:16px;height:16px}
+.modal-art{position:relative;min-height:300px;background:var(--sand)}
+.modal-body{padding:clamp(22px,3vw,34px)}
+.modal-body h2{font-size:1.5rem;margin-bottom:8px}
+.modal-body .price-row{margin:14px 0 6px}
+.modal-body .price{font-size:1.45rem}
+.modal-feats{list-style:none;padding:0;margin:18px 0;display:grid;gap:9px;border-top:1px solid var(--line);padding-top:18px}
+.modal-feats li{display:flex;gap:9px;font-size:.84rem;color:var(--ink-2)}
+.modal-feats svg{width:15px;height:15px;color:var(--ok);flex:none;margin-top:3px}
+.modal-note{font-size:.72rem;color:var(--ink-3);line-height:1.55;background:var(--sand);border-radius:9px;padding:10px 12px;margin-top:14px}
+.modal-btns{display:grid;gap:8px;margin-top:16px}
+
+/* ============ 16. PAGES / LISTING ============ */
+.page-hero{background:var(--sand);border-bottom:1px solid var(--line);padding:clamp(34px,4.4vw,58px) 0}
+.crumbs{font-size:.74rem;color:var(--ink-3);margin-bottom:14px;display:flex;gap:7px;flex-wrap:wrap}
+.crumbs a:hover{color:var(--forest)}
+.filters{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:26px;padding-bottom:20px;border-bottom:1px solid var(--line)}
+.fchip{padding:8px 15px;border-radius:100px;border:1px solid var(--line);font-size:.8rem;font-weight:500;background:#fff;transition:.15s;color:var(--ink-2)}
+.fchip:hover{border-color:var(--forest);color:var(--forest)}
+.fchip.on{background:var(--forest);color:#fff;border-color:var(--forest)}
+.sortwrap{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:.8rem;color:var(--ink-3)}
+.sortwrap select{padding:8px 12px;border-radius:8px;border:1px solid var(--line);background:#fff;font-size:.8rem;font-family:inherit;outline:none}
+.empty{text-align:center;padding:70px 20px;color:var(--ink-3)}
+.empty svg{width:44px;height:44px;margin:0 auto 16px;opacity:.4}
+.prose{max-width:74ch;font-size:.95rem;line-height:1.78;color:var(--ink-2)}
+.prose h3{font-size:1.15rem;color:var(--ink);margin:28px 0 10px}
+.prose ul{padding-left:20px}
+.prose li{margin-bottom:8px}
+.prose p{margin-bottom:1.1em}
+.offers-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.offer{display:flex;gap:18px;padding:24px;border:1px dashed rgba(31,61,43,.32);border-radius:var(--r);background:#fff;align-items:flex-start}
+.offer .tag{flex:none;background:var(--sand);border-radius:9px;padding:10px 13px;text-align:center;min-width:98px}
+.offer .tag b{display:block;font-family:var(--ff-b);font-size:.82rem;letter-spacing:.06em;color:var(--forest);font-weight:700}
+.offer .tag span{font-size:.6rem;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3)}
+.offer h3{font-family:var(--ff-b);font-size:.95rem;font-weight:600;margin-bottom:5px}
+.offer p{font-size:.82rem;color:var(--ink-2);margin:0 0 7px}
+.offer small{font-size:.72rem;color:var(--ink-3)}
+
+/* ============ 17. TOAST / FAB ============ */
+.toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,90px);background:var(--forest-3);color:#fff;padding:13px 22px;border-radius:100px;font-size:.84rem;z-index:200;opacity:0;transition:.3s;box-shadow:var(--sh-2);max-width:90vw;text-align:center}
+.toast.on{transform:translate(-50%,0);opacity:1}
+.fab{position:fixed;right:18px;bottom:18px;z-index:90;display:grid;gap:10px}
+.fab a{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:var(--forest);color:#fff;box-shadow:var(--sh-2);transition:.2s}
+.fab a:hover{transform:translateY(-2px) scale(1.04)}
+.fab a.wa{background:#25D366;color:#fff}
+.fab svg{width:23px;height:23px}
+/* promo popup */
+.ppop{position:fixed;inset:0;z-index:130;background:rgba(18,40,27,.5);backdrop-filter:blur(3px);display:none;align-items:center;justify-content:center;padding:20px}
+.ppop.open{display:flex}
+.ppop-box{background:var(--cream);border-radius:var(--r-lg);max-width:420px;width:100%;padding:36px 30px;text-align:center;position:relative;box-shadow:0 30px 70px rgba(0,0,0,.3);animation:pop .3s ease}
+.ppop-box h3{font-size:1.5rem;margin-bottom:10px}
+.ppop-box p{font-size:.86rem;color:var(--ink-2)}
+.ppop-code{font-family:var(--ff-d);font-size:1.35rem;letter-spacing:.16em;color:var(--forest);background:var(--sand);border:1px dashed rgba(31,61,43,.35);border-radius:10px;padding:12px;margin:16px 0;font-weight:600}
+
+/* product detail */
+.pd{display:grid;grid-template-columns:.95fr 1.05fr;gap:clamp(24px,4vw,52px);align-items:start}
+.pd-media{border-radius:var(--r-lg);overflow:hidden;position:relative;aspect-ratio:1/1;background:var(--sand);border:1px solid var(--line)}
+
+/* ============ 18. RESPONSIVE ============ */
+@media (max-width:1080px){
+  .p-grid{grid-template-columns:repeat(3,1fr)}
+  .cat-grid{grid-template-columns:repeat(3,1fr)}
+  .f-grid{grid-template-columns:1.4fr 1fr 1fr}
+  .promo-grid{grid-template-columns:repeat(2,1fr)}
+  .promo:nth-child(2){border-right:0}
+  .promo:nth-child(1),.promo:nth-child(2){border-bottom:1px solid var(--line)}
+}
+@media (max-width:900px){
+  nav.main,.hd-pin{display:none}
+  .burger{display:grid}
+  .slide-grid{grid-template-columns:1fr;min-height:0}
+  .slide-art{display:none}
+  .slide-copy{padding:44px 0 64px}
+  .about-grid,.pinbox{grid-template-columns:1fr}
+  .pin-side{border-left:0;border-top:1px solid var(--line);padding-left:0;padding-top:26px}
+  .vid-grid{grid-template-columns:1fr 1fr}
+  .t-grid{grid-template-columns:1fr}
+  .modal-box,.pd{grid-template-columns:1fr}
+  .modal-art{min-height:230px}
+  .contact-grid{grid-template-columns:1fr}
+  .offers-grid{grid-template-columns:1fr}
+}
+@media (max-width:680px){
+  body{font-size:15px}
+  .p-grid{grid-template-columns:repeat(2,1fr);gap:12px}
+  .cat-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .vid-grid{grid-template-columns:1fr}
+  .promo-grid{grid-template-columns:1fr}
+  .promo{border-right:0;border-bottom:1px solid var(--line)}
+  .f-grid{grid-template-columns:1fr 1fr;gap:26px}
+  .f-brand{grid-column:1/-1}
+  .about-stats{grid-template-columns:1fr 1fr}
+  .hd{height:64px;gap:14px}
+  .brand-txt b{font-size:1.02rem}
+  .card h3{font-size:.8rem;min-height:2.6em}
+  .card-body{padding:11px 11px 13px}
+  .hero-arrow{display:none}
+  .sec-head{margin-bottom:24px}
+  .f-bot{flex-direction:column;text-align:center}
+  .pd{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<a href="#app" class="skip">Skip to content</a>
+<div id="annBar"></div>
+<header class="site" id="hdr"></header>
+<main id="app" tabindex="-1"></main>
+<footer class="site" id="ftr"></footer>
+<div class="fab" id="fab"></div>
+<div class="mnav" id="mnav"><div class="mnav-panel" id="mnavPanel"></div></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="ppop" id="ppop" role="dialog" aria-modal="true"></div>
+<script>
+window.INARI_DATA={
+  "meta": {
+    "version": 1,
+    "updated": "2026-10-27",
+    "note": "Updated for Home & Travel Lifestyle."
+  },
+  "settings": {
+    "brand": "Inari Life",
+    "tagline": "Smart organization. Made for everyday living.",
+    "logoText": "INARI",
+    "phone": "+91 90000 00000",
+    "whatsapp": "919000000000",
+    "email": "care@inarilife.com",
+    "address": "Inari Life, 2nd Floor, 100 Ft Road, Indiranagar, Bengaluru, Karnataka 560038",
+    "hours": "Mon\u2013Sat, 10:00 AM \u2013 6:00 PM IST",
+    "instagram": "https://instagram.com/",
+    "facebook": "https://facebook.com/",
+    "youtube": "https://youtube.com/",
+    "announcement": "Launch offer: flat 10% off your first order with code FIRST10 \u00b7 Free shipping above \u20b9499",
+    "shipCharge": 49,
+    "freeShipAbove": 499,
+    "codLimit": 5000,
+    "dispatch": "Dispatched within 24\u201348 working hours",
+    "returnDays": 7,
+    "gst": "Prices are inclusive of all taxes.",
+    "amazonDisclaimer": "Buy Now opens the product page on Amazon.in. Checkout, payment and delivery for those orders are handled by Amazon."
+  },
+  "categories": [
+    {
+      "id": "storage-travel",
+      "name": "Storage & Travel",
+      "icon": "truck",
+      "blurb": "Everyday essentials",
+      "enabled": true
+    },
+    {
+      "id": "home-organization",
+      "name": "Home Organization",
+      "icon": "grid",
+      "blurb": "Everyday essentials",
+      "enabled": true
+    },
+    {
+      "id": "fitness",
+      "name": "Fitness",
+      "icon": "spark",
+      "blurb": "Everyday essentials",
+      "enabled": true
+    },
+    {
+      "id": "kitchen-baking",
+      "name": "Kitchen & Baking",
+      "icon": "bowl",
+      "blurb": "Everyday essentials",
+      "enabled": true
+    },
+    {
+      "id": "toys-games",
+      "name": "Toys & Games",
+      "icon": "star",
+      "blurb": "Everyday essentials",
+      "enabled": true
+    },
+    {
+      "id": "home-utility",
+      "name": "Home & Utility",
+      "icon": "check",
+      "blurb": "Everyday essentials",
+      "enabled": true
+    }
+  ],
+  "banners": [
+    {
+      "id": "b1",
+      "eyebrow": "Home & Travel \u00b7 2026",
+      "title": "Smart organization,<br>for everyday living.",
+      "subtitle": "Discover our new range of practical storage, travel gear, and home essentials.",
+      "ctaText": "Shop the collection",
+      "ctaLink": "#/products",
+      "ctaText2": "View categories",
+      "ctaLink2": "#/categories",
+      "theme": "forest",
+      "image": "",
+      "enabled": true
+    },
+    {
+      "id": "b2",
+      "eyebrow": "Launch offer",
+      "title": "Flat 10% off<br>your first order.",
+      "subtitle": "Use code FIRST10 at checkout. Applies to every product, no minimum order value.",
+      "ctaText": "Shop the launch edit",
+      "ctaLink": "#/offers",
+      "ctaText2": "How it works",
+      "ctaLink2": "#/page/shipping",
+      "theme": "gold",
+      "image": "",
+      "enabled": true
+    }
+  ],
+  "deals": {
+    "title": "Deals of the week",
+    "subtitle": "Practical essentials moving fast.",
+    "endsAt": "2026-11-05T23:59:00+05:30"
+  },
+  "products": [
+    {
+      "id": "p1",
+      "name": "1-piece Cloth Organizer",
+      "sku": "6129_1pc_cloth_organizer",
+      "category": "storage-travel",
+      "price": 1499,
+      "mrp": 1948,
+      "stock": 45,
+      "unit": "1 unit",
+      "badge": "Bestseller",
+      "rating": 4.9,
+      "reviews": 293,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-1",
+      "short": "A practical storage & travel essential from Inari Life: 1-Piece Cloth Organizer. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "The source name identifies a 1-piece quantity; confirm the pack contents before publishing.",
+        "Helps group belongings and reduce everyday clutter.",
+        "Useful for organizing items at home, work or while travelling.",
+        "Keeps stored or carried items together in one place.",
+        "Designed around the storage or carrying use stated in the product name.",
+        "Offers a dedicated place for the belongings named in the product type."
+      ],
+      "enabled": true,
+      "deal": false
+    },
+    {
+      "id": "p2",
+      "name": "Travel Storage Bag 4-piece Set",
+      "sku": "4510_travel_storage_bag_4pc_set",
+      "category": "storage-travel",
+      "price": 499,
+      "mrp": 648,
+      "stock": 33,
+      "unit": "1 unit",
+      "badge": "",
+      "rating": 4.1,
+      "reviews": 10,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-2",
+      "short": "A practical storage & travel essential from Inari Life: Travel Storage Bag 4-Piece Set. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "The source name identifies a 4-piece quantity; confirm the pack contents before publishing.",
+        "Helps group belongings and reduce everyday clutter.",
+        "Useful for organizing items at home, work or while travelling.",
+        "Keeps stored or carried items together in one place.",
+        "Designed around the storage or carrying use stated in the product name.",
+        "Offers a dedicated place for the belongings named in the product type."
+      ],
+      "enabled": true,
+      "deal": false
+    },
+    {
+      "id": "p3",
+      "name": "2-in-1 Corner Caddy Basket",
+      "sku": "1651l_2in1_corner_caddy_basket",
+      "category": "home-organization",
+      "price": 499,
+      "mrp": 648,
+      "stock": 37,
+      "unit": "1 unit",
+      "badge": "",
+      "rating": 4.4,
+      "reviews": 221,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-3",
+      "short": "A practical home organization essential from Inari Life: 2-in-1 Corner Caddy Basket. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "Creates a dedicated place for frequently used household items.",
+        "Makes use of corner or vertical storage space.",
+        "Useful in bathroom or home organization setups.",
+        "Keeps small essentials grouped for easier access.",
+        "Helps keep the named storage area organized."
+      ],
+      "enabled": true,
+      "deal": true
+    },
+    {
+      "id": "p4",
+      "name": "60 \u00d7 180 cm Yoga Mat",
+      "sku": "0524_60x180_cm_yogamat",
+      "category": "fitness",
+      "price": 499,
+      "mrp": 648,
+      "stock": 35,
+      "unit": "1 unit",
+      "badge": "",
+      "rating": 4.8,
+      "reviews": 195,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-4",
+      "short": "A practical fitness essential from Inari Life: 60 \u00d7 180 cm Yoga Mat. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "The source name specifies a 60 \u00d7 180 format; confirm the measurement unit before publishing.",
+        "Designed for the everyday use stated in the product name.",
+        "A practical addition to home, work or travel routines.",
+        "Keeps the relevant task or item organized in one place.",
+        "Useful as an everyday essential or gift option.",
+        "Adds a dedicated item for the task named in the product type."
+      ],
+      "enabled": true,
+      "deal": false
+    },
+    {
+      "id": "p5",
+      "name": "Blue 60 \u00d7 180 cm Yoga Mat",
+      "sku": "1667_blue_60x180_cm_yogamat",
+      "category": "fitness",
+      "price": 799,
+      "mrp": 1038,
+      "stock": 12,
+      "unit": "1 unit",
+      "badge": "",
+      "rating": 4.9,
+      "reviews": 291,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-5",
+      "short": "A practical fitness essential from Inari Life: Blue 60 \u00d7 180 cm Yoga Mat. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "The source name specifies a 60 \u00d7 180 format; confirm the measurement unit before publishing.",
+        "Designed for the everyday use stated in the product name.",
+        "A practical addition to home, work or travel routines.",
+        "Keeps the relevant task or item organized in one place.",
+        "Useful as an everyday essential or gift option.",
+        "Adds a dedicated item for the task named in the product type."
+      ],
+      "enabled": true,
+      "deal": false
+    },
+    {
+      "id": "p6",
+      "name": "Polyester Laptop Backpack",
+      "sku": "1209_polyester_laptop_backpack",
+      "category": "storage-travel",
+      "price": 299,
+      "mrp": 388,
+      "stock": 20,
+      "unit": "1 unit",
+      "badge": "",
+      "rating": 4.9,
+      "reviews": 182,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-6",
+      "short": "A practical storage & travel essential from Inari Life: Polyester Laptop Backpack. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "Helps group belongings and reduce everyday clutter.",
+        "Useful for organizing items at home, work or while travelling.",
+        "Keeps stored or carried items together in one place.",
+        "Designed around the storage or carrying use stated in the product name.",
+        "Offers a dedicated place for the belongings named in the product type."
+      ],
+      "enabled": true,
+      "deal": false
+    },
+    {
+      "id": "p7",
+      "name": "3-in-1 Shower Shelf Rack",
+      "sku": "9009_3in1_shower_shelf_rack",
+      "category": "home-organization",
+      "price": 499,
+      "mrp": 648,
+      "stock": 3,
+      "unit": "1 unit",
+      "badge": "",
+      "rating": 5.0,
+      "reviews": 88,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-7",
+      "short": "A practical home organization essential from Inari Life: 3-in-1 Shower Shelf Rack. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "Creates a dedicated place for frequently used household items.",
+        "Makes use of corner or vertical storage space.",
+        "Useful in bathroom or home organization setups.",
+        "Keeps small essentials grouped for easier access.",
+        "Helps keep the named storage area organized."
+      ],
+      "enabled": true,
+      "deal": false
+    },
+    {
+      "id": "p8",
+      "name": "Metal Laptop Stand 1-piece",
+      "sku": "12874_metal_laptop_stand_1pc",
+      "category": "home-organization",
+      "price": 1499,
+      "mrp": 1948,
+      "stock": 43,
+      "unit": "1 unit",
+      "badge": "Bestseller",
+      "rating": 4.5,
+      "reviews": 126,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-8",
+      "short": "A practical office & tech accessories essential from Inari Life: Metal Laptop Stand 1-Piece. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "The source name identifies a 1-piece quantity; confirm the pack contents before publishing.",
+        "Provides a dedicated support surface for a laptop.",
+        "Useful for desk or work-from-home setups.",
+        "Helps organize a laptop workspace.",
+        "Keeps laptop support in a designated desk area.",
+        "Stand format gives a laptop a specific place in the work setup."
+      ],
+      "enabled": true,
+      "deal": false
+    },
+    {
+      "id": "p9",
+      "name": "Laptop Cover Bag",
+      "sku": "6163_laptop_cover_bag",
+      "category": "storage-travel",
+      "price": 299,
+      "mrp": 388,
+      "stock": 38,
+      "unit": "1 unit",
+      "badge": "New",
+      "rating": 4.8,
+      "reviews": 216,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-9",
+      "short": "A practical storage & travel essential from Inari Life: Laptop Cover Bag. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "Helps group belongings and reduce everyday clutter.",
+        "Useful for organizing items at home, work or while travelling.",
+        "Keeps stored or carried items together in one place.",
+        "Designed around the storage or carrying use stated in the product name.",
+        "Offers a dedicated place for the belongings named in the product type."
+      ],
+      "enabled": true,
+      "deal": true
+    },
+    {
+      "id": "p10",
+      "name": "Mosquito Killing Lamp",
+      "sku": "6402_mosquito_killing_lamp",
+      "category": "home-organization",
+      "price": 1299,
+      "mrp": 1688,
+      "stock": 20,
+      "unit": "1 unit",
+      "badge": "",
+      "rating": 4.3,
+      "reviews": 221,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-10",
+      "short": "A practical home & personal comfort essential from Inari Life: Mosquito Killing Lamp. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "Designed for mosquito or flying-insect control as indicated by the product name.",
+        "Intended for household use.",
+        "Use according to the supplied product instructions.",
+        "A practical addition to insect-control routines.",
+        "Supports a dedicated approach to household insect control."
+      ],
+      "enabled": true,
+      "deal": true
+    },
+    {
+      "id": "p11",
+      "name": "Disposable Gloves 100-piece",
+      "sku": "0670_disposable_gloves_100pc",
+      "category": "home-utility",
+      "price": 999,
+      "mrp": 1298,
+      "stock": 39,
+      "unit": "1 unit",
+      "badge": "",
+      "rating": 4.0,
+      "reviews": 297,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-11",
+      "short": "A practical home & utility essential from Inari Life: Disposable Gloves 100-Piece. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "The source name identifies a 100-piece quantity; confirm the pack contents before publishing.",
+        "Disposable glove format for single-use tasks.",
+        "Useful for household, food-preparation or general handling routines as appropriate.",
+        "Helps keep hands separated from handled items.",
+        "Pack quantity is stated in the product name where available.",
+        "Single-use format can be disposed of after the task."
+      ],
+      "enabled": true,
+      "deal": true
+    },
+    {
+      "id": "p12",
+      "name": "Foldable Travel Umbrella",
+      "sku": "8539_foldable_travel_umbrella",
+      "category": "home-organization",
+      "price": 1499,
+      "mrp": 1948,
+      "stock": 8,
+      "unit": "1 unit",
+      "badge": "New",
+      "rating": 4.7,
+      "reviews": 292,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-12",
+      "short": "A practical travel accessories essential from Inari Life: Foldable Travel Umbrella. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "Foldable umbrella format is suited to carry-along rain coverage.",
+        "Useful for daily commutes, errands and travel.",
+        "A practical everyday accessory for changing weather.",
+        "Store with travel essentials for ready access.",
+        "Folded format can be kept with everyday travel accessories."
+      ],
+      "enabled": true,
+      "deal": false
+    },
+    {
+      "id": "p13",
+      "name": "Garbage Bags 30 \u00d7 50",
+      "sku": "1576_garbage_bags_30x50",
+      "category": "home-utility",
+      "price": 1499,
+      "mrp": 1948,
+      "stock": 12,
+      "unit": "1 unit",
+      "badge": "Bestseller",
+      "rating": 4.9,
+      "reviews": 49,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-13",
+      "short": "A practical home & utility essential from Inari Life: Garbage Bags 30 \u00d7 50. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "The source name specifies a 30 \u00d7 50 format; confirm the measurement unit before publishing.",
+        "Helps group belongings and reduce everyday clutter.",
+        "Useful for organizing items at home, work or while travelling.",
+        "Keeps stored or carried items together in one place.",
+        "Designed around the storage or carrying use stated in the product name.",
+        "Offers a dedicated place for the belongings named in the product type."
+      ],
+      "enabled": true,
+      "deal": false
+    },
+    {
+      "id": "p14",
+      "name": "500ml Vacuum Flask Black",
+      "sku": "10054_500ml_vacuum_flask_black",
+      "category": "home-organization",
+      "price": 799,
+      "mrp": 1038,
+      "stock": 1,
+      "unit": "1 unit",
+      "badge": "",
+      "rating": 4.8,
+      "reviews": 136,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-14",
+      "short": "A practical drinkware essential from Inari Life: 500ml Vacuum Flask Black. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "The source name specifies a 500 ml capacity; confirm product labeling before publishing.",
+        "Designed for carrying beverages as an everyday drinkware item.",
+        "Suitable for home, work or travel routines.",
+        "Bottle format helps keep a drink within reach.",
+        "A reusable option for personal hydration.",
+        "The named capacity helps shoppers compare bottle sizes."
+      ],
+      "enabled": true,
+      "deal": false
+    },
+    {
+      "id": "p15",
+      "name": "Folding Electric Kettle",
+      "sku": "2137_folding_electric_kettle",
+      "category": "home-organization",
+      "price": 999,
+      "mrp": 1298,
+      "stock": 40,
+      "unit": "1 unit",
+      "badge": "",
+      "rating": 4.6,
+      "reviews": 210,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-15",
+      "short": "A practical kitchen appliances essential from Inari Life: Folding Electric Kettle. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "Electric kettle format for heating water.",
+        "Foldable design is indicated in the product name.",
+        "Useful at home or when travelling, subject to the supplied instructions.",
+        "Stores away when not in use.",
+        "Useful for preparing hot water for drinks or food."
+      ],
+      "enabled": true,
+      "deal": false
+    },
+    {
+      "id": "p16",
+      "name": "Mosquito Killer Lamp",
+      "sku": "1219_mosquito_killer_lamp",
+      "category": "home-organization",
+      "price": 299,
+      "mrp": 388,
+      "stock": 42,
+      "unit": "1 unit",
+      "badge": "",
+      "rating": 4.9,
+      "reviews": 134,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-16",
+      "short": "A practical home & personal comfort essential from Inari Life: Mosquito Killer Lamp. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "Designed for mosquito or flying-insect control as indicated by the product name.",
+        "Intended for household use.",
+        "Use according to the supplied product instructions.",
+        "A practical addition to insect-control routines.",
+        "Supports a dedicated approach to household insect control."
+      ],
+      "enabled": true,
+      "deal": false
+    },
+    {
+      "id": "p17",
+      "name": "14 \u00d7 16 Plain Poly Bag",
+      "sku": "0929_14x16_plain_poly_bag",
+      "category": "home-utility",
+      "price": 299,
+      "mrp": 388,
+      "stock": 20,
+      "unit": "1 unit",
+      "badge": "",
+      "rating": 4.8,
+      "reviews": 216,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-17",
+      "short": "A practical home & utility essential from Inari Life: 14 \u00d7 16 Plain Poly Bag. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "The source name specifies a 14 \u00d7 16 format; confirm the measurement unit before publishing.",
+        "Helps group belongings and reduce everyday clutter.",
+        "Useful for organizing items at home, work or while travelling.",
+        "Keeps stored or carried items together in one place.",
+        "Designed around the storage or carrying use stated in the product name.",
+        "Offers a dedicated place for the belongings named in the product type."
+      ],
+      "enabled": true,
+      "deal": true
+    },
+    {
+      "id": "p18",
+      "name": "Foldable Laptop Stand",
+      "sku": "1229_foldable_laptop_stand",
+      "category": "home-organization",
+      "price": 799,
+      "mrp": 1038,
+      "stock": 16,
+      "unit": "1 unit",
+      "badge": "Bestseller",
+      "rating": 4.0,
+      "reviews": 209,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-18",
+      "short": "A practical office & tech accessories essential from Inari Life: Foldable Laptop Stand. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "Provides a dedicated support surface for a laptop.",
+        "Useful for desk or work-from-home setups.",
+        "Helps organize a laptop workspace.",
+        "Keeps laptop support in a designated desk area.",
+        "Stand format gives a laptop a specific place in the work setup."
+      ],
+      "enabled": true,
+      "deal": false
+    },
+    {
+      "id": "p19",
+      "name": "ABS Corner Caddy Basket",
+      "sku": "4029_abs_corner_caddy_basket",
+      "category": "home-organization",
+      "price": 799,
+      "mrp": 1038,
+      "stock": 2,
+      "unit": "1 unit",
+      "badge": "",
+      "rating": 4.5,
+      "reviews": 204,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-19",
+      "short": "A practical home organization essential from Inari Life: ABS Corner Caddy Basket. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "Creates a dedicated place for frequently used household items.",
+        "Makes use of corner or vertical storage space.",
+        "Useful in bathroom or home organization setups.",
+        "Keeps small essentials grouped for easier access.",
+        "Helps keep the named storage area organized."
+      ],
+      "enabled": true,
+      "deal": false
+    },
+    {
+      "id": "p20",
+      "name": "2-wheel Kids Scooter No. 2",
+      "sku": "17830_2_wheel_kids_scooter_no2",
+      "category": "toys-games",
+      "price": 499,
+      "mrp": 648,
+      "stock": 45,
+      "unit": "1 unit",
+      "badge": "New",
+      "rating": 4.0,
+      "reviews": 35,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-20",
+      "short": "A practical toys & games essential from Inari Life: 2-wheel Kids Scooter No. 2. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "Made for play and recreational use.",
+        "A gift option for children and toy collectors.",
+        "Encourages imaginative play away from screens.",
+        "The product name identifies the toy type or play format.",
+        "Adds a play-focused item to a toy collection."
+      ],
+      "enabled": true,
+      "deal": false
+    },
+    {
+      "id": "p21",
+      "name": "Car Cleaning Dust Brush 1-piece",
+      "sku": "4594_car_clea_dust_brush_1pc",
+      "category": "home-organization",
+      "price": 799,
+      "mrp": 1038,
+      "stock": 36,
+      "unit": "1 unit",
+      "badge": "",
+      "rating": 4.2,
+      "reviews": 117,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-21",
+      "short": "A practical cleaning essential from Inari Life: Car Cleaning Dust Brush 1-Piece. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "The source name identifies a 1-piece quantity; confirm the pack contents before publishing.",
+        "Made for play and recreational use.",
+        "A gift option for children and toy collectors.",
+        "Encourages imaginative play away from screens.",
+        "The product name identifies the toy type or play format.",
+        "Adds a play-focused item to a toy collection."
+      ],
+      "enabled": true,
+      "deal": false
+    },
+    {
+      "id": "p22",
+      "name": "Foldable Cloth Storage Bag 46 \u00d7 27 cm",
+      "sku": "4331_foldable_cloth_storage_bag_46x27cm",
+      "category": "storage-travel",
+      "price": 1299,
+      "mrp": 1688,
+      "stock": 45,
+      "unit": "1 unit",
+      "badge": "",
+      "rating": 4.2,
+      "reviews": 282,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-22",
+      "short": "A practical storage & travel essential from Inari Life: Foldable Cloth Storage Bag 46 \u00d7 27 cm. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "The source name specifies a 46 \u00d7 27 format; confirm the measurement unit before publishing.",
+        "Helps group belongings and reduce everyday clutter.",
+        "Useful for organizing items at home, work or while travelling.",
+        "Keeps stored or carried items together in one place.",
+        "Designed around the storage or carrying use stated in the product name.",
+        "Offers a dedicated place for the belongings named in the product type."
+      ],
+      "enabled": true,
+      "deal": false
+    },
+    {
+      "id": "p23",
+      "name": "5-piece Vacuum Bag With Pump",
+      "sku": "17826_5pc_vacuum_bag_with_pump",
+      "category": "storage-travel",
+      "price": 999,
+      "mrp": 1298,
+      "stock": 40,
+      "unit": "1 unit",
+      "badge": "",
+      "rating": 4.9,
+      "reviews": 61,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-23",
+      "short": "A practical storage & travel essential from Inari Life: 5-Piece Vacuum Bag With Pump. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "The source name identifies a 5-piece quantity; confirm the pack contents before publishing.",
+        "Helps group belongings and reduce everyday clutter.",
+        "Useful for organizing items at home, work or while travelling.",
+        "Keeps stored or carried items together in one place.",
+        "Designed around the storage or carrying use stated in the product name.",
+        "Offers a dedicated place for the belongings named in the product type."
+      ],
+      "enabled": true,
+      "deal": true
+    },
+    {
+      "id": "p24",
+      "name": "Remote Control Fast Car",
+      "sku": "4451_remote_control_fast_car",
+      "category": "toys-games",
+      "price": 799,
+      "mrp": 1038,
+      "stock": 40,
+      "unit": "1 unit",
+      "badge": "Bestseller",
+      "rating": 4.7,
+      "reviews": 10,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-24",
+      "short": "A practical toys & games essential from Inari Life: Remote Control Fast Car. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "Made for play and recreational use.",
+        "A gift option for children and toy collectors.",
+        "Encourages imaginative play away from screens.",
+        "The product name identifies the toy type or play format.",
+        "Adds a play-focused item to a toy collection."
+      ],
+      "enabled": true,
+      "deal": true
+    },
+    {
+      "id": "p25",
+      "name": "Bath Corner Shelf",
+      "sku": "1759_bath_corner_shelf",
+      "category": "home-organization",
+      "price": 299,
+      "mrp": 388,
+      "stock": 31,
+      "unit": "1 unit",
+      "badge": "",
+      "rating": 4.8,
+      "reviews": 113,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-25",
+      "short": "A practical home organization essential from Inari Life: Bath Corner Shelf. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "Creates a dedicated place for frequently used household items.",
+        "Makes use of corner or vertical storage space.",
+        "Useful in bathroom or home organization setups.",
+        "Keeps small essentials grouped for easier access.",
+        "Helps keep the named storage area organized."
+      ],
+      "enabled": true,
+      "deal": false
+    },
+    {
+      "id": "p26",
+      "name": "Metal Corner Shelf Organizer Rack 2-piece",
+      "sku": "15471_metal_corner_shelf_organizer_rack_2pc",
+      "category": "storage-travel",
+      "price": 1499,
+      "mrp": 1948,
+      "stock": 22,
+      "unit": "1 unit",
+      "badge": "",
+      "rating": 4.8,
+      "reviews": 219,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-26",
+      "short": "A practical storage & travel essential from Inari Life: Metal Corner Shelf Organizer Rack 2-Piece. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "The source name identifies a 2-piece quantity; confirm the pack contents before publishing.",
+        "Helps group belongings and reduce everyday clutter.",
+        "Useful for organizing items at home, work or while travelling.",
+        "Keeps stored or carried items together in one place.",
+        "Designed around the storage or carrying use stated in the product name.",
+        "Offers a dedicated place for the belongings named in the product type."
+      ],
+      "enabled": true,
+      "deal": false
+    },
+    {
+      "id": "p27",
+      "name": "Garbage Bags 24 \u00d7 32",
+      "sku": "1575_garbage_bags_24x32",
+      "category": "home-utility",
+      "price": 1299,
+      "mrp": 1688,
+      "stock": 11,
+      "unit": "1 unit",
+      "badge": "New",
+      "rating": 4.4,
+      "reviews": 66,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-27",
+      "short": "A practical home & utility essential from Inari Life: Garbage Bags 24 \u00d7 32. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "The source name specifies a 24 \u00d7 32 format; confirm the measurement unit before publishing.",
+        "Helps group belongings and reduce everyday clutter.",
+        "Useful for organizing items at home, work or while travelling.",
+        "Keeps stored or carried items together in one place.",
+        "Designed around the storage or carrying use stated in the product name.",
+        "Offers a dedicated place for the belongings named in the product type."
+      ],
+      "enabled": true,
+      "deal": false
+    },
+    {
+      "id": "p28",
+      "name": "2-in-1 Robot Car With Remote",
+      "sku": "18035_2in1_robot_car_with_remote",
+      "category": "toys-games",
+      "price": 999,
+      "mrp": 1298,
+      "stock": 32,
+      "unit": "1 unit",
+      "badge": "New",
+      "rating": 4.2,
+      "reviews": 83,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-28",
+      "short": "A practical toys & games essential from Inari Life: 2-in-1 Robot Car With Remote. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "Made for play and recreational use.",
+        "A gift option for children and toy collectors.",
+        "Encourages imaginative play away from screens.",
+        "The product name identifies the toy type or play format.",
+        "Adds a play-focused item to a toy collection."
+      ],
+      "enabled": true,
+      "deal": false
+    },
+    {
+      "id": "p29",
+      "name": "6-piece Color Measuring Cup",
+      "sku": "0811_6pc_color_measuring_cup",
+      "category": "kitchen-baking",
+      "price": 499,
+      "mrp": 648,
+      "stock": 11,
+      "unit": "1 unit",
+      "badge": "",
+      "rating": 4.6,
+      "reviews": 194,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-29",
+      "short": "A practical kitchen & baking essential from Inari Life: 6-Piece Color Measuring Cup. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "The source name identifies a 6-piece quantity; confirm the pack contents before publishing.",
+        "Designed to portion or measure ingredients during food preparation.",
+        "Useful for cooking, baking and kitchen prep.",
+        "Keeps measuring tools together for convenient access.",
+        "The product name identifies the measuring format or set size.",
+        "Supports repeatable ingredient portioning during food preparation."
+      ],
+      "enabled": true,
+      "deal": false
+    },
+    {
+      "id": "p30",
+      "name": "Car Dashboard Perfume Diffuser 1-set",
+      "sku": "19520_car_dashboard_perfume_diffuser_1set",
+      "category": "home-organization",
+      "price": 1299,
+      "mrp": 1688,
+      "stock": 48,
+      "unit": "1 unit",
+      "badge": "",
+      "rating": 4.1,
+      "reviews": 240,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-30",
+      "short": "A practical car accessories essential from Inari Life: Car Dashboard Perfume Diffuser 1-set. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "The source name identifies a 1-piece quantity; confirm the pack contents before publishing.",
+        "Made for play and recreational use.",
+        "A gift option for children and toy collectors.",
+        "Encourages imaginative play away from screens.",
+        "The product name identifies the toy type or play format.",
+        "Adds a play-focused item to a toy collection."
+      ],
+      "enabled": true,
+      "deal": true
+    },
+    {
+      "id": "p31",
+      "name": "Foldable Handheld Pocket Fan 1-piece",
+      "sku": "17600_foldable_handheld_pocket_fan_1pc",
+      "category": "home-organization",
+      "price": 799,
+      "mrp": 1038,
+      "stock": 21,
+      "unit": "1 unit",
+      "badge": "Bestseller",
+      "rating": 4.5,
+      "reviews": 68,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-31",
+      "short": "A practical home & personal comfort essential from Inari Life: Foldable Handheld Pocket Fan 1-Piece. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "The source name identifies a 1-piece quantity; confirm the pack contents before publishing.",
+        "Handheld fan format for personal air movement.",
+        "Convenient for desk, commute or travel use.",
+        "A compact personal comfort accessory.",
+        "Keep nearby for warm-weather routines.",
+        "Portable format is easy to keep close at hand."
+      ],
+      "enabled": true,
+      "deal": false
+    },
+    {
+      "id": "p32",
+      "name": "Polyester Foldable Mosquito Net Tent",
+      "sku": "19046_polyester_fold_mosquito_net_tent",
+      "category": "home-organization",
+      "price": 1499,
+      "mrp": 1948,
+      "stock": 5,
+      "unit": "1 unit",
+      "badge": "",
+      "rating": 4.1,
+      "reviews": 244,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-32",
+      "short": "A practical home & personal comfort essential from Inari Life: Polyester Foldable Mosquito Net Tent. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "Designed for mosquito or flying-insect control as indicated by the product name.",
+        "Intended for household use.",
+        "Use according to the supplied product instructions.",
+        "A practical addition to insect-control routines.",
+        "Supports a dedicated approach to household insect control."
+      ],
+      "enabled": true,
+      "deal": false
+    },
+    {
+      "id": "p33",
+      "name": "Car Dust Removal Brush 1-piece",
+      "sku": "15066_car_dust_removal_brush_1pc",
+      "category": "home-organization",
+      "price": 999,
+      "mrp": 1298,
+      "stock": 23,
+      "unit": "1 unit",
+      "badge": "New",
+      "rating": 4.9,
+      "reviews": 224,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-33",
+      "short": "A practical cleaning essential from Inari Life: Car Dust Removal Brush 1-Piece. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "The source name identifies a 1-piece quantity; confirm the pack contents before publishing.",
+        "Made for play and recreational use.",
+        "A gift option for children and toy collectors.",
+        "Encourages imaginative play away from screens.",
+        "The product name identifies the toy type or play format.",
+        "Adds a play-focused item to a toy collection."
+      ],
+      "enabled": true,
+      "deal": false
+    },
+    {
+      "id": "p34",
+      "name": "Microfiber Telescoping Duster",
+      "sku": "1279_microfiber_telescoping_duster",
+      "category": "home-organization",
+      "price": 999,
+      "mrp": 1298,
+      "stock": 27,
+      "unit": "1 unit",
+      "badge": "",
+      "rating": 4.4,
+      "reviews": 293,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-34",
+      "short": "A practical cleaning essential from Inari Life: Microfiber Telescoping Duster. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "Designed to help with household or vehicle cleaning.",
+        "Useful for routine dust removal and surface care.",
+        "A dedicated cleaning tool for everyday upkeep.",
+        "Use on suitable surfaces according to product guidance.",
+        "Keeps a tool for the named cleaning task within reach."
+      ],
+      "enabled": true,
+      "deal": false
+    },
+    {
+      "id": "p35",
+      "name": "7 Adjustable Metal Laptop Stand",
+      "sku": "13958_7_adj_metal_laptop_stand",
+      "category": "home-organization",
+      "price": 999,
+      "mrp": 1298,
+      "stock": 38,
+      "unit": "1 unit",
+      "badge": "Bestseller",
+      "rating": 4.9,
+      "reviews": 111,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-35",
+      "short": "A practical office & tech accessories essential from Inari Life: 7 Adjustable Metal Laptop Stand. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "Provides a dedicated support surface for a laptop.",
+        "Useful for desk or work-from-home setups.",
+        "Helps organize a laptop workspace.",
+        "Keeps laptop support in a designated desk area.",
+        "Stand format gives a laptop a specific place in the work setup."
+      ],
+      "enabled": true,
+      "deal": false
+    },
+    {
+      "id": "p36",
+      "name": "3-wheel Kids Scooter No. 1",
+      "sku": "17827_3_wheel_kids_scooter_no1",
+      "category": "toys-games",
+      "price": 799,
+      "mrp": 1038,
+      "stock": 8,
+      "unit": "1 unit",
+      "badge": "",
+      "rating": 4.7,
+      "reviews": 209,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-36",
+      "short": "A practical toys & games essential from Inari Life: 3-wheel Kids Scooter No. 1. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "Made for play and recreational use.",
+        "A gift option for children and toy collectors.",
+        "Encourages imaginative play away from screens.",
+        "The product name identifies the toy type or play format.",
+        "Adds a play-focused item to a toy collection."
+      ],
+      "enabled": true,
+      "deal": true
+    },
+    {
+      "id": "p37",
+      "name": "Mild Steel Metal Laptop Stand 1-piece",
+      "sku": "21060_ms_metal_laptop_stand_1pc",
+      "category": "home-organization",
+      "price": 799,
+      "mrp": 1038,
+      "stock": 49,
+      "unit": "1 unit",
+      "badge": "",
+      "rating": 4.3,
+      "reviews": 136,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-37",
+      "short": "A practical office & tech accessories essential from Inari Life: Mild Steel Metal Laptop Stand 1-Piece. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "The source name identifies a 1-piece quantity; confirm the pack contents before publishing.",
+        "Provides a dedicated support surface for a laptop.",
+        "Useful for desk or work-from-home setups.",
+        "Helps organize a laptop workspace.",
+        "Keeps laptop support in a designated desk area.",
+        "Stand format gives a laptop a specific place in the work setup."
+      ],
+      "enabled": true,
+      "deal": false
+    },
+    {
+      "id": "p38",
+      "name": "Garbage Bag 17 \u00d7 19",
+      "sku": "1574_garbage_bag_17x19",
+      "category": "home-utility",
+      "price": 1499,
+      "mrp": 1948,
+      "stock": 48,
+      "unit": "1 unit",
+      "badge": "Bestseller",
+      "rating": 4.1,
+      "reviews": 250,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-38",
+      "short": "A practical home & utility essential from Inari Life: Garbage Bag 17 \u00d7 19. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "The source name specifies a 17 \u00d7 19 format; confirm the measurement unit before publishing.",
+        "Helps group belongings and reduce everyday clutter.",
+        "Useful for organizing items at home, work or while travelling.",
+        "Keeps stored or carried items together in one place.",
+        "Designed around the storage or carrying use stated in the product name.",
+        "Offers a dedicated place for the belongings named in the product type."
+      ],
+      "enabled": true,
+      "deal": true
+    },
+    {
+      "id": "p39",
+      "name": "Vacuum Insulated Water Bottle 550ml",
+      "sku": "13851_vacuum_insulated_water_bottle_550ml",
+      "category": "home-organization",
+      "price": 799,
+      "mrp": 1038,
+      "stock": 48,
+      "unit": "1 unit",
+      "badge": "",
+      "rating": 4.3,
+      "reviews": 266,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-39",
+      "short": "A practical drinkware essential from Inari Life: Vacuum Insulated Water Bottle 550ml. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "The source name specifies a 550 ml capacity; confirm product labeling before publishing.",
+        "Designed for carrying beverages as an everyday drinkware item.",
+        "Suitable for home, work or travel routines.",
+        "Bottle format helps keep a drink within reach.",
+        "A reusable option for personal hydration.",
+        "The named capacity helps shoppers compare bottle sizes."
+      ],
+      "enabled": true,
+      "deal": false
+    },
+    {
+      "id": "p40",
+      "name": "Stainless Steel Water Bottle 1000ml",
+      "sku": "13699_ss_water_bottle_1000ml",
+      "category": "home-organization",
+      "price": 1499,
+      "mrp": 1948,
+      "stock": 6,
+      "unit": "1 unit",
+      "badge": "",
+      "rating": 4.0,
+      "reviews": 12,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-40",
+      "short": "A practical drinkware essential from Inari Life: Stainless Steel Water Bottle 1000ml. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "The source name specifies a 1000 ml capacity; confirm product labeling before publishing.",
+        "Designed for carrying beverages as an everyday drinkware item.",
+        "Suitable for home, work or travel routines.",
+        "Bottle format helps keep a drink within reach.",
+        "A reusable option for personal hydration.",
+        "The named capacity helps shoppers compare bottle sizes."
+      ],
+      "enabled": true,
+      "deal": false
+    },
+    {
+      "id": "p41",
+      "name": "Stainless Steel Insulated Water Bottle 500ml",
+      "sku": "9885_ss_insulated_water_bottle_500ml",
+      "category": "home-organization",
+      "price": 799,
+      "mrp": 1038,
+      "stock": 31,
+      "unit": "1 unit",
+      "badge": "",
+      "rating": 4.8,
+      "reviews": 147,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-41",
+      "short": "A practical drinkware essential from Inari Life: Stainless Steel Insulated Water Bottle 500ml. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "The source name specifies a 500 ml capacity; confirm product labeling before publishing.",
+        "Designed for carrying beverages as an everyday drinkware item.",
+        "Suitable for home, work or travel routines.",
+        "Bottle format helps keep a drink within reach.",
+        "A reusable option for personal hydration.",
+        "The named capacity helps shoppers compare bottle sizes."
+      ],
+      "enabled": true,
+      "deal": false
+    },
+    {
+      "id": "p42",
+      "name": "3-fold Umbrella 1-piece No. 1",
+      "sku": "8564_3_fold_umbrella_1pc_no1",
+      "category": "home-organization",
+      "price": 299,
+      "mrp": 388,
+      "stock": 9,
+      "unit": "1 unit",
+      "badge": "",
+      "rating": 4.8,
+      "reviews": 295,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-42",
+      "short": "A practical travel accessories essential from Inari Life: 3-fold Umbrella 1-Piece No. 1. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "The source name identifies a 1-piece quantity; confirm the pack contents before publishing.",
+        "Foldable umbrella format is suited to carry-along rain coverage.",
+        "Useful for daily commutes, errands and travel.",
+        "A practical everyday accessory for changing weather.",
+        "Store with travel essentials for ready access.",
+        "Folded format can be kept with everyday travel accessories."
+      ],
+      "enabled": true,
+      "deal": false
+    },
+    {
+      "id": "p43",
+      "name": "Lala Duck Climb Stairs Toy",
+      "sku": "4480_lala_duck_climb_stairs_toy",
+      "category": "toys-games",
+      "price": 999,
+      "mrp": 1298,
+      "stock": 38,
+      "unit": "1 unit",
+      "badge": "",
+      "rating": 4.1,
+      "reviews": 218,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-43",
+      "short": "A practical toys & games essential from Inari Life: Lala Duck Climb Stairs Toy. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "Made for play and recreational use.",
+        "A gift option for children and toy collectors.",
+        "Encourages imaginative play away from screens.",
+        "The product name identifies the toy type or play format.",
+        "Adds a play-focused item to a toy collection."
+      ],
+      "enabled": true,
+      "deal": false
+    },
+    {
+      "id": "p44",
+      "name": "Multipurpose Travel Organizer Bag 1-piece No. 1",
+      "sku": "0642_multipurpose_travel_organizer_bag_1pc_no1",
+      "category": "storage-travel",
+      "price": 299,
+      "mrp": 388,
+      "stock": 46,
+      "unit": "1 unit",
+      "badge": "",
+      "rating": 4.8,
+      "reviews": 176,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-44",
+      "short": "A practical storage & travel essential from Inari Life: Multipurpose Travel Organizer Bag 1-Piece No. 1. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "The source name identifies a 1-piece quantity; confirm the pack contents before publishing.",
+        "Helps group belongings and reduce everyday clutter.",
+        "Useful for organizing items at home, work or while travelling.",
+        "Keeps stored or carried items together in one place.",
+        "Designed around the storage or carrying use stated in the product name.",
+        "Offers a dedicated place for the belongings named in the product type."
+      ],
+      "enabled": true,
+      "deal": true
+    },
+    {
+      "id": "p45",
+      "name": "Mini Handheld Fan 1-piece",
+      "sku": "21638_mini_handheld_fan_1pc",
+      "category": "home-organization",
+      "price": 799,
+      "mrp": 1038,
+      "stock": 2,
+      "unit": "1 unit",
+      "badge": "",
+      "rating": 4.3,
+      "reviews": 28,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-45",
+      "short": "A practical home & personal comfort essential from Inari Life: Mini Handheld Fan 1-Piece. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "The source name identifies a 1-piece quantity; confirm the pack contents before publishing.",
+        "Handheld fan format for personal air movement.",
+        "Convenient for desk, commute or travel use.",
+        "A compact personal comfort accessory.",
+        "Keep nearby for warm-weather routines.",
+        "Portable format is easy to keep close at hand."
+      ],
+      "enabled": true,
+      "deal": false
+    },
+    {
+      "id": "p46",
+      "name": "5-fold Umbrella And Capsule Case",
+      "sku": "15027_5_fold_umbrella_n_capsule_case",
+      "category": "home-organization",
+      "price": 299,
+      "mrp": 388,
+      "stock": 43,
+      "unit": "1 unit",
+      "badge": "",
+      "rating": 4.2,
+      "reviews": 246,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-46",
+      "short": "A practical travel accessories essential from Inari Life: 5-fold Umbrella And Capsule Case. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "Foldable umbrella format is suited to carry-along rain coverage.",
+        "Useful for daily commutes, errands and travel.",
+        "A practical everyday accessory for changing weather.",
+        "Store with travel essentials for ready access.",
+        "Folded format can be kept with everyday travel accessories."
+      ],
+      "enabled": true,
+      "deal": false
+    },
+    {
+      "id": "p47",
+      "name": "Portable Windproof Travel Umbrella",
+      "sku": "16153_portable_windproof_travel_umbrella",
+      "category": "home-organization",
+      "price": 1499,
+      "mrp": 1948,
+      "stock": 40,
+      "unit": "1 unit",
+      "badge": "",
+      "rating": 4.9,
+      "reviews": 175,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-47",
+      "short": "A practical travel accessories essential from Inari Life: Portable Windproof Travel Umbrella. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "Foldable umbrella format is suited to carry-along rain coverage.",
+        "Useful for daily commutes, errands and travel.",
+        "A practical everyday accessory for changing weather.",
+        "Store with travel essentials for ready access.",
+        "Folded format can be kept with everyday travel accessories."
+      ],
+      "enabled": true,
+      "deal": true
+    },
+    {
+      "id": "p48",
+      "name": "Foldable Cloth Organizer Basket 1-piece",
+      "sku": "19761_foldable_cloth_organizer_basket_1pc",
+      "category": "storage-travel",
+      "price": 299,
+      "mrp": 388,
+      "stock": 30,
+      "unit": "1 unit",
+      "badge": "",
+      "rating": 4.5,
+      "reviews": 122,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-48",
+      "short": "A practical storage & travel essential from Inari Life: Foldable Cloth Organizer Basket 1-Piece. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "The source name identifies a 1-piece quantity; confirm the pack contents before publishing.",
+        "Helps group belongings and reduce everyday clutter.",
+        "Useful for organizing items at home, work or while travelling.",
+        "Keeps stored or carried items together in one place.",
+        "Designed around the storage or carrying use stated in the product name.",
+        "Offers a dedicated place for the belongings named in the product type."
+      ],
+      "enabled": true,
+      "deal": false
+    },
+    {
+      "id": "p49",
+      "name": "Vacuum Flask 1000ml",
+      "sku": "13141_vacuum_flask_1000ml",
+      "category": "home-organization",
+      "price": 1299,
+      "mrp": 1688,
+      "stock": 0,
+      "unit": "1 unit",
+      "badge": "",
+      "rating": 4.0,
+      "reviews": 199,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-49",
+      "short": "A practical drinkware essential from Inari Life: Vacuum Flask 1000ml. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "The source name specifies a 1000 ml capacity; confirm product labeling before publishing.",
+        "Designed for carrying beverages as an everyday drinkware item.",
+        "Suitable for home, work or travel routines.",
+        "Bottle format helps keep a drink within reach.",
+        "A reusable option for personal hydration.",
+        "The named capacity helps shoppers compare bottle sizes."
+      ],
+      "enabled": true,
+      "deal": false
+    },
+    {
+      "id": "p50",
+      "name": "Stainless Steel Insulated Bottle 700ml No. 12",
+      "sku": "13215_ss_insulated_bottle_700ml_no12",
+      "category": "home-organization",
+      "price": 1299,
+      "mrp": 1688,
+      "stock": 33,
+      "unit": "1 unit",
+      "badge": "",
+      "rating": 4.8,
+      "reviews": 47,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-50",
+      "short": "A practical drinkware essential from Inari Life: Stainless Steel Insulated Bottle 700ml No. 12. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "The source name specifies a 700 ml capacity; confirm product labeling before publishing.",
+        "Designed for carrying beverages as an everyday drinkware item.",
+        "Suitable for home, work or travel routines.",
+        "Bottle format helps keep a drink within reach.",
+        "A reusable option for personal hydration.",
+        "The named capacity helps shoppers compare bottle sizes."
+      ],
+      "enabled": true,
+      "deal": false
+    },
+    {
+      "id": "p51",
+      "name": "Garbage Bags 19 \u00d7 21",
+      "sku": "1504_garbage_bags_19x21",
+      "category": "home-utility",
+      "price": 299,
+      "mrp": 388,
+      "stock": 5,
+      "unit": "1 unit",
+      "badge": "",
+      "rating": 4.4,
+      "reviews": 226,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-51",
+      "short": "A practical home & utility essential from Inari Life: Garbage Bags 19 \u00d7 21. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "The source name specifies a 19 \u00d7 21 format; confirm the measurement unit before publishing.",
+        "Helps group belongings and reduce everyday clutter.",
+        "Useful for organizing items at home, work or while travelling.",
+        "Keeps stored or carried items together in one place.",
+        "Designed around the storage or carrying use stated in the product name.",
+        "Offers a dedicated place for the belongings named in the product type."
+      ],
+      "enabled": true,
+      "deal": false
+    },
+    {
+      "id": "p52",
+      "name": "Stainless Steel Alpha Sporty Water Bottle 1000ml 1-piece No. 8",
+      "sku": "9818_ss_alpha_sporty_water_bottle_1000ml_1pc_no8",
+      "category": "home-organization",
+      "price": 1499,
+      "mrp": 1948,
+      "stock": 49,
+      "unit": "1 unit",
+      "badge": "New",
+      "rating": 4.1,
+      "reviews": 220,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-52",
+      "short": "A practical drinkware essential from Inari Life: Stainless Steel Alpha Sporty Water Bottle 1000ml 1-Piece No. 8. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "The source name specifies a 1000 ml capacity; confirm product labeling before publishing.",
+        "Designed for carrying beverages as an everyday drinkware item.",
+        "Suitable for home, work or travel routines.",
+        "Bottle format helps keep a drink within reach.",
+        "A reusable option for personal hydration.",
+        "The named capacity helps shoppers compare bottle sizes."
+      ],
+      "enabled": true,
+      "deal": true
+    },
+    {
+      "id": "p53",
+      "name": "Apex Measuring Spoons 8-piece MSS",
+      "sku": "11708_apex_measuring_spoons_8pc_mss",
+      "category": "kitchen-baking",
+      "price": 1299,
+      "mrp": 1688,
+      "stock": 2,
+      "unit": "1 unit",
+      "badge": "",
+      "rating": 4.9,
+      "reviews": 15,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-53",
+      "short": "A practical kitchen & baking essential from Inari Life: Apex Measuring Spoons 8-Piece MSS. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "The source name identifies a 8-piece quantity; confirm the pack contents before publishing.",
+        "Designed to portion or measure ingredients during food preparation.",
+        "Useful for cooking, baking and kitchen prep.",
+        "Keeps measuring tools together for convenient access.",
+        "The product name identifies the measuring format or set size.",
+        "Supports repeatable ingredient portioning during food preparation."
+      ],
+      "enabled": true,
+      "deal": false
+    },
+    {
+      "id": "p54",
+      "name": "Remote Control Sport Car",
+      "sku": "4465_remote_control_sport_car",
+      "category": "toys-games",
+      "price": 999,
+      "mrp": 1298,
+      "stock": 42,
+      "unit": "1 unit",
+      "badge": "New",
+      "rating": 4.9,
+      "reviews": 246,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-54",
+      "short": "A practical toys & games essential from Inari Life: Remote Control Sport Car. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "Made for play and recreational use.",
+        "A gift option for children and toy collectors.",
+        "Encourages imaginative play away from screens.",
+        "The product name identifies the toy type or play format.",
+        "Adds a play-focused item to a toy collection."
+      ],
+      "enabled": true,
+      "deal": false
+    },
+    {
+      "id": "p55",
+      "name": "Vacuum Insulated Water Bottle 1000ml",
+      "sku": "21253_vacuum_insulated_water_bottle_1000ml",
+      "category": "home-organization",
+      "price": 299,
+      "mrp": 388,
+      "stock": 37,
+      "unit": "1 unit",
+      "badge": "New",
+      "rating": 4.9,
+      "reviews": 181,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-55",
+      "short": "A practical drinkware essential from Inari Life: Vacuum Insulated Water Bottle 1000ml. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "The source name specifies a 1000 ml capacity; confirm product labeling before publishing.",
+        "Designed for carrying beverages as an everyday drinkware item.",
+        "Suitable for home, work or travel routines.",
+        "Bottle format helps keep a drink within reach.",
+        "A reusable option for personal hydration.",
+        "The named capacity helps shoppers compare bottle sizes."
+      ],
+      "enabled": true,
+      "deal": false
+    },
+    {
+      "id": "p56",
+      "name": "Stainless Steel Insulated Water Bottle 800ml",
+      "sku": "9883_ss_insulated_water_bottle_800ml",
+      "category": "home-organization",
+      "price": 1299,
+      "mrp": 1688,
+      "stock": 40,
+      "unit": "1 unit",
+      "badge": "",
+      "rating": 4.9,
+      "reviews": 179,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-56",
+      "short": "A practical drinkware essential from Inari Life: Stainless Steel Insulated Water Bottle 800ml. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "The source name specifies a 800 ml capacity; confirm product labeling before publishing.",
+        "Designed for carrying beverages as an everyday drinkware item.",
+        "Suitable for home, work or travel routines.",
+        "Bottle format helps keep a drink within reach.",
+        "A reusable option for personal hydration.",
+        "The named capacity helps shoppers compare bottle sizes."
+      ],
+      "enabled": true,
+      "deal": true
+    },
+    {
+      "id": "p57",
+      "name": "Mini Rechargeable Digital Display Handheld Fan",
+      "sku": "7606_mini_rechar_digital_display_handheld_fan",
+      "category": "home-organization",
+      "price": 799,
+      "mrp": 1038,
+      "stock": 18,
+      "unit": "1 unit",
+      "badge": "",
+      "rating": 4.6,
+      "reviews": 204,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-57",
+      "short": "A practical home & personal comfort essential from Inari Life: Mini Rechargeable Digital Display Handheld Fan. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "Handheld fan format for personal air movement.",
+        "Convenient for desk, commute or travel use.",
+        "A compact personal comfort accessory.",
+        "Keep nearby for warm-weather routines.",
+        "Portable format is easy to keep close at hand."
+      ],
+      "enabled": true,
+      "deal": false
+    },
+    {
+      "id": "p58",
+      "name": "Aura Cola Vacuum Bottle 1000ml",
+      "sku": "22689_aura_cola_vacuum_bottle_1000ml",
+      "category": "home-organization",
+      "price": 799,
+      "mrp": 1038,
+      "stock": 48,
+      "unit": "1 unit",
+      "badge": "Bestseller",
+      "rating": 4.2,
+      "reviews": 182,
+      "image": "",
+      "amazon": "https://www.amazon.in/dp/REPLACE-ASIN-58",
+      "short": "A practical drinkware essential from Inari Life: Aura Cola Vacuum Bottle 1000ml. Review the confirmed product details for exact materials, dimensions, colors and included parts.",
+      "features": [
+        "The source name specifies a 1000 ml capacity; confirm product labeling before publishing.",
+        "Designed for carrying beverages as an everyday drinkware item.",
+        "Suitable for home, work or travel routines.",
+        "Bottle format helps keep a drink within reach.",
+        "A reusable option for personal hydration.",
+        "The named capacity helps shoppers compare bottle sizes."
+      ],
+      "enabled": true,
+      "deal": false
+    }
+  ],
+  "offers": [
+    {
+      "id": "o1",
+      "code": "FIRST10",
+      "title": "Flat 10% off your first order",
+      "detail": "Applies to all products. No minimum value. One use per customer.",
+      "expiry": "2026-12-31",
+      "kind": "Launch",
+      "enabled": true
+    }
+  ],
+  "videos": [],
+  "testimonials": [],
+  "promotions": {
+    "strip": {
+      "enabled": true,
+      "text": "Free shipping above \u20b9499 \u00b7 COD up to \u20b95,000 \u00b7 Dispatch in 24\u201348 hours"
+    },
+    "popup": {
+      "enabled": false,
+      "title": "Get 10% off your first order",
+      "body": "Join the Inari list for restock alerts. Code FIRST10 lands in your inbox.",
+      "button": "Claim code",
+      "code": "FIRST10",
+      "delay": 6
+    },
+    "cards": [
+      {
+        "id": "pr1",
+        "title": "First order",
+        "text": "Flat 10% off with FIRST10",
+        "icon": "spark"
+      },
+      {
+        "id": "pr2",
+        "title": "Free shipping",
+        "text": "On all orders above \u20b9499",
+        "icon": "truck"
+      },
+      {
+        "id": "pr3",
+        "title": "COD available",
+        "text": "Pay on delivery up to \u20b95,000",
+        "icon": "wallet"
+      },
+      {
+        "id": "pr4",
+        "title": "Easy returns",
+        "text": "7-day replacement policy",
+        "icon": "shield"
+      }
+    ]
+  },
+  "delivery": {
+    "shipCharge": 49,
+    "freeShipAbove": 499,
+    "codLimit": 5000,
+    "dispatch": "Dispatched within 24\u201348 working hours",
+    "notServiceable": "We do not deliver to this PIN code yet.",
+    "pincodes": []
+  },
+  "pages": []
+};
+/* ============================================================
+   INARI LIFE — storefront (vanilla JS, no build step, no deps)
+   ============================================================ */
+(function () {
+  "use strict";
+
+  /* ---------------- icons ---------------- */
+  var I = {
+    search:'<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',
+    bag:'<path d="M6 8h12l1 12H5L6 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>',
+    menu:'<path d="M4 7h16M4 12h16M4 17h16"/>', x:'<path d="M6 6l12 12M18 6 6 18"/>',
+    arrow:'<path d="M5 12h14M13 6l6 6-6 6"/>', chevL:'<path d="M15 6l-6 6 6 6"/>', chevR:'<path d="M9 6l6 6-6 6"/>',
+    pin:'<path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/>',
+    truck:'<path d="M3 7h10v9H3z"/><path d="M13 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/>',
+    shield:'<path d="M12 3l7 3v6c0 4.4-3 7.7-7 9-4-1.3-7-4.6-7-9V6l7-3Z"/><path d="m9 12 2 2 4-4"/>',
+    wallet:'<rect x="3" y="6" width="18" height="13" rx="2"/><path d="M16 12.5h3"/><path d="M3 9h13"/>',
+    spark:'<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3Z"/>',
+    leaf:'<path d="M20 4C10 4 5 8 5 14a5 5 0 0 0 5 5c6 0 10-5 10-15Z"/><path d="M4 21c3-6 8-9 12-11"/>',
+    grain:'<path d="M12 21V8"/><path d="M12 8c0-3 2-5 5-5 0 3-2 5-5 5Z"/><path d="M12 12c0-3-2-5-5-5 0 3 2 5 5 5Z"/><path d="M12 16c0-3 2-5 5-5 0 3-2 5-5 5Z"/>',
+    drop:'<path d="M12 3c3 4 6 7 6 10a6 6 0 0 1-12 0c0-3 3-6 6-10Z"/>',
+    jar:'<rect x="6" y="7" width="12" height="14" rx="2"/><path d="M8 7V5h8v2"/><path d="M9 12h6"/>',
+    bowl:'<path d="M3 11h18a9 9 0 0 1-18 0Z"/><path d="M7 11c0-3 2-6 5-8"/>',
+    gift:'<rect x="3" y="8" width="18" height="13" rx="2"/><path d="M3 12h18M12 8v13"/><path d="M12 8C10 8 7 7.4 7 5.4A2.4 2.4 0 0 1 11.4 4c.6 1 1 2.6 0 4Z"/><path d="M12 8c2 0 5-.6 5-2.6A2.4 2.4 0 0 0 12.6 4c-.6 1-1 2.6 0 4Z"/>',
+    check:'<path d="m4 12.5 5 5L20 6.5"/>', star:'<path d="M12 3l2.7 5.7 6.3.9-4.6 4.4 1.1 6.2-5.5-3-5.5 3 1.1-6.2L3 9.6l6.3-.9L12 3Z"/>',
+    play:'<path d="M8 5v14l11-7-11-7Z"/>', mail:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>',
+    phone:'<path d="M5 3h4l2 5-3 2a12 12 0 0 0 6 6l2-3 5 2v4a2 2 0 0 1-2 2A17 17 0 0 1 3 5a2 2 0 0 1 2-2Z"/>',
+    clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/>', home:'<path d="M4 11l8-7 8 7"/><path d="M6 10v10h12V10"/>',
+    grid:'<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',
+    info:'<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/>', refresh:'<path d="M20 12a8 8 0 1 1-2.3-5.6"/><path d="M20 4v5h-5"/>',
+    ig:'<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17 7v.01"/>',
+    fb:'<path d="M15 3h-2a4 4 0 0 0-4 4v3H6v4h3v7h4v-7h3l1-4h-4V7a1 1 0 0 1 1-1h2V3Z"/>',
+    yt:'<rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="m10 9 6 3-6 3V9Z"/>',
+    wa:'<path d="M12 3a9 9 0 0 0-7.7 13.6L3 21l4.5-1.2A9 9 0 1 0 12 3Z"/><path d="M8.6 9c0 3 2.4 5.4 5.4 5.4l1-1.2-1.9-1-.9.8a4.6 4.6 0 0 1-2.2-2.2l.8-.9-1-1.9L8.6 9Z"/>',
+    external:'<path d="M14 4h6v6"/><path d="M20 4 10 14"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/>',
+    filter:'<path d="M3 6h18M7 12h10M11 18h2"/>'
+  };
+  function ic(n) {
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + (I[n] || '') + '</svg>';
+  }
+
+  /* ---------------- utils ---------------- */
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function money(n) {
+    n = Number(n) || 0;
+    try { return '\u20B9' + new Intl.NumberFormat('en-IN', { maximumFractionDigits: 0 }).format(n); }
+    catch (e) { return '\u20B9' + n; }
+  }
+  function offPct(mrp, price) {
+    mrp = Number(mrp) || 0; price = Number(price) || 0;
+    if (!mrp || mrp <= price) return 0;
+    return Math.round((mrp - price) / mrp * 100);
+  }
+  function stars(r) {
+    r = Math.round(Number(r) || 0); var o = '';
+    for (var i = 0; i < 5; i++) o += i < r ? '\u2605' : '\u2606';
+    return o;
+  }
+  function pill(p) {
+    if (Number(p.stock) === 0) return '<span class="bdg bad">Out of stock</span>';
+    if (Number(p.stock) <= 6) return '<span class="bdg warn">Only ' + p.stock + ' left</span>';
+    if (p.badge) return '<span class="bdg' + (/best|wood|gift|deal/i.test(p.badge) ? ' gold' : '') + '">' + esc(p.badge) + '</span>';
+    return '';
+  }
+  function hasAmazon(p) { return p.amazon && !/REPLACE|YOUR-ASIN|example\.com/i.test(p.amazon); }
+  function artClass(p) {
+    var seed = String(p.id || p.name || ''), n = 1;
+    for (var k = 0; k < seed.length; k++) n += seed.charCodeAt(k);
+    return 'ph-' + (n % 6 + 1);
+  }
+
+  /* ---------------- state ---------------- */
+  var D = window.INARI_DATA || { settings: {}, categories: [], products: [], pages: [] };
+  var S = D.settings || {};
+  var listState = { cat: '', sort: 'featured', q: '' };
+
+  function loadData(done) {
+    try {
+      if (/[?&]preview=1/.test(location.search)) {
+        var ls = localStorage.getItem('inari_preview');
+        if (ls) { var j = JSON.parse(ls); if (j && j.settings) { D = j; S = j.settings; } }
+      }
+    } catch (e) {}
+    if (location.protocol === 'file:') { done(); return; }
+    fetch('data.json', { cache: 'no-store' })
+      .then(function (r) { if (!r.ok) throw 0; return r.json(); })
+      .then(function (j) { if (j && j.settings) { D = j; S = j.settings; } })
+      .catch(function () { /* keep inlined fallback */ })
+      .then(done);
+  }
+
+  /* ---------------- data helpers ---------------- */
+  function enabledProducts() { return (D.products || []).filter(function (p) { return p.enabled !== false; }); }
+  function catName(id) {
+    var c = (D.categories || []).filter(function (x) { return x.id === id; })[0];
+    return c ? c.name : 'Inari Life';
+  }
+  function byId(id) { return (D.products || []).filter(function (p) { return p.id === id; })[0]; }
+
+  /* ---------------- artwork ---------------- */
+  function packSVG(p) {
+    var label = esc((p.name || '').split(/[·|]/)[0].trim()).slice(0, 24);
+    var kind = /oil/i.test(p.name) ? 'bottle' : /jar|skin/i.test(p.category) ? 'jar' : /hamper|gift/i.test(p.name) ? 'box' : 'pouch';
+    var shapes = {
+      pouch: '<path d="M36 46c0-6 5-9 12-9h24c7 0 12 3 12 9v44c0 7-5 10-12 10H48c-7 0-12-3-12-10V46Z" fill="rgba(255,255,255,.13)" stroke="rgba(255,255,255,.5)" stroke-width="1.4"/><path d="M44 42h32" stroke="rgba(255,255,255,.45)" stroke-width="1.4"/>',
+      bottle: '<path d="M52 30h16v12c0 4 9 8 9 16v32c0 5-4 9-9 9H52c-5 0-9-4-9-9V58c0-8 9-12 9-16V30Z" fill="rgba(255,255,255,.13)" stroke="rgba(255,255,255,.5)" stroke-width="1.4"/><rect x="50" y="23" width="20" height="9" rx="2.5" fill="rgba(255,255,255,.26)"/>',
+      jar: '<rect x="38" y="44" width="44" height="52" rx="12" fill="rgba(255,255,255,.13)" stroke="rgba(255,255,255,.5)" stroke-width="1.4"/><rect x="44" y="35" width="32" height="10" rx="4" fill="rgba(255,255,255,.24)"/>',
+      box: '<rect x="33" y="46" width="54" height="46" rx="5" fill="rgba(255,255,255,.13)" stroke="rgba(255,255,255,.5)" stroke-width="1.4"/><path d="M60 46v46M33 62h54" stroke="rgba(255,255,255,.35)" stroke-width="1.2"/>'
+    };
+    return '<div class="ph ' + artClass(p) + '"><div class="ph-in">' +
+      '<svg viewBox="0 0 120 118" fill="none" aria-hidden="true"><circle cx="60" cy="66" r="44" fill="rgba(255,255,255,.05)"/>' +
+      (shapes[kind] || shapes.pouch) +
+      '<path d="M50 76h20M50 84h13" stroke="rgba(255,255,255,.55)" stroke-width="1.6" stroke-linecap="round"/></svg>' +
+      '<b>' + label + '</b><i>' + esc(p.unit || '') + '</i></div></div>';
+  }
+  function heroArt() {
+    return '<svg viewBox="0 0 420 420" fill="none" aria-hidden="true">' +
+      '<circle cx="210" cy="214" r="152" fill="rgba(232,217,168,.06)"/>' +
+      '<circle cx="210" cy="214" r="118" stroke="rgba(232,217,168,.28)" stroke-width="1" stroke-dasharray="2 8"/>' +
+      '<path d="M118 232h184c-6 52-42 88-92 88s-86-36-92-88Z" fill="#E8D9A8" fill-opacity=".9"/>' +
+      '<path d="M118 232h184c-2 14-6 26-12 37H130c-6-11-10-23-12-37Z" fill="#C9A227" fill-opacity=".5"/>' +
+      '<ellipse cx="210" cy="232" rx="92" ry="15" fill="#F6F1E7" fill-opacity=".45"/>' +
+      '<g stroke="#E8D9A8" stroke-width="3" stroke-linecap="round" fill="none"><path d="M176 232c-4-38 2-72 18-102"/><path d="M210 232c0-44 2-80 0-116"/><path d="M244 232c4-38-2-72-18-102"/></g>' +
+      '<g fill="#F6F1E7" fill-opacity=".88"><ellipse cx="192" cy="126" rx="6" ry="12" transform="rotate(-24 192 126)"/><ellipse cx="204" cy="142" rx="6" ry="12" transform="rotate(-16 204 142)"/><ellipse cx="210" cy="106" rx="6" ry="13"/><ellipse cx="222" cy="136" rx="6" ry="12" transform="rotate(16 222 136)"/><ellipse cx="230" cy="120" rx="6" ry="12" transform="rotate(24 230 120)"/></g>' +
+      '<path d="M286 168c22-22 50-26 66-24-4 22-18 44-46 48-14 2-20-10-20-24Z" fill="#8FAE93" fill-opacity=".8"/>' +
+      '<path d="M288 190c14-12 30-18 46-22" stroke="#12281B" stroke-opacity=".3" stroke-width="1.6"/>' +
+      '<ellipse cx="210" cy="322" rx="118" ry="13" fill="#000" fill-opacity=".18"/></svg>';
+  }
+
+  /* ---------------- product card ---------------- */
+  function productCard(p) {
+    var off = offPct(p.mrp, p.price), stock = Number(p.stock) || 0;
+    var media = p.image ? '<img src="' + esc(p.image) + '" alt="' + esc(p.name) + '" loading="lazy">' : packSVG(p);
+    var stockNote = stock === 0
+      ? '<div class="stock-note no-stock"><span class="dot-live"></span>Out of stock</div>'
+      : stock <= 6
+        ? '<div class="stock-note low-stock"><span class="dot-live"></span>Only ' + stock + ' left</div>'
+        : '<div class="stock-note in-stock"><span class="dot-live"></span>In stock</div>';
+    var buy = hasAmazon(p)
+      ? '<a class="btn btn-amz btn-sm" href="' + esc(p.amazon) + '" target="_blank" rel="noopener noreferrer">Buy Now on Amazon ' + ic('external') + '</a>'
+      : '<a class="btn btn-out btn-sm" href="#/product/' + esc(p.id) + '">Enquire to buy</a>';
+    return '<article class="card">' +
+      '<a class="card-media" href="#/product/' + esc(p.id) + '" aria-label="' + esc(p.name) + '">' +
+        '<div class="badges">' + pill(p) + (off ? '<span class="bdg gold">' + off + '% off</span>' : '') + '</div>' + media + '</a>' +
+      '<div class="card-body"><div class="card-cat">' + esc(catName(p.category)) + '</div>' +
+        '<h3><a href="#/product/' + esc(p.id) + '">' + esc(p.name) + '</a></h3>' +
+        '<div class="unit">' + esc(p.unit || '') + '</div>' +
+        '<div class="price-row"><span class="price">' + money(p.price) + '</span>' +
+          (Number(p.mrp) > Number(p.price) ? '<span class="mrp">' + money(p.mrp) + '</span><span class="off">' + off + '% off</span>' : '') + '</div>' +
+        (p.rating ? '<div class="stars"><span class="s">' + stars(p.rating) + '</span> ' + Number(p.rating).toFixed(1) + (p.reviews ? ' (' + p.reviews + ')' : '') + '</div>' : '') +
+        stockNote +
+        '<div class="card-actions">' + buy + '<a class="btn btn-out btn-sm" href="#/product/' + esc(p.id) + '">View details</a></div>' +
+      '</div></article>';
+  }
+
+  /* ---------------- shell ---------------- */
+  function navHTML() {
+    var cats = (D.categories || []).filter(function (c) { return c.enabled !== false; });
+    var out = '<a href="#/" data-r="home">Home</a><a href="#/products" data-r="products">Shop All</a>';
+    cats.slice(0, 4).forEach(function (c) {
+      out += '<a href="#/category/' + esc(c.id) + '" data-r="cat-' + esc(c.id) + '">' + esc(c.name.replace(/ &.*/, '')) + '</a>';
+    });
+    out += '<a href="#/offers" data-r="offers">Offers</a>';
+    if ((D.pages || []).filter(function (p) { return p.id === 'about'; }).length) out += '<a href="#/page/about" data-r="about">About</a>';
+    out += '<a href="#/contact" data-r="contact">Contact</a>';
+    return out;
+  }
+  function brandHTML() {
+    var second = (S.brand || 'Inari Life').split(/\s+/).slice(1).join(' ') || 'LIFE';
+    return '<a class="brand" href="#/"><span class="brand-mark">' + ic('leaf') + '</span>' +
+      '<span class="brand-txt"><b>' + esc(S.logoText || 'INARI') + '</b><span>' + esc(second) + '</span></span></a>';
+  }
+
+  function renderShell() {
+    var ann = document.getElementById('annBar');
+    ann.innerHTML = S.announcement
+      ? '<div class="ann"><div class="ann-wrap"><span>' + S.announcement.replace(/(FIRST10|MILLET15|FREESHIP|BUNDLE20|FESTIVE25)/g, '<strong>$1</strong>') + '</span>' +
+        '<button class="x" id="annX" aria-label="Dismiss announcement">' + ic('x') + '</button></div></div>'
+      : '';
+
+    document.getElementById('hdr').innerHTML =
+      '<div class="wrap hd">' + brandHTML() +
+        '<nav class="main" aria-label="Primary">' + navHTML() + '</nav>' +
+        '<div class="hd-tools">' +
+          '<button class="icon-btn" id="searchBtn" aria-label="Search products" aria-expanded="false">' + ic('search') + '</button>' +
+          '<a class="hd-pin" href="#/page/shipping">' + ic('pin') + ' Check delivery</a>' +
+          '<a class="btn btn-p btn-sm" href="#/products">' + ic('bag') + ' Shop</a>' +
+          '<button class="icon-btn burger" id="burger" aria-label="Open menu">' + ic('menu') + '</button>' +
+        '</div></div>' +
+      '<div class="searchbar" id="searchbar"><div class="wrap"><div class="searchrow">' + ic('search') +
+        '<input id="searchInput" type="search" placeholder="Search millets, oils, wellness…" aria-label="Search products" autocomplete="off">' +
+        '<button class="btn btn-p btn-sm" id="searchGo">Search</button></div></div></div>';
+
+    var cats = (D.categories || []).filter(function (c) { return c.enabled !== false; });
+    document.getElementById('mnavPanel').innerHTML =
+      '<div class="mnav-top">' + brandHTML() + '<button class="icon-btn" id="mnavX" aria-label="Close menu">' + ic('x') + '</button></div>' +
+      '<a href="#/">Home</a><a href="#/products">Shop all products</a>' +
+      cats.map(function (c) { return '<a class="m-sub" href="#/category/' + esc(c.id) + '">' + esc(c.name) + '</a>'; }).join('') +
+      '<a href="#/offers">Offers &amp; coupons</a>' +
+      (D.pages || []).filter(function (p) { return p.menu; }).map(function (p) { return '<a class="m-sub" href="#/page/' + esc(p.id) + '">' + esc(p.title) + '</a>'; }).join('') +
+      '<a href="#/contact">Contact</a>' +
+      '<div style="margin-top:22px"><a class="btn btn-p btn-block" href="#/products">Shop the range</a></div>' +
+      '<p style="font-size:.74rem;color:var(--ink-3);margin-top:18px;line-height:1.6">' + esc(S.hours || '') + '<br>' + esc(S.phone || '') + '</p>';
+
+    document.getElementById('ftr').innerHTML =
+      '<div class="wrap">' +
+        '<div class="f-note">' + ic('info') + '<span>' + esc(S.amazonDisclaimer || '') + ' ' + esc(S.gst || '') + '</span></div>' +
+        '<div class="f-grid">' +
+          '<div class="f-brand">' + brandHTML().replace('<b>', '<b style="color:#fff">') +
+            '<p>' + esc(S.tagline || '') + '</p><div class="socials">' +
+            (S.instagram ? '<a href="' + esc(S.instagram) + '" target="_blank" rel="noopener" aria-label="Instagram">' + ic('ig') + '</a>' : '') +
+            (S.facebook ? '<a href="' + esc(S.facebook) + '" target="_blank" rel="noopener" aria-label="Facebook">' + ic('fb') + '</a>' : '') +
+            (S.youtube ? '<a href="' + esc(S.youtube) + '" target="_blank" rel="noopener" aria-label="YouTube">' + ic('yt') + '</a>' : '') +
+            (S.whatsapp ? '<a href="https://wa.me/' + esc(S.whatsapp) + '" target="_blank" rel="noopener" aria-label="WhatsApp">' + ic('wa') + '</a>' : '') +
+          '</div></div>' +
+          '<div><h4>Shop</h4><ul>' + cats.map(function (c) { return '<li><a href="#/category/' + esc(c.id) + '">' + esc(c.name) + '</a></li>'; }).join('') + '</ul></div>' +
+          '<div><h4>Company</h4><ul>' + (D.pages || []).filter(function (p) { return p.menu; }).map(function (p) {
+            return '<li><a href="#/page/' + esc(p.id) + '">' + esc(p.title) + '</a></li>';
+          }).join('') + '<li><a href="#/contact">Contact us</a></li></ul></div>' +
+          '<div><h4>Support</h4><ul>' +
+            '<li><a href="#/page/shipping">Shipping &amp; delivery</a></li><li><a href="#/page/returns">Returns &amp; refunds</a></li>' +
+            '<li><a href="#/page/faq">FAQ</a></li><li><a href="#/page/privacy">Privacy policy</a></li><li><a href="#/page/terms">Terms of use</a></li>' +
+          '</ul></div></div>' +
+        '<div class="f-bot"><span>&copy; ' + new Date().getFullYear() + ' ' + esc(S.brand || 'Inari Life') + '. All rights reserved.</span>' +
+          '<span>' + esc(S.address || '') + '</span></div></div>';
+
+    document.getElementById('fab').innerHTML =
+      (S.whatsapp ? '<a class="wa" href="https://wa.me/' + esc(S.whatsapp) + '?text=' + encodeURIComponent('Hi ' + (S.brand || 'Inari Life') + ', I have a question.') + '" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">' + ic('wa') + '</a>' : '') +
+      '<a href="#/products" aria-label="Shop all products">' + ic('bag') + '</a>';
+  }
+
+  /* ---------------- home sections ---------------- */
+  function heroHTML() {
+    var bs = (D.banners || []).filter(function (b) { return b.enabled !== false; });
+    if (!bs.length) return '';
+    var slides = bs.map(function (b, i) {
+      return '<div class="slide' + (i === 0 ? ' on' : '') + '"><div class="wrap slide-grid"><div class="slide-copy">' +
+        (b.eyebrow ? '<p class="eyebrow">' + esc(b.eyebrow) + '</p>' : '') +
+        '<h1>' + (b.title || '') + '</h1><p>' + esc(b.subtitle || '') + '</p>' +
+        '<div class="slide-cta">' +
+          (b.ctaText ? '<a class="btn btn-p" href="' + esc(b.ctaLink || '#/products') + '">' + esc(b.ctaText) + ' ' + ic('arrow') + '</a>' : '') +
+          (b.ctaText2 ? '<a class="btn btn-light" href="' + esc(b.ctaLink2 || '#/products') + '">' + esc(b.ctaText2) + '</a>' : '') +
+        '</div></div><div class="slide-art">' +
+        (b.image ? '<img src="' + esc(b.image) + '" alt="" style="width:100%;border-radius:20px;object-fit:cover;max-height:420px">' : heroArt()) +
+        '</div></div></div>';
+    }).join('');
+    var dots = bs.map(function (b, i) { return '<button class="dot' + (i === 0 ? ' on' : '') + '" data-slide="' + i + '" aria-label="Go to slide ' + (i + 1) + '"></button>'; }).join('');
+    return '<section class="hero" data-theme="' + esc(bs[0].theme || 'forest') + '" id="hero"><div class="slides">' + slides + '</div>' +
+      (bs.length > 1 ? '<button class="hero-arrow prev" id="hPrev" aria-label="Previous slide">' + ic('chevL') + '</button>' +
+        '<button class="hero-arrow next" id="hNext" aria-label="Next slide">' + ic('chevR') + '</button>' : '') +
+      '<div class="hero-nav">' + dots + '</div></section>';
+  }
+
+  function promosHTML() {
+    var cards = (D.promotions && D.promotions.cards) || [];
+    if ((D.promotions && D.promotions.strip && D.promotions.strip.enabled === false) || !cards.length) return '';
+    return '<section class="promos"><div class="wrap"><div class="promo-grid">' + cards.map(function (c) {
+      return '<div class="promo"><div class="ic">' + ic(c.icon || 'spark') + '</div><div><b>' + esc(c.title) + '</b><span>' + esc(c.text) + '</span></div></div>';
+    }).join('') + '</div></div></section>';
+  }
+
+  function catsHTML() {
+    var cs = (D.categories || []).filter(function (c) { return c.enabled !== false; });
+    if (!cs.length) return '';
+    return '<section class="sec" id="categories"><div class="wrap">' +
+      '<div class="sec-head"><div><p class="eyebrow">Shop by category</p><h2>Everything we make, in one place</h2>' +
+      '<p class="lede">Six small ranges, each with a short ingredient list and a printed price.</p></div>' +
+      '<a class="link-arrow" href="#/products">All products ' + ic('arrow') + '</a></div><div class="cat-grid">' +
+      cs.map(function (c) {
+        var n = enabledProducts().filter(function (p) { return p.category === c.id; }).length;
+        return '<a class="cat" href="#/category/' + esc(c.id) + '"><span class="count">' + n + '</span><span class="ic">' + ic(c.icon || 'leaf') + '</span>' +
+          '<b>' + esc(c.name) + '</b><span>' + esc(c.blurb || '') + '</span></a>';
+      }).join('') + '</div></div></section>';
+  }
+
+  function dealsHTML() {
+    var dl = D.deals || {};
+    var items = enabledProducts().filter(function (p) { return p.deal; });
+    if (!items.length) items = enabledProducts().slice(0, 4);
+    if (!items.length) return '';
+    return '<section class="deals sec" id="deals"><div class="wrap">' +
+      '<div class="sec-head"><div><p class="eyebrow" style="color:var(--gold-soft)">Limited time</p>' +
+      '<h2>' + esc(dl.title || 'Deals of the week') + '</h2><p class="lede">' + esc(dl.subtitle || '') + '</p>' +
+      (dl.endsAt ? '<div class="countdown" id="cd" data-ends="' + esc(dl.endsAt) + '">' +
+        '<div class="cd-box"><b id="cdD">--</b><span>Days</span></div><div class="cd-box"><b id="cdH">--</b><span>Hrs</span></div>' +
+        '<div class="cd-box"><b id="cdM">--</b><span>Min</span></div><div class="cd-box"><b id="cdS">--</b><span>Sec</span></div></div>' : '') +
+      '</div><a class="link-arrow" style="color:#fff;border-color:rgba(255,255,255,.3)" href="#/offers">All offers ' + ic('arrow') + '</a></div>' +
+      '<div class="p-grid">' + items.slice(0, 4).map(productCard).join('') + '</div></div></section>';
+  }
+
+  function aboutHTML() {
+    var p = (D.pages || []).filter(function (x) { return x.id === 'about'; })[0];
+    return '<section class="about sec" id="about"><div class="wrap about-grid">' +
+      '<div class="about-art">' + heroArt() + '</div>' +
+      '<div><p class="eyebrow">About ' + esc(S.brand || 'Inari Life') + '</p>' +
+      '<h2>' + esc((p && p.title) || 'About us') + '</h2>' +
+      '<div class="prose" style="margin-top:14px">' + (p && p.body ? p.body : '<p>Add your story in the admin panel.</p>') + '</div>' +
+      '<ul class="ticks">' +
+        '<li>' + ic('check') + '<span><b>Short ingredient lists.</b> Nothing bleached, refined or artificially flavoured.</span></li>' +
+        '<li>' + ic('check') + '<span><b>Traceable sourcing.</b> Single-origin grain from named farms.</span></li>' +
+        '<li>' + ic('check') + '<span><b>Honest pricing.</b> One printed price, MRP shown, no fake urgency.</span></li>' +
+      '</ul><div class="about-stats">' +
+        '<div><b>' + enabledProducts().length + '</b><span>Products in range</span></div>' +
+        '<div><b>' + (((D.delivery || {}).pincodes) || []).length + '</b><span>Delivery zones</span></div>' +
+        '<div><b>24–48h</b><span>Dispatch window</span></div></div>' +
+      '<a class="btn btn-out btn-sm" style="margin-top:22px" href="#/page/about">Read the full story ' + ic('arrow') + '</a></div></div></section>';
+  }
+
+  function pinHTML() {
+    var dv = D.delivery || {}, zones = dv.pincodes || [];
+    return '<section class="pinsec sec-tight" id="delivery"><div class="wrap"><div class="pinbox"><div>' +
+      '<p class="eyebrow dark">Delivery check</p><h2 style="font-size:clamp(1.4rem,2.3vw,1.85rem)">Do we deliver to your PIN code?</h2>' +
+      '<p class="lede" style="margin-top:8px;font-size:.9rem">Enter your 6-digit PIN code to see the estimated delivery window and whether cash on delivery is available.</p>' +
+      '<div class="pinform"><input id="pinInput" type="tel" inputmode="numeric" maxlength="6" placeholder="e.g. 560038" aria-label="PIN code">' +
+      '<button class="btn btn-p" id="pinGo">Check</button></div><div class="pinresult" id="pinResult" aria-live="polite"></div>' +
+      '<div class="pin-chips">' + zones.slice(0, 6).map(function (z) {
+        return '<button class="chip" data-pin="' + esc(z.pin) + '">' + esc(String(z.area).split(' (')[0]) + '</button>';
+      }).join('') + '</div></div><div class="pin-side"><ul>' +
+        '<li>' + ic('truck') + '<div><b>' + esc(dv.dispatch || 'Dispatched in 24–48 hours') + '</b>Orders placed before 2 PM ship the same working day.</div></li>' +
+        '<li>' + ic('wallet') + '<div><b>Free shipping above ' + money(S.freeShipAbove || 499) + '</b>Flat ' + money(S.shipCharge || 49) + ' below that. COD up to ' + money(S.codLimit || 5000) + '.</div></li>' +
+        '<li>' + ic('refresh') + '<div><b>' + (S.returnDays || 7) + '-day replacement</b>On damaged or wrong items, reported within 48 hours.</div></li>' +
+      '</ul></div></div></div></section>';
+  }
+
+  function videoHTML() {
+    var vs = (D.videos || []).filter(function (v) { return v.enabled !== false; });
+    if (!vs.length) return '';
+    return '<section class="sec" id="videos"><div class="wrap">' +
+      '<div class="sec-head"><div><p class="eyebrow">In the kitchen</p><h2>How our customers actually cook</h2>' +
+      '<p class="lede">Short recipe videos. Click any card to play — nothing loads until you do.</p></div>' +
+      '<a class="link-arrow" href="https://www.youtube.com/" target="_blank" rel="noopener">More on YouTube ' + ic('external') + '</a></div>' +
+      '<div class="vid-grid">' + vs.slice(0, 3).map(function (v) {
+        return '<div class="vid" data-yt="' + esc(v.youtubeId) + '"><div class="vid-thumb" role="button" tabindex="0" aria-label="Play ' + esc(v.title) + '">' +
+          '<img src="https://i.ytimg.com/vi/' + esc(v.youtubeId) + '/hqdefault.jpg" alt="" loading="lazy">' +
+          '<div class="vid-play"><span>' + ic('play') + '</span></div><div class="vid-cap">' + esc(v.title) + '</div></div></div>';
+      }).join('') + '</div></div></section>';
+  }
+
+  function testiHTML() {
+    var ts = (D.testimonials || []).filter(function (t) { return t.enabled !== false; });
+    if (!ts.length) return '';
+    return '<section class="testi sec" id="reviews"><div class="wrap">' +
+      '<div class="sec-head"><div><p class="eyebrow dark">Customer notes</p><h2>What people say</h2>' +
+      '<p class="lede">Sample quotes below — replace them with real, permission-cleared reviews before launch.</p></div></div>' +
+      '<div class="t-grid">' + ts.slice(0, 3).map(function (t) {
+        return '<div class="tcard"><div class="s">' + stars(t.stars) + '</div><p>&ldquo;' + esc(t.text) + '&rdquo;</p>' +
+          '<div class="who"><span class="avatar">' + esc(String(t.name || 'A').charAt(0).toUpperCase()) + '</span>' +
+          '<div><b>' + esc(t.name) + '</b><span>' + esc(t.city || '') + '</span></div></div></div>';
+      }).join('') + '</div></div></section>';
+  }
+
+  function newsHTML() {
+    return '<section class="news sec"><div class="wrap"><p class="eyebrow" style="color:var(--gold-soft)">Stay in the loop</p>' +
+      '<h2>Restock alerts and kitchen notes</h2>' +
+      '<p>One short email a month. New harvests, recipe ideas, and first access to limited batches. No spam, unsubscribe anytime.</p>' +
+      '<form class="news-form" id="newsForm"><input type="email" required placeholder="you@example.com" aria-label="Email address">' +
+      '<button class="btn btn-gold" type="submit">Subscribe</button></form>' +
+      '<small>By subscribing you agree to our <a href="#/page/privacy" style="color:rgba(255,255,255,.7);text-decoration:underline">privacy policy</a>. Demo form — it does not send data anywhere.</small>' +
+      '</div></section>';
+  }
+
+  /* ---------------- pages ---------------- */
+  function pageHero(crumb, title, sub) {
+    return '<div class="page-hero"><div class="wrap"><div class="crumbs"><a href="#/">Home</a><span>/</span><span>' + esc(crumb) + '</span></div>' +
+      '<h1 style="font-size:clamp(1.8rem,3.6vw,2.7rem)">' + esc(title) + '</h1>' +
+      (sub ? '<p class="lede" style="margin-top:10px">' + esc(sub) + '</p>' : '') + '</div></div>';
+  }
+
+  function gridHTML() {
+    var items = enabledProducts().slice();
+    if (listState.cat) items = items.filter(function (p) { return p.category === listState.cat; });
+    if (listState.q) {
+      var q = listState.q.toLowerCase();
+      items = items.filter(function (p) { return (p.name + ' ' + (p.short || '') + ' ' + (p.sku || '')).toLowerCase().indexOf(q) > -1; });
+    }
+    if (listState.sort === 'low') items.sort(function (a, b) { return a.price - b.price; });
+    if (listState.sort === 'high') items.sort(function (a, b) { return b.price - a.price; });
+    if (listState.sort === 'new') items.sort(function (a, b) { return (b.rating || 0) - (a.rating || 0); });
+    if (!items.length) return '<div class="empty">' + ic('search') + '<h3 style="font-family:var(--ff-b);font-size:1rem">No products match</h3><p style="font-size:.85rem">Try another category or clear the search.</p></div>';
+    return '<div class="p-grid">' + items.map(productCard).join('') + '</div>';
+  }
+
+  function renderProducts() {
+    var cats = (D.categories || []).filter(function (c) { return c.enabled !== false; });
+    return pageHero('Shop all', 'The full range', 'Millets, cold-pressed oils, herbal wellness, skin care, snacks and gift hampers.') +
+      '<section class="sec"><div class="wrap"><div class="filters">' +
+      '<button class="fchip' + (!listState.cat ? ' on' : '') + '" data-fcat="">All</button>' +
+      cats.map(function (c) { return '<button class="fchip' + (listState.cat === c.id ? ' on' : '') + '" data-fcat="' + esc(c.id) + '">' + esc(c.name) + '</button>'; }).join('') +
+      '<div class="sortwrap">' + ic('filter') + '<select id="sortSel" aria-label="Sort products">' +
+        '<option value="featured">Featured</option><option value="low">Price: low to high</option>' +
+        '<option value="high">Price: high to low</option><option value="new">Best rated</option></select></div></div>' +
+      '<div id="gridWrap">' + gridHTML() + '</div></div></section>';
+  }
+
+  function renderCategory(id) {
+    var c = (D.categories || []).filter(function (x) { return x.id === id; })[0];
+    if (!c) return pageHero('Not found', 'Category not found', '') + '<section class="sec"><div class="wrap"><a class="btn btn-p" href="#/products">Browse all products</a></div></section>';
+    var items = enabledProducts().filter(function (p) { return p.category === id; });
+    return pageHero(c.name, c.name, c.blurb || items.length + ' products') +
+      '<section class="sec"><div class="wrap">' +
+      (items.length ? '<div class="p-grid">' + items.map(productCard).join('') + '</div>'
+        : '<div class="empty">' + ic('bag') + '<h3 style="font-family:var(--ff-b)">Nothing here yet</h3><p style="font-size:.85rem">Add products to this category from the admin panel.</p></div>') +
+      '<div style="margin-top:40px;text-align:center"><a class="btn btn-out" href="#/products">Browse all products ' + ic('arrow') + '</a></div></div></section>';
+  }
+
+  function renderOffers() {
+    var os = (D.offers || []).filter(function (o) { return o.enabled !== false; });
+    return pageHero('Offers', 'Offers & coupons', 'Live offers from the admin panel. Expired offers are shown greyed out.') +
+      '<section class="sec"><div class="wrap"><div class="offers-grid">' +
+      (os.length ? os.map(function (o) {
+        var expired = o.expiry && new Date(o.expiry + 'T23:59:59') < new Date();
+        return '<div class="offer"' + (expired ? ' style="opacity:.55"' : '') + '>' +
+          '<div class="tag"><span>' + esc(o.kind || 'Offer') + '</span><b>' + esc(o.code) + '</b></div>' +
+          '<div><h3>' + esc(o.title) + '</h3><p>' + esc(o.detail) + '</p><small>' +
+          (expired ? 'Expired' : (o.expiry ? 'Valid till ' + new Date(o.expiry + 'T00:00:00').toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : 'No expiry')) +
+          '</small></div></div>';
+      }).join('') : '<div class="empty">' + ic('spark') + '<h3 style="font-family:var(--ff-b)">No live offers</h3><p style="font-size:.85rem">Add offers from the admin panel.</p></div>') +
+      '</div><div class="f-note" style="margin-top:32px;background:var(--sand);border-color:var(--line);color:var(--ink-2)">' + ic('info') +
+      '<span>Coupons are listed for reference. Because checkout happens on Amazon, the discount must also exist as an Amazon coupon or price. Do not advertise a discount this site cannot honour.</span></div>' +
+      '</div></section>';
+  }
+
+  function renderPage(id) {
+    var p = (D.pages || []).filter(function (x) { return x.id === id; })[0];
+    if (!p) return pageHero('Not found', 'Page not found', '') + '<section class="sec"><div class="wrap"><a class="btn btn-p" href="#/">Back to home</a></div></section>';
+    return pageHero(p.title, p.title, '') + '<section class="sec"><div class="wrap"><div class="prose">' + p.body + '</div>' +
+      '<div style="margin-top:36px;padding-top:24px;border-top:1px solid var(--line)"><a class="btn btn-p" href="#/products">Shop the range ' + ic('arrow') + '</a></div></div></section>';
+  }
+
+  function renderContact() {
+    return pageHero('Contact', 'Talk to us', 'We are a small team — messages are usually answered the same working day.') +
+      '<section class="sec"><div class="wrap"><div class="contact-grid">' +
+      '<div class="ccard"><div class="ic">' + ic('mail') + '</div><h3>Email</h3><a href="mailto:' + esc(S.email) + '">' + esc(S.email) + '</a></div>' +
+      '<div class="ccard"><div class="ic">' + ic('phone') + '</div><h3>Phone / WhatsApp</h3><a href="tel:' + esc(String(S.phone || '').replace(/\s/g, '')) + '">' + esc(S.phone) + '</a></div>' +
+      '<div class="ccard"><div class="ic">' + ic('clock') + '</div><h3>Hours</h3><p>' + esc(S.hours) + '</p></div></div>' +
+      '<div style="margin-top:18px;display:grid;gap:18px"><div class="ccard"><div class="ic">' + ic('pin') + '</div><h3>Registered address</h3><p>' + esc(S.address) + '</p></div>' +
+      '<div class="ccard"><div class="ic">' + ic('info') + '</div><h3>Ordering &amp; support</h3><p>' + esc(S.amazonDisclaimer) +
+      ' For questions about an Amazon order, use the order page on Amazon. For bulk, corporate or gifting enquiries, write to us with quantity, city and required date.</p></div></div>' +
+      '</div></section>';
+  }
+
+  function renderProduct(id) {
+    var p = byId(id);
+    if (!p) return pageHero('Product', 'Product not found', '') + '<section class="sec"><div class="wrap"><a class="btn btn-p" href="#/products">Back to shop</a></div></section>';
+    var off = offPct(p.mrp, p.price), stock = Number(p.stock) || 0;
+    var media = p.image ? '<img src="' + esc(p.image) + '" alt="' + esc(p.name) + '" style="width:100%;height:100%;object-fit:cover">' : packSVG(p);
+    return pageHero(catName(p.category), p.name, '') +
+      '<section class="sec"><div class="wrap"><div class="pd">' +
+      '<div class="pd-media">' + media + '</div><div>' +
+        '<p class="eyebrow">' + esc(catName(p.category)) + '</p>' +
+        '<h1 style="font-size:clamp(1.5rem,2.7vw,2.1rem)">' + esc(p.name) + '</h1>' +
+        '<p class="lede" style="margin:12px 0 18px">' + esc(p.short) + '</p>' +
+        '<div class="price-row"><span class="price" style="font-size:1.6rem">' + money(p.price) + '</span>' +
+        (Number(p.mrp) > Number(p.price) ? '<span class="mrp">' + money(p.mrp) + '</span><span class="off">' + off + '% off</span>' : '') + '</div>' +
+        '<p style="font-size:.76rem;color:var(--ink-3);margin-top:2px">' + esc(p.unit) + ' &middot; ' + esc(S.gst || '') + '</p>' +
+        '<div class="stock-note ' + (stock === 0 ? 'no-stock' : stock <= 6 ? 'low-stock' : 'in-stock') + '" style="margin-top:12px"><span class="dot-live"></span>' +
+          (stock === 0 ? 'Currently out of stock' : stock <= 6 ? 'Only ' + stock + ' left in this batch' : 'In stock, ships within 48 hours') + '</div>' +
+        (p.rating ? '<div class="stars" style="margin-top:8px"><span class="s">' + stars(p.rating) + '</span> ' + Number(p.rating).toFixed(1) + (p.reviews ? ' from ' + p.reviews + ' ratings' : '') + '</div>' : '') +
+        '<div class="modal-btns" style="margin-top:20px">' +
+          (hasAmazon(p) ? '<a class="btn btn-amz" href="' + esc(p.amazon) + '" target="_blank" rel="noopener noreferrer">Buy Now on Amazon ' + ic('external') + '</a>'
+                        : '<a class="btn btn-p" href="#/contact">Ask about availability ' + ic('arrow') + '</a>') +
+          '<a class="btn btn-out" href="#/contact">Ask a question</a></div>' +
+        '<p class="modal-note" style="margin-top:14px">' + esc(S.amazonDisclaimer) + '</p>' +
+        '<ul class="modal-feats">' + (p.features || []).map(function (f) { return '<li>' + ic('check') + '<span>' + esc(f) + '</span></li>'; }).join('') + '</ul>' +
+        '<div style="border-top:1px solid var(--line);padding-top:16px;font-size:.78rem;color:var(--ink-3);display:grid;gap:6px">' +
+          '<span>SKU: ' + esc(p.sku || '—') + '</span><span>Delivery: ' + esc((D.delivery || {}).dispatch || '') + '</span>' +
+          '<span>Returns: ' + (S.returnDays || 7) + ' days on damaged or wrong items</span></div>' +
+      '</div></div></div></section>' + moreLike(p);
+  }
+
+  function moreLike(p) {
+    var items = enabledProducts().filter(function (x) { return x.category === p.category && x.id !== p.id; }).slice(0, 4);
+    if (!items.length) items = enabledProducts().filter(function (x) { return x.id !== p.id; }).slice(0, 4);
+    if (!items.length) return '';
+    return '<section class="sec-tight" style="border-top:1px solid var(--line);background:var(--sand)"><div class="wrap">' +
+      '<div class="sec-head" style="margin-bottom:24px"><h2 style="font-size:1.4rem">You may also like</h2></div>' +
+      '<div class="p-grid">' + items.map(productCard).join('') + '</div></div></section>';
+  }
+
+  /* ---------------- router ---------------- */
+  function route() {
+    var h = (location.hash || '#/').replace(/^#/, '');
+    var parts = h.split('/').filter(Boolean);
+    var main = document.getElementById('app');
+    if (!parts.length) { main.innerHTML = renderHome(); afterHome(); setActive('home'); }
+    else if (parts[0] === 'products') { main.innerHTML = renderProducts(); afterList(); setActive('products'); }
+    else if (parts[0] === 'category' && parts[1]) { listState.cat = parts[1]; main.innerHTML = renderCategory(parts[1]); setActive('cat-' + parts[1]); }
+    else if (parts[0] === 'product' && parts[1]) { main.innerHTML = renderProduct(parts[1]); setActive('products'); }
+    else if (parts[0] === 'offers') { main.innerHTML = renderOffers(); setActive('offers'); }
+    else if (parts[0] === 'contact') { main.innerHTML = renderContact(); setActive('contact'); }
+    else if (parts[0] === 'page' && parts[1]) { main.innerHTML = renderPage(parts[1]); setActive('page-' + parts[1]); }
+    else { main.innerHTML = pageHero('404', 'Page not found', 'That link does not exist. Try the shop.') + '<section class="sec"><div class="wrap"><a class="btn btn-p" href="#/">Go home</a></div></section>'; }
+    window.scrollTo(0, 0);
+  }
+  function renderHome() {
+    return heroHTML() + promosHTML() + catsHTML() + dealsHTML() + aboutHTML() + pinHTML() + videoHTML() + testiHTML() + newsHTML();
+  }
+  function setActive(k) {
+    var links = document.querySelectorAll('nav.main a');
+    for (var i = 0; i < links.length; i++) links[i].classList.toggle('on', links[i].getAttribute('data-r') === k);
+  }
+
+  /* ---------------- interactions ---------------- */
+  function afterHome() { carousel(); countdown(); pinCheck(); videoLazy(); }
+
+  function afterList() {
+    var chips = document.querySelectorAll('[data-fcat]');
+    for (var i = 0; i < chips.length; i++) {
+      (function (b) {
+        b.onclick = function () {
+          listState.cat = b.getAttribute('data-fcat');
+          document.getElementById('gridWrap').innerHTML = gridHTML();
+          for (var k = 0; k < chips.length; k++) chips[k].classList.toggle('on', chips[k] === b);
+        };
+      })(chips[i]);
+    }
+    var sel = document.getElementById('sortSel');
+    if (sel) sel.onchange = function () { listState.sort = sel.value; document.getElementById('gridWrap').innerHTML = gridHTML(); };
+  }
+
+  function carousel() {
+    var hero = document.getElementById('hero');
+    if (!hero) return;
+    var slides = hero.querySelectorAll('.slide'), dots = hero.querySelectorAll('.dot');
+    if (slides.length < 2) return;
+    var themes = (D.banners || []).filter(function (b) { return b.enabled !== false; }).map(function (b) { return b.theme || 'forest'; });
+    var i = 0, timer = null;
+    function go(n) {
+      i = (n + slides.length) % slides.length;
+      for (var k = 0; k < slides.length; k++) slides[k].classList.toggle('on', k === i);
+      for (var d = 0; d < dots.length; d++) dots[d].classList.toggle('on', d === i);
+      hero.setAttribute('data-theme', themes[i] || 'forest');
+    }
+    function start() { stop(); timer = setInterval(function () { go(i + 1); }, 6500); }
+    function stop() { if (timer) clearInterval(timer); }
+    var pv = document.getElementById('hPrev'), nx = document.getElementById('hNext');
+    if (pv) pv.onclick = function () { go(i - 1); start(); };
+    if (nx) nx.onclick = function () { go(i + 1); start(); };
+    for (var d2 = 0; d2 < dots.length; d2++) (function (dd, k) { dd.onclick = function () { go(k); start(); }; })(dots[d2], d2);
+    hero.addEventListener('mouseenter', stop); hero.addEventListener('mouseleave', start);
+    start();
+  }
+
+  function countdown() {
+    var el = document.getElementById('cd');
+    if (!el) return;
+    var end = new Date(el.getAttribute('data-ends')).getTime();
+    if (!end) return;
+    function pad(n) { return (n < 10 ? '0' : '') + n; }
+    function tick() {
+      var d = Math.max(0, end - Date.now());
+      var set = function (id, v) { var e = document.getElementById(id); if (e) e.textContent = v; };
+      set('cdD', Math.floor(d / 864e5)); set('cdH', pad(Math.floor(d % 864e5 / 36e5)));
+      set('cdM', pad(Math.floor(d % 36e5 / 6e4))); set('cdS', pad(Math.floor(d % 6e4 / 1e3)));
+    }
+    tick(); setInterval(tick, 1000);
+  }
+
+  function pinCheck() {
+    var input = document.getElementById('pinInput'), out = document.getElementById('pinResult'), go = document.getElementById('pinGo');
+    if (!input || !out) return;
+    var zones = (D.delivery || {}).pincodes || [];
+    function check(pin) {
+      pin = String(pin || '').replace(/\D/g, '');
+      if (pin.length !== 6) { out.innerHTML = '<span class="bad">Please enter a valid 6-digit PIN code.</span>'; return; }
+      var hit = null;
+      for (var i = 0; i < zones.length; i++) {
+        var z = String(zones[i].pin);
+        if (z.length <= 6 && pin.indexOf(z) === 0) { hit = zones[i]; break; }
+      }
+      if (hit) {
+        out.innerHTML = '<span class="ok">&#10003; Delivers to ' + esc(hit.area) + '</span><br>' +
+          '<span style="color:var(--ink-2);font-size:.82rem">Estimated delivery in ' + esc(hit.days) + ' days &middot; ' +
+          (hit.cod ? 'Cash on delivery available' : 'Prepaid only') + ' &middot; ' +
+          (Number(hit.charge) === 0 ? 'Free shipping' : money(hit.charge) + ' shipping') + (hit.note ? ' &middot; ' + esc(hit.note) : '') + '</span>';
+      } else {
+        out.innerHTML = '<span class="bad">' + esc((D.delivery || {}).notServiceable || 'We do not deliver to this PIN code yet.') + '</span><br>' +
+          '<span style="color:var(--ink-2);font-size:.82rem">Write to ' + esc(S.email) + ' and we will tell you when your area opens up.</span>';
+      }
+    }
+    go.onclick = function () { check(input.value); };
+    input.onkeydown = function (e) { if (e.key === 'Enter') { e.preventDefault(); check(input.value); } };
+    var chips = document.querySelectorAll('[data-pin]');
+    for (var i = 0; i < chips.length; i++) (function (c) {
+      c.onclick = function () { input.value = c.getAttribute('data-pin'); check(input.value); };
+    })(chips[i]);
+  }
+
+  function videoLazy() {
+    var boxes = document.querySelectorAll('.vid');
+    for (var i = 0; i < boxes.length; i++) (function (box) {
+      var thumb = box.querySelector('.vid-thumb');
+      if (!thumb) return;
+      function play() {
+        var id = box.getAttribute('data-yt');
+        box.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0" title="Recipe video" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy"></iframe>';
+      }
+      thumb.onclick = play;
+      thumb.onkeydown = function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); play(); } };
+    })(boxes[i]);
+  }
+
+  /* ---------------- shell events ---------------- */
+  function closeMnav() {
+    var m = document.getElementById('mnav');
+    if (m) m.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function bindShell() {
+    var sb = document.getElementById('searchbar'), si = document.getElementById('searchInput'), sbtn = document.getElementById('searchBtn');
+    if (sbtn) sbtn.onclick = function () {
+      var open = sb.classList.toggle('open');
+      sbtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (open && si) setTimeout(function () { si.focus(); }, 120);
+    };
+    function doSearch() {
+      var q = (si.value || '').trim();
+      if (!q) return;
+      listState.q = q; listState.cat = '';
+      location.hash = '#/products';
+      setTimeout(function () {
+        var wrap = document.getElementById('gridWrap');
+        if (wrap) { wrap.innerHTML = gridHTML(); afterList(); }
+        var h = document.querySelector('#app h1');
+        if (h) h.textContent = 'Results for \u201C' + q + '\u201D';
+      }, 60);
+    }
+    var go = document.getElementById('searchGo'); if (go) go.onclick = doSearch;
+    if (si) si.onkeydown = function (e) { if (e.key === 'Enter') { e.preventDefault(); doSearch(); } };
+
+    var burger = document.getElementById('burger'), mnav = document.getElementById('mnav');
+    if (burger) burger.onclick = function () { mnav.classList.add('open'); document.body.style.overflow = 'hidden'; };
+    if (mnav) mnav.onclick = function (e) { if (e.target === mnav) closeMnav(); };
+    var mx = document.getElementById('mnavX'); if (mx) mx.onclick = closeMnav;
+
+    var ax = document.getElementById('annX');
+    if (ax) ax.onclick = function () { document.getElementById('annBar').innerHTML = ''; };
+
+    var nf = document.getElementById('newsForm');
+    if (nf) nf.onsubmit = function (e) {
+      e.preventDefault();
+      toast('Thanks! In production, connect this form to Mailchimp or a Google Sheet.');
+      nf.reset();
+    };
+    window.addEventListener('hashchange', function () { closeMnav(); route(); });
+  }
+
+  function toast(msg) {
+    var t = document.getElementById('toast');
+    t.textContent = msg; t.classList.add('on');
+    clearTimeout(t._t); t._t = setTimeout(function () { t.classList.remove('on'); }, 3600);
+  }
+
+  function popup() {
+    var P = (D.promotions && D.promotions.popup) || {};
+    if (!P.enabled) return;
+    try { if (sessionStorage.getItem('inari_pop')) return; } catch (e) {}
+    var wrap = document.getElementById('ppop');
+    wrap.innerHTML = '<div class="ppop-box"><button class="modal-x" id="ppX" aria-label="Close">' + ic('x') + '</button>' +
+      '<p class="eyebrow">' + esc(S.brand || 'Inari Life') + '</p><h3>' + esc(P.title) + '</h3><p>' + esc(P.body) + '</p>' +
+      '<div class="ppop-code">' + esc(P.code) + '</div>' +
+      '<button class="btn btn-p btn-block" id="ppCta">' + esc(P.button || 'Claim code') + '</button>' +
+      '<p style="font-size:.7rem;color:var(--ink-3);margin:12px 0 0">No thanks, <button id="ppNo" style="text-decoration:underline">continue browsing</button></p></div>';
+    setTimeout(function () { wrap.classList.add('open'); }, Math.max(1, Number(P.delay) || 6) * 1000);
+    function close() { wrap.classList.remove('open'); try { sessionStorage.setItem('inari_pop', '1'); } catch (e) {} }
+    document.getElementById('ppX').onclick = close;
+    document.getElementById('ppNo').onclick = close;
+    document.getElementById('ppCta').onclick = function () {
+      close(); toast('Code ' + P.code + ' copied');
+      try { navigator.clipboard.writeText(P.code); } catch (e) {}
+    };
+    wrap.onclick = function (e) { if (e.target === wrap) close(); };
+  }
+
+  function boot() {
+    renderShell();
+    route();
+    bindShell();
+    popup();
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { loadData(boot); });
+  else loadData(boot);
+})();
+
+</script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79","spa":2}' crossorigin="anonymous"></script>
+</body>
+</html>
