@@ -9,7 +9,6 @@
 :root{--forest:#1C2A43;--forest-2:#283A59;--sand:#F4F6F8;--cream:#FFFFFF;--ink:#1B1A17;--ink2:#4A473F;--ink3:#7C786D;--line:rgba(28,42,67,.14);--ok:#2F7D4F;--warn:#D37A33;--bad:#A32B2B;--gold:#D37A33}
 *{box-sizing:border-box}
 body{margin:0;font-family:Inter,sans-serif;background:#F2EEE4;color:var(--ink);font-size:14.5px;}
-/* Layout & basic styles reused from before... */
 .gate{position:fixed;inset:0;background:var(--forest);display:grid;place-items:center;z-index:500;padding:20px;}
 .gate-box{background:var(--cream);border-radius:16px;padding:34px 30px;max-width:400px;width:100%;}
 input,select,textarea{width:100%;padding:9px;margin-bottom:12px;border:1px solid var(--line);border-radius:8px;}
@@ -19,10 +18,10 @@ input,select,textarea{width:100%;padding:9px;margin-bottom:12px;border:1px solid
 .btn-g{background:var(--gold);color:#fff;}
 .shell{display:grid;grid-template-columns:236px 1fr;min-height:100vh;}
 .side{background:var(--forest);color:#fff;padding:20px 14px;}
-.nav button{display:block;width:100%;text-align:left;padding:10px;background:none;border:none;color:#fff;cursor:pointer;}
+.nav button{display:block;width:100%;text-align:left;padding:10px;background:none;border:none;color:#fff;cursor:pointer;margin-bottom:4px;border-radius:6px;}
 .nav button:hover{background:rgba(255,255,255,.1);}
 .main{padding:0;}
-.topbar{padding:16px 26px;background:#fff;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;}
+.topbar{padding:16px 26px;background:#fff;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;}
 .body{padding:24px 26px;}
 .card{background:#fff;border:1px solid var(--line);border-radius:12px;margin-bottom:18px;padding:18px;}
 table{width:100%;border-collapse:collapse;}
@@ -64,7 +63,8 @@ th,td{padding:10px;text-align:left;border-bottom:1px solid var(--line);}
   <div class="main">
     <div class="topbar">
       <h2 id="viewTitle" style="margin:0">Dashboard</h2>
-      <div>
+      <div style="display:flex;gap:10px;">
+        <button class="btn btn-o" id="btnImport">Import Initial data.json</button>
         <button class="btn btn-g" id="btnPublish">Publish Changes to Live</button>
       </div>
     </div>
@@ -86,23 +86,23 @@ th,td{padding:10px;text-align:left;border-bottom:1px solid var(--line);}
   </div>
 </div>
 
+<input type="file" id="fileIn" accept=".json" style="display:none">
+
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
   import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-  import { getDatabase, ref, onValue, set, get } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+  import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
   import { getStorage, ref as sRef, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
 
-  
-const firebaseConfig = {
-  apiKey: "AIzaSyDWeKTJeS3jncsALs6Ub6PRJw54W3mBPws",
-  authDomain: "inari-life.firebaseapp.com",
-  databaseURL: "https://inari-life-default-rtdb.firebaseio.com",
-  projectId: "inari-life",
-  storageBucket: "inari-life.firebasestorage.app",
-  messagingSenderId: "862496820163",
-  appId: "1:862496820163:web:470581a2eff13802efcb76"
-};
-
+  const firebaseConfig = {
+    apiKey: "AIzaSyDWeKTJeS3jncsALs6Ub6PRJw54W3mBPws",
+    authDomain: "inari-life.firebaseapp.com",
+    databaseURL: "https://inari-life-default-rtdb.firebaseio.com",
+    projectId: "inari-life",
+    storageBucket: "inari-life.firebasestorage.app",
+    messagingSenderId: "862496820163",
+    appId: "1:862496820163:web:470581a2eff13802efcb76"
+  };
 
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
@@ -167,7 +167,7 @@ const firebaseConfig = {
         let disc = p.mrp > p.price ? Math.round(((p.mrp - p.price)/p.mrp)*100) + '% off' : '';
         html += `<tr>
           <td><img src="${p.image || 'https://via.placeholder.com/50'}" width="50" style="border-radius:4px"></td>
-          <td><b>${p.name}</b><br><small>${p.badge || ''}</small></td>
+          <td><b>${p.name || 'Unnamed'}</b><br><small>${p.badge || ''}</small></td>
           <td>${p.sku || ''}</td>
           <td>₹${p.price} <strike style="color:#aaa;font-size:12px">₹${p.mrp}</strike> <br><small style="color:green">${disc}</small></td>
           <td>${p.stock > 0 ? p.stock : '<span style="color:red">Out of stock</span>'}</td>
@@ -182,7 +182,6 @@ const firebaseConfig = {
         b.onclick = (e) => openProductEditor(e.target.getAttribute('data-i'));
       });
     } else if (currentView === 'banners') {
-      // Simplified Banner Management
        let html = `<div class="card"><button class="btn btn-o" id="addBannerBtn">+ Add Banner</button><br><br><table><thead><tr><th>Image</th><th>Headline</th><th>Actions</th></tr></thead><tbody>`;
       draftData.banners.forEach((b, i) => {
         html += `<tr>
@@ -236,7 +235,7 @@ const firebaseConfig = {
     
     document.getElementById('drBody').innerHTML = `
       <label>Product Name</label>
-      <input id="pName" value="${p.name}">
+      <input id="pName" value="${p.name || ''}">
       
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
           <div><label>Selling Price</label><input id="pPrice" type="number" value="${p.price}"></div>
@@ -268,11 +267,11 @@ const firebaseConfig = {
     
     document.getElementById('drBody').innerHTML = `
       <label>Headline</label>
-      <input id="bTitle" value="${b.title}">
+      <input id="bTitle" value="${b.title || ''}">
       <label>Sub-headline</label>
       <textarea id="bSub">${b.subtitle || ''}</textarea>
       
-      <label>Banner Image (Ensure 16:9 or similar ratio)</label>
+      <label>Banner Image</label>
       <img id="imgPreview" class="img-preview" src="${b.image || 'https://via.placeholder.com/150'}" style="display:${b.image ? 'block' : 'none'}">
       <input type="file" id="bFile">
       <input type="hidden" id="bImageUrl" value="${b.image || ''}">
@@ -282,7 +281,6 @@ const firebaseConfig = {
     document.getElementById('drawer').classList.add('open');
   }
 
-  // Upload Logic directly to Firebase Storage
   function handleUpload(e, urlInputId) {
     const file = e.target.files[0];
     if(!file) return;
@@ -302,7 +300,6 @@ const firebaseConfig = {
     });
   }
 
-  // Save to Draft
   document.getElementById('drSave').onclick = () => {
     if(editingType === 'product') {
        let newP = {
@@ -330,6 +327,27 @@ const firebaseConfig = {
        set(ref(db, 'draft/banners'), draftData.banners);
     }
     closeDrawer();
+  };
+
+  // Import JSON Logic
+  document.getElementById('btnImport').onclick = () => document.getElementById('fileIn').click();
+  document.getElementById('fileIn').onchange = (e) => {
+    const file = e.target.files[0];
+    if(!file) return;
+    const reader = new FileReader();
+    reader.onload = function(evt) {
+      try {
+        const j = JSON.parse(evt.target.result);
+        if(!j.products) throw new Error();
+        set(ref(db, 'draft'), j);
+        set(ref(db, 'live'), j);
+        alert("Data imported successfully! Your dashboard will now populate.");
+      } catch(err) {
+        alert("Invalid data.json file");
+      }
+    };
+    reader.readAsText(file);
+    e.target.value = "";
   };
 
   // Publish Logic
