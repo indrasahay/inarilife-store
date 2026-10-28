@@ -2809,13 +2809,17 @@ window.INARI_DATA={
     wrap.onclick = function (e) { if (e.target === wrap) close(); };
   }
 
-  function boot() {
+  function boot(liveData) {
+    // Force the storefront to use the live Firebase data instead of the offline template
+    if(liveData) { 
+        D = liveData; 
+        S = liveData.settings || {}; 
+    }
     renderShell();
     route();
     bindShell();
     popup();
   }
-
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { loadData(boot); });
   else loadData(boot);
 })();
