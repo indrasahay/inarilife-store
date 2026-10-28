@@ -65,7 +65,6 @@ th{font-weight:600;color:var(--ink2);}
       <div style="font-size:11px;color:#aaa;text-transform:uppercase;margin:20px 0 5px 10px;letter-spacing:1px">Marketing</div>
       <button data-v="promotions">Banners & Popups</button>
       <button data-v="offers">Offers & Coupons</button>
-      <button data-v="media">Videos & Testimonials</button>
       
       <div style="font-size:11px;color:#aaa;text-transform:uppercase;margin:20px 0 5px 10px;letter-spacing:1px">Configuration</div>
       <button data-v="delivery">PIN Codes & Delivery</button>
@@ -120,7 +119,7 @@ th{font-weight:600;color:var(--ink2);}
   const db = getDatabase(app);
   const storage = getStorage(app);
 
-  let draftData = { products: [], categories: [], banners: [], offers: [], videos: [], testimonials: [], delivery: {pincodes:[]}, settings: {}, promotions: {} };
+  let draftData = { products: [], categories: [], banners: [], offers: [], delivery: {pincodes:[]}, settings: {}, promotions: {} };
   let liveEnquiries = [];
   
   onAuthStateChanged(auth, (user) => {
@@ -145,7 +144,7 @@ th{font-weight:600;color:var(--ink2);}
     onValue(ref(db, 'draft'), (snapshot) => {
       const data = snapshot.val();
       if (data) {
-        draftData = Object.assign({ products: [], categories: [], banners: [], offers: [], videos: [], testimonials: [], delivery: {pincodes:[]}, settings: {}, promotions: {} }, data);
+        draftData = Object.assign({ products: [], categories: [], banners: [], offers: [], delivery: {pincodes:[]}, settings: {}, promotions: {} }, data);
       }
       renderView();
     });
@@ -191,7 +190,7 @@ th{font-weight:600;color:var(--ink2);}
       (draftData.products||[]).forEach((p, i) => {
         let img = p.images && p.images.length > 0 ? p.images[0] : (p.image || 'https://via.placeholder.com/50');
         html += `<tr><td><img src="${img}" width="50" style="border-radius:4px"></td>
-          <td><b>${p.name}</b></td><td>${p.sku}</td><td>₹${p.price}</td><td>${p.stock}</td>
+          <td><b>${p.name || 'Unnamed'}</b></td><td>${p.sku || ''}</td><td>₹${p.price || 0}</td><td>${p.stock || 0}</td>
           <td><button class="btn btn-sm btn-o edit-btn" data-type="product" data-i="${i}">Edit</button></td></tr>`;
       });
       html += `</tbody></table></div>`;
@@ -204,6 +203,41 @@ th{font-weight:600;color:var(--ink2);}
           <td><button class="btn btn-sm btn-o edit-btn" data-type="category" data-i="${i}">Edit</button></td></tr>`;
       });
       html += `</tbody></table></div>`;
+    }
+    else if(currentView === 'promotions') {
+      let pop = (draftData.promotions && draftData.promotions.popup) ? draftData.promotions.popup : {};
+      
+      html = `
+        <div class="card">
+          <h3>Banners</h3>
+          <button class="btn btn-o" id="addBannerBtn">+ Add Banner</button><br><br>
+          <table><thead><tr><th>Image</th><th>Headline</th><th>Actions</th></tr></thead><tbody>`;
+      (draftData.banners||[]).forEach((b, i) => {
+        html += `<tr>
+          <td><img src="${b.image || 'https://via.placeholder.com/100x50'}" width="100" style="border-radius:4px"></td>
+          <td>${b.title || 'Untitled'}</td>
+          <td><button class="btn btn-sm btn-o edit-btn" data-type="banner" data-i="${i}">Edit</button></td>
+        </tr>`;
+      });
+      html += `</tbody></table></div>
+        
+        <div class="card">
+          <h3>Promo Popup (Newsletter / Welcome Offer)</h3>
+          <label>Popup Status</label>
+          <select id="popEn">
+            <option value="1" ${pop.enabled ? 'selected' : ''}>Enabled</option>
+            <option value="0" ${!pop.enabled ? 'selected' : ''}>Disabled</option>
+          </select>
+          <label>Title</label>
+          <input id="popTitle" value="${pop.title || ''}">
+          <label>Body Text</label>
+          <textarea id="popBody" rows="3">${pop.body || ''}</textarea>
+          <label>Button Text</label>
+          <input id="popBtn" value="${pop.button || ''}">
+          <label>Coupon Code (Optional)</label>
+          <input id="popCode" value="${pop.code || ''}">
+          <button class="btn btn-p" id="savePop" style="margin-top:10px;">Save Popup Settings</button>
+        </div>`;
     }
     else if(currentView === 'offers') {
       html = `<div class="card"><button class="btn btn-o" id="addOffBtn">+ Add Offer/Coupon</button><br><br>
@@ -226,12 +260,29 @@ th{font-weight:600;color:var(--ink2);}
         <textarea id="setPins" rows="4">${(draftData.delivery.pincodes||[]).map(z=>z.pin).join(', ')}</textarea>
         <button class="btn btn-p" id="saveDel">Save Delivery Settings</button></div>`;
     }
+    else if(currentView === 'settings') {
+      html = `
+        <div class="card">
+          <h3>Store Settings & Footer</h3>
+          <label>Brand Name</label>
+          <input id="setBrand" value="${draftData.settings.brand || ''}">
+          <label>Email</label>
+          <input id="setEmail" value="${draftData.settings.email || ''}">
+          <label>Phone / WhatsApp</label>
+          <input id="setPhone" value="${draftData.settings.phone || ''}">
+          <label>Registered Address</label>
+          <textarea id="setAddr" rows="3">${draftData.settings.address || ''}</textarea>
+          <button class="btn btn-p" id="saveSettings" style="margin-top:10px;">Save Settings</button>
+        </div>
+      `;
+    }
     else if(currentView === 'backup') {
       html = `<div class="card"><h3>Backup & Operations</h3>
         <p>Download your complete database as a JSON file.</p>
         <button class="btn btn-o" id="btnBackup">Download Backup</button>
       </div>`;
     }
+    
     // Render and attach events
     v.innerHTML = html;
 
@@ -241,6 +292,7 @@ th{font-weight:600;color:var(--ink2);}
     
     if(document.getElementById('addProdBtn')) document.getElementById('addProdBtn').onclick = () => openEditor('product', null);
     if(document.getElementById('addCatBtn')) document.getElementById('addCatBtn').onclick = () => openEditor('category', null);
+    if(document.getElementById('addBannerBtn')) document.getElementById('addBannerBtn').onclick = () => openEditor('banner', null);
     if(document.getElementById('addOffBtn')) document.getElementById('addOffBtn').onclick = () => openEditor('offer', null);
     
     if(document.getElementById('saveDel')) document.getElementById('saveDel').onclick = () => {
@@ -250,6 +302,27 @@ th{font-weight:600;color:var(--ink2);}
       let pins = document.getElementById('setPins').value.split(',').map(s=>({pin: s.trim(), area:'India', days:3, cod:true})).filter(z=>z.pin);
       draftData.delivery.pincodes = pins;
       set(ref(db, 'draft'), draftData).then(()=>alert('Delivery saved!'));
+    };
+
+    if(document.getElementById('saveSettings')) document.getElementById('saveSettings').onclick = () => {
+      draftData.settings.brand = document.getElementById('setBrand').value;
+      draftData.settings.email = document.getElementById('setEmail').value;
+      draftData.settings.phone = document.getElementById('setPhone').value;
+      draftData.settings.address = document.getElementById('setAddr').value;
+      set(ref(db, 'draft'), draftData).then(()=>alert('Settings saved to draft!'));
+    };
+
+    if(document.getElementById('savePop')) document.getElementById('savePop').onclick = () => {
+      if(!draftData.promotions) draftData.promotions = {};
+      if(!draftData.promotions.popup) draftData.promotions.popup = {};
+      
+      draftData.promotions.popup.enabled = document.getElementById('popEn').value === '1';
+      draftData.promotions.popup.title = document.getElementById('popTitle').value;
+      draftData.promotions.popup.body = document.getElementById('popBody').value;
+      draftData.promotions.popup.button = document.getElementById('popBtn').value;
+      draftData.promotions.popup.code = document.getElementById('popCode').value;
+      
+      set(ref(db, 'draft'), draftData).then(()=>alert('Popup settings saved to draft!'));
     };
 
     if(document.getElementById('btnBackup')) document.getElementById('btnBackup').onclick = () => {
@@ -289,7 +362,7 @@ th{font-weight:600;color:var(--ink2);}
       editContext.tempImages = p.images ? [...p.images] : (p.image ? [p.image] : []);
       
       html = `
-        <label>Name</label><input id="pName" value="${p.name}">
+        <label>Name</label><input id="pName" value="${p.name || ''}">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
             <div><label>Price</label><input id="pPrice" type="number" value="${p.price}"></div>
             <div><label>MRP</label><input id="pMrp" type="number" value="${p.mrp}"></div>
@@ -320,21 +393,49 @@ th{font-weight:600;color:var(--ink2);}
     else if(type === 'category') {
       let c = i !== null ? draftData.categories[i] : {id:'', name:'', icon:'leaf', enabled:true};
       html = `
-        <label>ID (URL Slug)</label><input id="cId" value="${c.id}">
-        <label>Name</label><input id="cName" value="${c.name}">
-        <label>Icon Identifier</label><input id="cIcon" value="${c.icon}">
+        <label>ID (URL Slug)</label><input id="cId" value="${c.id || ''}">
+        <label>Name</label><input id="cName" value="${c.name || ''}">
+        <label>Icon Identifier</label><input id="cIcon" value="${c.icon || ''}">
         <label>Status</label>
         <select id="cEn"><option value="1" ${c.enabled?'selected':''}>Active</option><option value="0" ${!c.enabled?'selected':''}>Hidden</option></select>
       `;
       document.getElementById('drBody').innerHTML = html;
     }
+    else if(type === 'banner') {
+      let b = i !== null ? draftData.banners[i] : {title:'', subtitle:'', image:''};
+      editContext.tempImages = b.image ? [b.image] : [];
+      
+      html = `
+        <label>Headline</label><input id="bTitle" value="${b.title || ''}">
+        <label>Sub-headline</label><textarea id="bSub">${b.subtitle || ''}</textarea>
+        <label>Banner Image</label>
+        <div id="imgGrid" class="img-grid"></div>
+        <input type="file" id="pFiles" accept="image/*">
+        <span id="upStat"></span>
+      `;
+      document.getElementById('drBody').innerHTML = html;
+      renderImageGrid();
+      
+      document.getElementById('pFiles').onchange = async (e) => {
+          document.getElementById('upStat').innerText = 'Uploading...';
+          const file = e.target.files[0];
+          if(file) {
+              const sRefObj = sRef(storage, 'uploads/' + Date.now() + '_' + file.name);
+              await uploadBytesResumable(sRefObj, file);
+              const url = await getDownloadURL(sRefObj);
+              editContext.tempImages = [url];
+          }
+          document.getElementById('upStat').innerText = '';
+          renderImageGrid();
+      };
+    }
     else if(type === 'offer') {
       let o = i !== null ? draftData.offers[i] : {code:'', title:'', detail:'', expiry:''};
       html = `
-        <label>Coupon Code</label><input id="oCode" value="${o.code}">
-        <label>Title</label><input id="oTitle" value="${o.title}">
-        <label>Details</label><input id="oDet" value="${o.detail}">
-        <label>Expiry Date (YYYY-MM-DD)</label><input id="oExp" type="date" value="${o.expiry}">
+        <label>Coupon Code</label><input id="oCode" value="${o.code || ''}">
+        <label>Title</label><input id="oTitle" value="${o.title || ''}">
+        <label>Details</label><input id="oDet" value="${o.detail || ''}">
+        <label>Expiry Date (YYYY-MM-DD)</label><input id="oExp" type="date" value="${o.expiry || ''}">
       `;
       document.getElementById('drBody').innerHTML = html;
     }
@@ -365,8 +466,19 @@ th{font-weight:600;color:var(--ink2);}
            icon: document.getElementById('cIcon').value,
            enabled: document.getElementById('cEn').value === '1'
        };
+       if(!draftData.categories) draftData.categories = [];
        if(i !== null) draftData.categories[i] = {...draftData.categories[i], ...newC};
        else draftData.categories.push(newC);
+    }
+    else if(t === 'banner') {
+       let newB = {
+           title: document.getElementById('bTitle').value,
+           subtitle: document.getElementById('bSub').value,
+           image: editContext.tempImages.length > 0 ? editContext.tempImages[0] : ''
+       };
+       if(!draftData.banners) draftData.banners = [];
+       if(i !== null) draftData.banners[i] = {...draftData.banners[i], ...newB};
+       else draftData.banners.push(newB);
     }
     else if(t === 'offer') {
        let newO = {
