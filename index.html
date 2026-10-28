@@ -420,6 +420,52 @@ footer.site a:hover{color:#fff}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
+
+<!-- Firebase SDKs -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+  
+const firebaseConfig = {
+  apiKey: "AIzaSyDWeKTJeS3jncsALs6Ub6PRJw54W3mBPws",
+  authDomain: "inari-life.firebaseapp.com",
+  databaseURL: "https://inari-life-default-rtdb.firebaseio.com",
+  projectId: "inari-life",
+  storageBucket: "inari-life.firebasestorage.app",
+  messagingSenderId: "862496820163",
+  appId: "1:862496820163:web:470581a2eff13802efcb76"
+};
+
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  window.loadData = function(done) {
+    const liveRef = ref(db, 'live');
+    get(liveRef).then((snapshot) => {
+      if (snapshot.exists()) {
+        const j = snapshot.val();
+        
+        // Inventory Logic: Only show products with stock > 0
+        if(j.products) {
+            j.products = j.products.filter(p => Number(p.stock) > 0);
+        }
+        
+        window.INARI_DATA = j;
+        done(j);
+      } else {
+        console.log("No live data available");
+        // Fallback to local if empty
+        fetch('data.json').then(r=>r.json()).then(j => { window.INARI_DATA = j; done(j); });
+      }
+    }).catch((error) => {
+      console.error(error);
+      done();
+    });
+  };
+</script>
+
 </head>
 <body>
 <a href="#app" class="skip">Skip to content</a>
@@ -2166,18 +2212,14 @@ window.INARI_DATA={
   var listState = { cat: '', sort: 'featured', q: '' };
 
   function loadData(done) {
-    try {
-      if (/[?&]preview=1/.test(location.search)) {
-        var ls = localStorage.getItem('inari_preview');
-        if (ls) { var j = JSON.parse(ls); if (j && j.settings) { D = j; S = j.settings; } }
-      }
-    } catch (e) {}
-    if (location.protocol === 'file:') { done(); return; }
-    fetch('data.json', { cache: 'no-store' })
-      .then(function (r) { if (!r.ok) throw 0; return r.json(); })
-      .then(function (j) { if (j && j.settings) { D = j; S = j.settings; } })
-      .catch(function () { /* keep inlined fallback */ })
-      .then(done);
+    if(window.loadData) {
+        window.loadData(function(j) {
+           if (j && j.settings) { D = j; S = j.settings; }
+           done();
+        });
+    } else {
+        done();
+    }
   }
 
   /* ---------------- data helpers ---------------- */
@@ -2257,7 +2299,7 @@ window.INARI_DATA={
     return out;
   }
   function brandHTML() {
-    return '<a class="brand" href="#/" style="padding-top:4px"><img src="Inari_Life_Logo_High_res_3.png" alt="' + esc(S.brand || 'Inari Life') + '" style="height:44px; width:auto; object-fit:contain;"></a>';
+    return '<a class="brand" href="#/" style="padding-top:4px"><img src="assets/Inari_Life_Logo_High_res_3.png" alt="' + esc(S.brand || 'Inari Life') + '" style="height:44px; width:auto; object-fit:contain;"></a>';
   }
 
   function renderShell() {
