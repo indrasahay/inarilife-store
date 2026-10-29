@@ -3,81 +3,122 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Inari Life - Control Panel</title>
+<title>Inari Life - Control Panel (All Features)</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--forest:#1C2A43;--forest-2:#283A59;--sand:#F4F6F8;--cream:#FFFFFF;--ink:#1B1A17;--ink2:#4A473F;--ink3:#7C786D;--line:rgba(28,42,67,.14);--ok:#2F7D4F;--warn:#D37A33;--bad:#A32B2B;--gold:#D37A33}
+:root{--forest:#1C2A43;--forest-2:#283A59;--sand:#F4F6F8;--cream:#FFFFFF;--ink:#1B1A17;--ink2:#4A473F;--line:rgba(28,42,67,.14);--ok:#2F7D4F;--warn:#D37A33;--bad:#A32B2B;--gold:#D37A33}
 *{box-sizing:border-box}
-body{margin:0;font-family:Inter,sans-serif;background:#F2EEE4;color:var(--ink);font-size:14.5px;}
-/* Layout & basic styles reused from before... */
+body{margin:0;font-family:Inter,sans-serif;background:#F2EEE4;color:var(--ink);font-size:14px;}
 .gate{position:fixed;inset:0;background:var(--forest);display:grid;place-items:center;z-index:500;padding:20px;}
-.gate-box{background:var(--cream);border-radius:16px;padding:34px 30px;max-width:400px;width:100%;}
-input,select,textarea{width:100%;padding:9px;margin-bottom:12px;border:1px solid var(--line);border-radius:8px;}
-.btn{padding:9px 15px;border-radius:8px;font-weight:600;cursor:pointer;border:none;}
+.gate-box{background:var(--cream);border-radius:16px;padding:34px 30px;max-width:400px;width:100%;box-shadow:0 12px 36px rgba(0,0,0,.25);}
+input,select,textarea{width:100%;padding:9px;margin-bottom:12px;border:1px solid var(--line);border-radius:8px;font-family:inherit;}
+.btn{padding:9px 15px;border-radius:8px;font-weight:600;cursor:pointer;border:none;display:inline-flex;gap:8px;align-items:center;font-size:13.5px;}
 .btn-p{background:var(--forest);color:#fff;}
+.btn-p:hover{background:var(--forest-2);}
 .btn-o{border:1px solid var(--line);background:#fff;color:var(--ink2);}
+.btn-o:hover{border-color:var(--forest);color:var(--forest);}
 .btn-g{background:var(--gold);color:#fff;}
-.shell{display:grid;grid-template-columns:236px 1fr;min-height:100vh;}
-.side{background:var(--forest);color:#fff;padding:20px 14px;}
-.nav button{display:block;width:100%;text-align:left;padding:10px;background:none;border:none;color:#fff;cursor:pointer;}
-.nav button:hover{background:rgba(255,255,255,.1);}
-.main{padding:0;}
-.topbar{padding:16px 26px;background:#fff;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;}
-.body{padding:24px 26px;}
-.card{background:#fff;border:1px solid var(--line);border-radius:12px;margin-bottom:18px;padding:18px;}
-table{width:100%;border-collapse:collapse;}
-th,td{padding:10px;text-align:left;border-bottom:1px solid var(--line);}
-.drawer{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;}
+.btn-g:hover{background:#b86422;}
+.btn-del{background:#ffebee;color:var(--bad);border:1px solid #ffcdd2;}
+.btn-del:hover{background:#ffcdd2;}
+.shell{display:grid;grid-template-columns:250px 1fr;min-height:100vh;}
+.side{background:var(--forest);color:#fff;padding:20px 14px;display:flex;flex-direction:column;}
+.nav{flex:1;overflow-y:auto;padding-right:4px;}
+.nav-sec{font-size:11px;color:#8fa1bc;text-transform:uppercase;margin:18px 0 6px 10px;letter-spacing:1.2px;font-weight:600;}
+.nav button{display:block;width:100%;text-align:left;padding:9px 12px;background:none;border:none;color:#EDE4D4;cursor:pointer;margin-bottom:3px;border-radius:6px;font-size:13.5px;}
+.nav button:hover, .nav button.active{background:rgba(255,255,255,.14);color:#fff;font-weight:600;}
+.topbar{padding:16px 26px;background:#fff;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;}
+.body{padding:24px 26px;overflow-y:auto;height:calc(100vh - 72px);}
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;margin-bottom:18px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,.03);}
+table{width:100%;border-collapse:collapse;font-size:13.5px;}
+th,td{padding:12px 10px;text-align:left;border-bottom:1px solid var(--line);}
+th{font-weight:600;color:var(--ink2);background:#fafafa;}
+.drawer{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;z-index:400;}
 .drawer.open{display:block;}
-.drawer-in{position:absolute;right:0;top:0;bottom:0;width:500px;background:#fff;display:flex;flex-direction:column;}
-.drawer-b{padding:20px;overflow-y:auto;flex:1;}
-.drawer-f{padding:14px 20px;border-top:1px solid var(--line);display:flex;gap:10px;justify-content:flex-end;}
-.img-preview{width:100px;height:100px;object-fit:cover;border-radius:8px;margin-bottom:10px;}
+.drawer-in{position:absolute;right:0;top:0;bottom:0;width:580px;background:#fff;display:flex;flex-direction:column;box-shadow:-4px 0 24px rgba(0,0,0,.15);}
+.drawer-b{padding:22px;overflow-y:auto;flex:1;}
+.drawer-f{padding:14px 22px;border-top:1px solid var(--line);display:flex;gap:10px;justify-content:flex-end;background:#fbfbfb;}
+.img-grid{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0;}
+.img-wrap{position:relative;width:86px;height:86px;border-radius:8px;border:1px solid var(--line);overflow:hidden;background:#fafafa;display:flex;align-items:center;justify-content:center;}
+.img-wrap img{width:100%;height:100%;object-fit:cover;}
+.img-wrap .seq-badge{position:absolute;bottom:2px;left:2px;background:rgba(0,0,0,.65);color:#fff;font-size:10px;padding:1px 5px;border-radius:4px;}
+.img-wrap button.del-img{position:absolute;top:2px;right:2px;background:#e53935;color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:11px;padding:2px 6px;line-height:1;}
+.img-wrap button.mv-left{position:absolute;bottom:2px;right:22px;background:#fff;border:1px solid #ccc;border-radius:3px;cursor:pointer;font-size:9px;padding:1px 3px;}
+.img-wrap button.mv-right{position:absolute;bottom:2px;right:2px;background:#fff;border:1px solid #ccc;border-radius:3px;cursor:pointer;font-size:9px;padding:1px 3px;}
+.field-hint{font-size:12px;color:#666;margin-top:-6px;margin-bottom:12px;line-height:1.4;}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:20px;}
+.stat-box{background:#fff;border:1px solid var(--line);border-radius:10px;padding:16px;}
+.stat-box b{font-size:22px;display:block;color:var(--forest);margin-top:4px;}
+.stat-box span{font-size:12px;color:#777;text-transform:uppercase;letter-spacing:.8px;}
+.badge-tag{padding:3px 8px;border-radius:4px;font-size:11px;font-weight:600;}
+.badge-active{background:#e8f5e9;color:var(--ok);}
+.badge-hide{background:#f5f5f5;color:#888;}
 </style>
 </head>
 <body>
 
 <div class="gate" id="gate">
   <div class="gate-box">
-    <h1 style="margin-top:0">Admin Login</h1>
-    <input id="email" type="email" placeholder="Email">
-    <input id="pw" type="password" placeholder="Password">
-    <button class="btn btn-p" style="width:100%" id="loginBtn">Login</button>
-    <p id="loginErr" style="color:var(--bad);font-size:12px;margin-top:10px;"></p>
+    <h2 style="margin-top:0;color:var(--forest);">Inari Life Admin</h2>
+    <p style="font-size:13px;color:#666;margin-top:-6px;margin-bottom:18px;">Sign in to access your storefront control panel</p>
+    <label style="font-size:12px;font-weight:600;">Email</label>
+    <input id="email" type="email" placeholder="admin@inarilife.com">
+    <label style="font-size:12px;font-weight:600;">Password</label>
+    <input id="pw" type="password" placeholder="••••••••">
+    <button class="btn btn-p" style="width:100%;margin-top:4px;" id="loginBtn">Login to Control Panel</button>
+    <p id="loginErr" style="color:var(--bad);font-size:12px;margin-top:12px;"></p>
   </div>
 </div>
 
 <div class="shell" id="shell" style="display:none">
   <aside class="side">
-    <div style="font-weight:bold;margin-bottom:20px;font-size:1.2rem">INARI Admin</div>
+    <div style="font-weight:bold;margin-bottom:14px;font-size:1.25rem;padding:0 8px;letter-spacing:1px;color:#fff;">INARI LIFE</div>
     <nav class="nav" id="nav">
-      <button data-v="dash">Dashboard</button>
-      <button data-v="products">Products</button>
-      <button data-v="banners">Banners</button>
-      <button data-v="settings">Settings / Footer</button>
+      <div class="nav-sec">Store Operations</div>
+      <button data-v="dash" class="active">📊 Dashboard</button>
+      <button data-v="sales">📦 Sales & Enquiries</button>
+      
+      <div class="nav-sec">Catalog Management</div>
+      <button data-v="products">🛍️ Products</button>
+      <button data-v="categories">🏷️ Categories</button>
+      
+      <div class="nav-sec">Marketing & Content</div>
+      <button data-v="promotions">🖼️ Banners & Popups</button>
+      <button data-v="offers">🎟️ Offers & Coupons</button>
+      <button data-v="videos">🎥 Video Library</button>
+      <button data-v="testimonials">⭐ Testimonials</button>
+      
+      <div class="nav-sec">Configuration</div>
+      <button data-v="delivery">🚚 PIN Codes & Delivery</button>
+      <button data-v="settings">⚙️ Site Settings</button>
+      <button data-v="emails">✉️ Email Templates</button>
+      <button data-v="backup">💾 Backup & Deploy</button>
     </nav>
-    <div style="margin-top:auto;padding-top:30px;">
-      <button id="logout" style="background:none;border:none;color:#aaa;cursor:pointer;">Logout</button>
+    <div style="padding-top:16px;border-top:1px solid rgba(255,255,255,0.12)">
+      <button id="logout" style="background:none;border:none;color:#ccc;cursor:pointer;width:100%;text-align:left;padding:8px 10px;font-size:13px;">🚪 Logout</button>
     </div>
   </aside>
   
   <div class="main">
     <div class="topbar">
-      <h2 id="viewTitle" style="margin:0">Dashboard</h2>
       <div>
-        <button class="btn btn-g" id="btnPublish">Publish Changes to Live</button>
+        <h2 id="viewTitle" style="margin:0;font-size:1.35rem;color:var(--forest);">Dashboard</h2>
+      </div>
+      <div style="display:flex;gap:10px;">
+        <button class="btn btn-o" id="btnPreview" onclick="window.open('index.html', '_blank')">👁️ View Live Store</button>
+        <button class="btn btn-g" id="btnPublish">🚀 Publish to Live</button>
       </div>
     </div>
-    <div class="body" id="view">
-        <!-- Content injected here -->
-    </div>
+    <div class="body" id="view"></div>
   </div>
 </div>
 
-<!-- Drawer for Editing -->
 <div class="drawer" id="drawer">
   <div class="drawer-in">
-    <div style="padding:20px;border-bottom:1px solid var(--line)"><h3 style="margin:0" id="drTitle">Edit</h3></div>
+    <div style="padding:18px 22px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;">
+      <h3 style="margin:0;color:var(--forest);" id="drTitle">Edit Item</h3>
+      <span style="font-size:12px;color:#777;" id="drSubtitle">Draft Mode</span>
+    </div>
     <div class="drawer-b" id="drBody"></div>
     <div class="drawer-f">
       <button class="btn btn-o" id="drCancel">Cancel</button>
@@ -92,31 +133,41 @@ th,td{padding:10px;text-align:left;border-bottom:1px solid var(--line);}
   import { getDatabase, ref, onValue, set, get } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
   import { getStorage, ref as sRef, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
 
-  
-const firebaseConfig = {
-  apiKey: "AIzaSyDWeKTJeS3jncsALs6Ub6PRJw54W3mBPws",
-  authDomain: "inari-life.firebaseapp.com",
-  databaseURL: "https://inari-life-default-rtdb.firebaseio.com",
-  projectId: "inari-life",
-  storageBucket: "inari-life.firebasestorage.app",
-  messagingSenderId: "862496820163",
-  appId: "1:862496820163:web:470581a2eff13802efcb76"
-};
-
+  const firebaseConfig = {
+    apiKey: "AIzaSyDWeKTJeS3jncsALs6Ub6PRJw54W3mBPws",
+    authDomain: "inari-life.firebaseapp.com",
+    databaseURL: "https://inari-life-default-rtdb.firebaseio.com",
+    projectId: "inari-life",
+    storageBucket: "inari-life.firebasestorage.app",
+    messagingSenderId: "862496820163",
+    appId: "1:862496820163:web:470581a2eff13802efcb76"
+  };
 
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const db = getDatabase(app);
   const storage = getStorage(app);
 
-  let draftData = { products: [], banners: [], settings: {} };
+  let draftData = {
+    products: [],
+    categories: [],
+    banners: [],
+    offers: [],
+    videos: [],
+    testimonials: [],
+    delivery: { pincodes: [], shipCharge: 49, freeShipAbove: 499, codLimit: 5000 },
+    settings: {},
+    promotions: { popup: {}, strip: {} },
+    emails: { templates: [] }
+  };
+  let liveEnquiries = [];
   
-  // Auth Logic
   onAuthStateChanged(auth, (user) => {
     if (user) {
       document.getElementById('gate').style.display = 'none';
       document.getElementById('shell').style.display = 'grid';
       loadDraftData();
+      loadLiveEnquiries();
     } else {
       document.getElementById('gate').style.display = 'grid';
       document.getElementById('shell').style.display = 'none';
@@ -124,223 +175,790 @@ const firebaseConfig = {
   });
 
   document.getElementById('loginBtn').onclick = () => {
-    const e = document.getElementById('email').value;
-    const p = document.getElementById('pw').value;
-    signInWithEmailAndPassword(auth, e, p).catch(err => {
-      document.getElementById('loginErr').innerText = err.message;
-    });
+    signInWithEmailAndPassword(auth, document.getElementById('email').value, document.getElementById('pw').value)
+      .catch(err => document.getElementById('loginErr').innerText = err.message);
   };
   document.getElementById('logout').onclick = () => signOut(auth);
 
-  // Load Data
   function loadDraftData() {
-    const draftRef = ref(db, 'draft');
-    onValue(draftRef, (snapshot) => {
+    onValue(ref(db, 'draft'), (snapshot) => {
       const data = snapshot.val();
       if (data) {
-        draftData = data;
-        if(!draftData.products) draftData.products = [];
-        if(!draftData.banners) draftData.banners = [];
-        if(!draftData.settings) draftData.settings = {};
+        draftData = Object.assign({
+          products: [],
+          categories: [],
+          banners: [],
+          offers: [],
+          videos: [],
+          testimonials: [],
+          delivery: { pincodes: [] },
+          settings: {},
+          promotions: { popup: {} },
+          emails: { templates: [] }
+        }, data);
+        if(!draftData.delivery.pincodes) draftData.delivery.pincodes = [];
+        if(!draftData.promotions) draftData.promotions = {};
+        if(!draftData.emails) draftData.emails = { templates: [] };
       }
       renderView();
     });
   }
 
-  // Navigation
+  function loadLiveEnquiries() {
+    onValue(ref(db, 'live/enquiries'), (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        liveEnquiries = Object.keys(data).map(k => ({id:k, ...data[k]})).reverse();
+      } else {
+        liveEnquiries = [];
+      }
+      if(currentView === 'sales' || currentView === 'dash') renderView();
+    });
+  }
+
   let currentView = 'dash';
   document.getElementById('nav').addEventListener('click', (e) => {
-    if(e.target.tagName === 'BUTTON') {
-      currentView = e.target.getAttribute('data-v');
-      document.getElementById('viewTitle').innerText = e.target.innerText;
+    const btn = e.target.closest('button');
+    if(btn && btn.getAttribute('data-v')) {
+      document.querySelectorAll('#nav button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentView = btn.getAttribute('data-v');
+      document.getElementById('viewTitle').innerText = btn.innerText.replace(/^[^\w]+/, '');
       renderView();
     }
   });
 
   function renderView() {
     const v = document.getElementById('view');
+    let html = '';
+    
     if(currentView === 'dash') {
-      v.innerHTML = `<div class="card"><h3>Welcome to Control Panel</h3><p>Manage your products, banners, and settings. Remember to click 'Publish' to push your draft changes to the live website.</p></div>`;
-    } else if (currentView === 'products') {
-      let html = `<div class="card"><button class="btn btn-o" id="addProdBtn">+ Add Product</button><br><br><table><thead><tr><th>Image</th><th>Name</th><th>SKU</th><th>Price/MRP</th><th>Stock</th><th>Actions</th></tr></thead><tbody>`;
-      draftData.products.forEach((p, i) => {
+      const activeProds = (draftData.products||[]).filter(p => Number(p.stock) > 0).length;
+      html = `
+        <div class="stats-grid">
+          <div class="stat-box"><span>Live Products</span><b>${(draftData.products||[]).length}</b><small style="color:green">${activeProds} in stock</small></div>
+          <div class="stat-box"><span>Categories</span><b>${(draftData.categories||[]).length}</b><small>Active catalog</small></div>
+          <div class="stat-box"><span>Active Banners</span><b>${(draftData.banners||[]).length}</b><small>Carousel slides</small></div>
+          <div class="stat-box"><span>Customer Leads</span><b>${liveEnquiries.length}</b><small>Enquiries recorded</small></div>
+        </div>
+        <div class="card">
+          <h3 style="margin-top:0;">⚡ Quick Store Management</h3>
+          <p style="color:#555;font-size:13.5px;line-height:1.6;">
+            Welcome to the <b>Inari Life Central Panel</b>. Any modifications saved here remain in your <b>Draft</b> environment until you click <b>"Publish to Live"</b> above. 
+          </p>
+          <div style="display:flex;gap:12px;margin-top:16px;">
+            <button class="btn btn-o" onclick="document.querySelector('[data-v=products]').click()">🛍️ Manage Products</button>
+            <button class="btn btn-o" onclick="document.querySelector('[data-v=promotions]').click()">🖼️ Update Banners</button>
+            <button class="btn btn-o" onclick="document.querySelector('[data-v=sales]').click()">📦 View Enquiries (${liveEnquiries.length})</button>
+          </div>
+        </div>
+      `;
+    } 
+    else if(currentView === 'sales') {
+      html = `<div class="card"><h3 style="margin-top:0;">Orders & Customer Enquiries</h3>
+        <p style="color:#666;font-size:13px;margin-bottom:16px;">Direct submissions from contact forms and product enquiries on your storefront.</p>
+        <table><thead><tr><th>Date</th><th>Customer Name</th><th>Email / Phone</th><th>Item / Message</th><th>Action</th></tr></thead><tbody>`;
+      if(liveEnquiries.length === 0) {
+        html += `<tr><td colspan="5" style="text-align:center;padding:30px;color:#999;">No enquiries or leads submitted yet.</td></tr>`;
+      } else {
+        liveEnquiries.forEach(eq => {
+          html += `<tr>
+            <td>${new Date(eq.timestamp || Date.now()).toLocaleDateString('en-IN', {day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'})}</td>
+            <td><b>${eq.name || 'Anonymous'}</b></td>
+            <td>${eq.contact || eq.email || eq.phone || '—'}</td>
+            <td>${eq.message || eq.details || '—'}</td>
+            <td><a href="https://wa.me/${String(eq.contact||'').replace(/\D/g,'')}" target="_blank" class="btn btn-o" style="padding:4px 10px;font-size:12px;">WhatsApp</a></td>
+          </tr>`;
+        });
+      }
+      html += `</tbody></table></div>`;
+    }
+    else if(currentView === 'products') {
+      html = `
+        <div class="card" style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <h3 style="margin:0;">Products Catalogue</h3>
+            <span style="font-size:12px;color:#666;">Multi-image support, stock controls, and sequence manager</span>
+          </div>
+          <button class="btn btn-p" id="addProdBtn">+ Add New Product</button>
+        </div>
+        <div class="card">
+          <table><thead><tr><th>Preview</th><th>Name & Category</th><th>SKU</th><th>Pricing</th><th>Stock</th><th>Actions</th></tr></thead><tbody>`;
+      (draftData.products||[]).forEach((p, i) => {
+        let img = (p.images && p.images.length > 0) ? p.images[0] : (p.image || 'https://via.placeholder.com/50');
+        let imgCount = (p.images && p.images.length) ? p.images.length : (p.image ? 1 : 0);
         let disc = p.mrp > p.price ? Math.round(((p.mrp - p.price)/p.mrp)*100) + '% off' : '';
         html += `<tr>
-          <td><img src="${p.image || 'https://via.placeholder.com/50'}" width="50" style="border-radius:4px"></td>
-          <td><b>${p.name}</b><br><small>${p.badge || ''}</small></td>
-          <td>${p.sku || ''}</td>
-          <td>₹${p.price} <strike style="color:#aaa;font-size:12px">₹${p.mrp}</strike> <br><small style="color:green">${disc}</small></td>
-          <td>${p.stock > 0 ? p.stock : '<span style="color:red">Out of stock</span>'}</td>
-          <td><button class="btn btn-sm btn-o edit-prod" data-i="${i}">Edit</button></td>
+          <td>
+            <div style="position:relative;width:52px;height:52px;">
+              <img src="${img}" width="52" height="52" style="border-radius:6px;object-fit:cover;" onerror="this.src='https://via.placeholder.com/52'">
+              ${imgCount > 1 ? `<span style="position:absolute;bottom:2px;right:2px;background:rgba(0,0,0,.7);color:#fff;font-size:9px;padding:1px 4px;border-radius:3px;">+${imgCount-1}</span>` : ''}
+            </div>
+          </td>
+          <td><b>${p.name || 'Unnamed Product'}</b><br><small style="color:#777;">${p.category || 'General'}</small></td>
+          <td><code>${p.sku || '—'}</code></td>
+          <td>₹${p.price || 0} <strike style="color:#aaa;font-size:11.5px">₹${p.mrp || 0}</strike> <span style="color:var(--ok);font-size:11px;font-weight:600;">${disc}</span></td>
+          <td>${Number(p.stock) > 0 ? `<span class="badge-tag badge-active">${p.stock} in stock</span>` : `<span class="badge-tag badge-hide">Out of stock</span>`}</td>
+          <td>
+            <button class="btn btn-o edit-btn" data-type="product" data-i="${i}" style="padding:5px 12px;font-size:12px;">Edit</button>
+            <button class="btn btn-del del-btn" data-type="product" data-i="${i}" style="padding:5px 10px;font-size:12px;">✕</button>
+          </td>
         </tr>`;
       });
       html += `</tbody></table></div>`;
-      v.innerHTML = html;
-      
-      document.getElementById('addProdBtn').onclick = () => openProductEditor(null);
-      document.querySelectorAll('.edit-prod').forEach(b => {
-        b.onclick = (e) => openProductEditor(e.target.getAttribute('data-i'));
-      });
-    } else if (currentView === 'banners') {
-      // Simplified Banner Management
-       let html = `<div class="card"><button class="btn btn-o" id="addBannerBtn">+ Add Banner</button><br><br><table><thead><tr><th>Image</th><th>Headline</th><th>Actions</th></tr></thead><tbody>`;
-      draftData.banners.forEach((b, i) => {
-        html += `<tr>
-          <td><img src="${b.image || 'https://via.placeholder.com/100x50'}" width="100" style="border-radius:4px"></td>
-          <td>${b.title}</td>
-          <td><button class="btn btn-sm btn-o edit-ban" data-i="${i}">Edit</button></td>
-        </tr>`;
-      });
-      html += `</tbody></table></div>`;
-      v.innerHTML = html;
-      document.getElementById('addBannerBtn').onclick = () => openBannerEditor(null);
-      document.querySelectorAll('.edit-ban').forEach(b => {
-        b.onclick = (e) => openBannerEditor(e.target.getAttribute('data-i'));
-      });
-    } else if (currentView === 'settings') {
-       v.innerHTML = `
-        <div class="card">
-          <h3>Store Settings & Footer</h3>
-          <label>Brand Name</label>
-          <input id="setBrand" value="${draftData.settings.brand || ''}">
-          <label>Email</label>
-          <input id="setEmail" value="${draftData.settings.email || ''}">
-          <label>Phone / WhatsApp</label>
-          <input id="setPhone" value="${draftData.settings.phone || ''}">
-          <label>Registered Address</label>
-          <textarea id="setAddr">${draftData.settings.address || ''}</textarea>
-          <button class="btn btn-p" id="saveSettings">Save Settings</button>
+    }
+    else if(currentView === 'categories') {
+      html = `
+        <div class="card" style="display:flex;justify-content:space-between;align-items:center;">
+          <div><h3 style="margin:0;">Product Categories</h3><span style="font-size:12px;color:#666;">Storefront menu items & dedicated category landing pages</span></div>
+          <button class="btn btn-p" id="addCatBtn">+ Add Category</button>
         </div>
-       `;
-       document.getElementById('saveSettings').onclick = () => {
-           draftData.settings.brand = document.getElementById('setBrand').value;
-           draftData.settings.email = document.getElementById('setEmail').value;
-           draftData.settings.phone = document.getElementById('setPhone').value;
-           draftData.settings.address = document.getElementById('setAddr').value;
-           set(ref(db, 'draft/settings'), draftData.settings).then(()=>alert('Settings saved to draft!'));
-       };
+        <div class="card">
+          <table><thead><tr><th>Slug (URL)</th><th>Category Name</th><th>Icon</th><th>Status</th><th>Actions</th></tr></thead><tbody>`;
+      (draftData.categories||[]).forEach((c, i) => {
+        html += `<tr>
+          <td><code>#/${c.id}</code></td>
+          <td><b>${c.name}</b><br><small style="color:#777;">${c.blurb || ''}</small></td>
+          <td>${c.icon || 'leaf'}</td>
+          <td>${c.enabled !== false ? '<span class="badge-tag badge-active">Active</span>' : '<span class="badge-tag badge-hide">Hidden</span>'}</td>
+          <td>
+            <button class="btn btn-o edit-btn" data-type="category" data-i="${i}" style="padding:5px 12px;font-size:12px;">Edit</button>
+            <button class="btn btn-del del-btn" data-type="category" data-i="${i}" style="padding:5px 10px;font-size:12px;">✕</button>
+          </td>
+        </tr>`;
+      });
+      html += `</tbody></table></div>`;
+    }
+    else if(currentView === 'promotions') {
+      let pop = (draftData.promotions && draftData.promotions.popup) ? draftData.promotions.popup : {};
+      html = `
+        <div class="card" style="display:flex;justify-content:space-between;align-items:center;">
+          <div><h3 style="margin:0;">Homepage Carousel Banners</h3><span style="font-size:12px;color:#666;">Top hero section sliders</span></div>
+          <button class="btn btn-p" id="addBannerBtn">+ Add Banner</button>
+        </div>
+        <div class="card">
+          <table><thead><tr><th>Preview</th><th>Headline & Subtitle</th><th>Button CTA</th><th>Actions</th></tr></thead><tbody>`;
+      (draftData.banners||[]).forEach((b, i) => {
+        html += `<tr>
+          <td><img src="${b.image || 'https://via.placeholder.com/120x60'}" width="120" height="60" style="border-radius:6px;object-fit:cover;" onerror="this.src='https://via.placeholder.com/120x60'"></td>
+          <td><b>${b.title || 'Untitled Banner'}</b><br><small style="color:#777;">${b.subtitle || ''}</small></td>
+          <td><code>${b.ctaText || 'Shop'}</code> &rarr; <code>${b.ctaLink || '#/products'}</code></td>
+          <td>
+            <button class="btn btn-o edit-btn" data-type="banner" data-i="${i}" style="padding:5px 12px;font-size:12px;">Edit</button>
+            <button class="btn btn-del del-btn" data-type="banner" data-i="${i}" style="padding:5px 10px;font-size:12px;">✕</button>
+          </td>
+        </tr>`;
+      });
+      html += `</tbody></table></div>
+        
+        <div class="card">
+          <h3 style="margin-top:0;">Announcement Bar & Promo Popup</h3>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+            <div>
+              <label><b>Top Announcement Bar Message</b></label>
+              <textarea id="setAnn" rows="3">${draftData.settings.announcement || ''}</textarea>
+            </div>
+            <div>
+              <label><b>Promo Welcome Modal / Popup</b></label>
+              <select id="popEn" style="margin-bottom:8px;">
+                <option value="1" ${pop.enabled ? 'selected' : ''}>Popup Enabled</option>
+                <option value="0" ${!pop.enabled ? 'selected' : ''}>Popup Disabled</option>
+              </select>
+              <input id="popTitle" placeholder="Popup Title" value="${pop.title || ''}">
+              <textarea id="popBody" placeholder="Popup message/details" rows="2">${pop.body || ''}</textarea>
+              <div style="display:flex;gap:10px;">
+                <input id="popBtn" placeholder="Button text" value="${pop.button || 'Claim Offer'}">
+                <input id="popCode" placeholder="Coupon Code" value="${pop.code || 'FIRST10'}">
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-p" id="savePop" style="margin-top:10px;">Save Promotions & Popup</button>
+        </div>
+      `;
+    }
+    else if(currentView === 'offers') {
+      html = `
+        <div class="card" style="display:flex;justify-content:space-between;align-items:center;">
+          <div><h3 style="margin:0;">Offers & Discount Coupons</h3><span style="font-size:12px;color:#666;">Store coupons displayed on Offers page and cart</span></div>
+          <button class="btn btn-p" id="addOffBtn">+ Add Coupon</button>
+        </div>
+        <div class="card">
+          <table><thead><tr><th>Coupon Code</th><th>Title</th><th>Details</th><th>Expiry</th><th>Actions</th></tr></thead><tbody>`;
+      (draftData.offers||[]).forEach((o, i) => {
+        html += `<tr>
+          <td><b style="font-family:monospace;font-size:14px;background:#eee;padding:3px 8px;border-radius:4px;">${o.code}</b></td>
+          <td><b>${o.title}</b></td>
+          <td>${o.detail || ''}</td>
+          <td>${o.expiry || 'No Expiry'}</td>
+          <td>
+            <button class="btn btn-o edit-btn" data-type="offer" data-i="${i}" style="padding:5px 12px;font-size:12px;">Edit</button>
+            <button class="btn btn-del del-btn" data-type="offer" data-i="${i}" style="padding:5px 10px;font-size:12px;">✕</button>
+          </td>
+        </tr>`;
+      });
+      html += `</tbody></table></div>`;
+    }
+    else if(currentView === 'videos') {
+      html = `
+        <div class="card" style="display:flex;justify-content:space-between;align-items:center;">
+          <div><h3 style="margin:0;">Video Showcase</h3><span style="font-size:12px;color:#666;">Embed YouTube shorts/videos on the storefront</span></div>
+          <button class="btn btn-p" id="addVidBtn">+ Add Video</button>
+        </div>
+        <div class="card">
+          <table><thead><tr><th>Preview</th><th>Title</th><th>YouTube Video ID</th><th>Status</th><th>Actions</th></tr></thead><tbody>`;
+      (draftData.videos||[]).forEach((vItem, i) => {
+        html += `<tr>
+          <td><img src="https://i.ytimg.com/vi/${vItem.youtubeId}/hqdefault.jpg" width="100" style="border-radius:6px;" onerror="this.src='https://via.placeholder.com/100x56'"></td>
+          <td><b>${vItem.title}</b></td>
+          <td><code>${vItem.youtubeId}</code></td>
+          <td>${vItem.enabled !== false ? '<span class="badge-tag badge-active">Active</span>' : '<span class="badge-tag badge-hide">Hidden</span>'}</td>
+          <td>
+            <button class="btn btn-o edit-btn" data-type="video" data-i="${i}" style="padding:5px 12px;font-size:12px;">Edit</button>
+            <button class="btn btn-del del-btn" data-type="video" data-i="${i}" style="padding:5px 10px;font-size:12px;">✕</button>
+          </td>
+        </tr>`;
+      });
+      html += `</tbody></table></div>`;
+    }
+    else if(currentView === 'testimonials') {
+      html = `
+        <div class="card" style="display:flex;justify-content:space-between;align-items:center;">
+          <div><h3 style="margin:0;">Customer Testimonials & Reviews</h3><span style="font-size:12px;color:#666;">Social proof cards displayed on homepage</span></div>
+          <button class="btn btn-p" id="addTestiBtn">+ Add Review</button>
+        </div>
+        <div class="card">
+          <table><thead><tr><th>Author</th><th>City / Area</th><th>Rating</th><th>Review Snippet</th><th>Actions</th></tr></thead><tbody>`;
+      (draftData.testimonials||[]).forEach((tItem, i) => {
+        html += `<tr>
+          <td><b>${tItem.name}</b></td>
+          <td>${tItem.city || 'Verified Buyer'}</td>
+          <td style="color:var(--gold);">★ ${tItem.stars || 5}</td>
+          <td>"${tItem.text}"</td>
+          <td>
+            <button class="btn btn-o edit-btn" data-type="testi" data-i="${i}" style="padding:5px 12px;font-size:12px;">Edit</button>
+            <button class="btn btn-del del-btn" data-type="testi" data-i="${i}" style="padding:5px 10px;font-size:12px;">✕</button>
+          </td>
+        </tr>`;
+      });
+      html += `</tbody></table></div>`;
+    }
+    else if(currentView === 'delivery') {
+      const pins = (draftData.delivery.pincodes||[]).map(z=>typeof z === 'object' ? z.pin : z).join(', ');
+      html = `<div class="card">
+        <h3 style="margin-top:0;">Shipping Rules & Serviceable PIN Codes</h3>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+          <div><label><b>Standard Delivery Charge (₹)</b></label><input id="setShipC" type="number" value="${draftData.settings.shipCharge || 49}"></div>
+          <div><label><b>Free Shipping Threshold (₹)</b></label><input id="setShipF" type="number" value="${draftData.settings.freeShipAbove || 499}"></div>
+          <div><label><b>Max Cash On Delivery Limit (₹)</b></label><input id="setCod" type="number" value="${draftData.settings.codLimit || 5000}"></div>
+        </div>
+        <label><b>Dispatch Window Notice</b></label>
+        <input id="setDispatch" value="${draftData.delivery.dispatch || 'Dispatched within 24–48 working hours'}">
+        <label><b>Serviceable PIN Codes (Comma-separated)</b></label>
+        <textarea id="setPins" rows="5" placeholder="e.g. 110001, 201301, 560001">${pins}</textarea>
+        <span class="field-hint">Customers can test their 6-digit PIN code on the storefront. Enter full codes or 2-digit state prefixes.</span>
+        <button class="btn btn-p" id="saveDel" style="margin-top:12px;">Save Delivery Settings</button>
+      </div>`;
+    }
+    else if(currentView === 'settings') {
+      const s = draftData.settings || {};
+      html = `
+        <div class="card">
+          <h3 style="margin-top:0;">Global Store Identity & Footer</h3>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+            <div><label><b>Brand Display Name</b></label><input id="setBrand" value="${s.brand || 'Inari Life'}"></div>
+            <div><label><b>Tagline</b></label><input id="setTag" value="${s.tagline || 'Adding more to life.'}"></div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+            <div><label><b>Support Email</b></label><input id="setEmail" value="${s.email || ''}"></div>
+            <div><label><b>Display Phone</b></label><input id="setPhone" value="${s.phone || ''}"></div>
+            <div><label><b>WhatsApp Number (with country code, no +)</b></label><input id="setWa" value="${s.whatsapp || ''}"></div>
+          </div>
+          <label><b>Working Hours</b></label>
+          <input id="setHours" value="${s.hours || 'Mon–Sat, 10:00 AM – 6:00 PM IST'}">
+          <label><b>Registered Office Address</b></label>
+          <textarea id="setAddr" rows="2">${s.address || ''}</textarea>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+            <div><label>Instagram URL</label><input id="setIg" value="${s.instagram || ''}"></div>
+            <div><label>Facebook URL</label><input id="setFb" value="${s.facebook || ''}"></div>
+            <div><label>YouTube Channel URL</label><input id="setYt" value="${s.youtube || ''}"></div>
+          </div>
+          <label>Amazon Disclaimer / Notice</label>
+          <textarea id="setAmz" rows="2">${s.amazonDisclaimer || ''}</textarea>
+          <button class="btn btn-p" id="saveSettings" style="margin-top:10px;">Save Store Settings</button>
+        </div>
+      `;
+    }
+    else if(currentView === 'emails') {
+      html = `
+        <div class="card">
+          <h3 style="margin-top:0;">Auto Mail & Email Templates</h3>
+          <p style="color:#555;font-size:13px;line-height:1.6;">
+            Your storefront is hosted serverless on GitHub Pages. To automatically dispatch transactional emails when new enquiries arrive, install the <b>"Trigger Email"</b> Firebase Extension in your Firebase Console. Configure your custom templates below:
+          </p>
+          <div style="margin-top:16px;">
+            <label><b>Customer Enquiry Auto-Reply Template (HTML)</b></label>
+            <textarea id="tplReply" rows="6" style="font-family:monospace;font-size:12px;">${(draftData.emails && draftData.emails.customerReply) || 'Hello {{name}},\n\nThank you for reaching out to Inari Life. We have received your enquiry regarding {{item}} and our team will get back to you within 24 business hours.\n\nBest regards,\nInari Life Team'}</textarea>
+          </div>
+          <div style="margin-top:10px;">
+            <label><b>Admin Lead Notification Template (HTML)</b></label>
+            <textarea id="tplAdmin" rows="5" style="font-family:monospace;font-size:12px;">${(draftData.emails && draftData.emails.adminAlert) || 'New Customer Lead Received:\nName: {{name}}\nContact: {{contact}}\nMessage: {{message}}'}</textarea>
+          </div>
+          <button class="btn btn-p" id="saveEmails" style="margin-top:10px;">Save Email Templates</button>
+        </div>
+      `;
+    }
+    else if(currentView === 'backup') {
+      html = `
+        <div class="card">
+          <h3 style="margin-top:0;">Database Backup & Operations</h3>
+          <p style="color:#666;font-size:13px;line-height:1.6;">Export your complete Firebase real-time database snapshot as a JSON file, or restore from an earlier backup.</p>
+          <div style="display:flex;gap:12px;margin-top:14px;">
+            <button class="btn btn-p" id="btnBackup">📥 Download JSON Database Backup</button>
+            <button class="btn btn-o" id="btnImport">📤 Import & Restore data.json</button>
+          </div>
+          <input type="file" id="fileIn" accept=".json" style="display:none">
+        </div>
+      `;
+    }
+    
+    v.innerHTML = html;
+    attachEvents();
+  }
+
+  function attachEvents() {
+    document.querySelectorAll('.edit-btn').forEach(b => {
+      b.onclick = (e) => openEditor(e.target.getAttribute('data-type'), e.target.getAttribute('data-i'));
+    });
+    
+    document.querySelectorAll('.del-btn').forEach(b => {
+      b.onclick = (e) => {
+        const type = e.target.getAttribute('data-type');
+        const i = Number(e.target.getAttribute('data-i'));
+        if(confirm('Are you sure you want to delete this item from Draft?')) {
+          if(type === 'product') draftData.products.splice(i, 1);
+          if(type === 'category') draftData.categories.splice(i, 1);
+          if(type === 'banner') draftData.banners.splice(i, 1);
+          if(type === 'offer') draftData.offers.splice(i, 1);
+          if(type === 'video') draftData.videos.splice(i, 1);
+          if(type === 'testi') draftData.testimonials.splice(i, 1);
+          set(ref(db, 'draft'), draftData).then(() => renderView());
+        }
+      };
+    });
+    
+    if(document.getElementById('addProdBtn')) document.getElementById('addProdBtn').onclick = () => openEditor('product', null);
+    if(document.getElementById('addCatBtn')) document.getElementById('addCatBtn').onclick = () => openEditor('category', null);
+    if(document.getElementById('addBannerBtn')) document.getElementById('addBannerBtn').onclick = () => openEditor('banner', null);
+    if(document.getElementById('addOffBtn')) document.getElementById('addOffBtn').onclick = () => openEditor('offer', null);
+    if(document.getElementById('addVidBtn')) document.getElementById('addVidBtn').onclick = () => openEditor('video', null);
+    if(document.getElementById('addTestiBtn')) document.getElementById('addTestiBtn').onclick = () => openEditor('testi', null);
+    
+    if(document.getElementById('saveDel')) document.getElementById('saveDel').onclick = () => {
+      draftData.settings.shipCharge = Number(document.getElementById('setShipC').value);
+      draftData.settings.freeShipAbove = Number(document.getElementById('setShipF').value);
+      draftData.settings.codLimit = Number(document.getElementById('setCod').value);
+      draftData.delivery.dispatch = document.getElementById('setDispatch').value;
+      let pins = document.getElementById('setPins').value.split(',').map(s=>({pin: s.trim(), area:'India', days:3, cod:true})).filter(z=>z.pin);
+      draftData.delivery.pincodes = pins;
+      set(ref(db, 'draft'), draftData).then(()=>alert('Delivery settings saved to draft!'));
+    };
+
+    if(document.getElementById('saveSettings')) document.getElementById('saveSettings').onclick = () => {
+      draftData.settings.brand = document.getElementById('setBrand').value;
+      draftData.settings.tagline = document.getElementById('setTag').value;
+      draftData.settings.email = document.getElementById('setEmail').value;
+      draftData.settings.phone = document.getElementById('setPhone').value;
+      draftData.settings.whatsapp = document.getElementById('setWa').value;
+      draftData.settings.hours = document.getElementById('setHours').value;
+      draftData.settings.address = document.getElementById('setAddr').value;
+      draftData.settings.instagram = document.getElementById('setIg').value;
+      draftData.settings.facebook = document.getElementById('setFb').value;
+      draftData.settings.youtube = document.getElementById('setYt').value;
+      draftData.settings.amazonDisclaimer = document.getElementById('setAmz').value;
+      set(ref(db, 'draft'), draftData).then(()=>alert('Store settings saved to draft!'));
+    };
+
+    if(document.getElementById('savePop')) document.getElementById('savePop').onclick = () => {
+      if(!draftData.promotions) draftData.promotions = {};
+      if(!draftData.promotions.popup) draftData.promotions.popup = {};
+      draftData.settings.announcement = document.getElementById('setAnn').value;
+      draftData.promotions.popup.enabled = document.getElementById('popEn').value === '1';
+      draftData.promotions.popup.title = document.getElementById('popTitle').value;
+      draftData.promotions.popup.body = document.getElementById('popBody').value;
+      draftData.promotions.popup.button = document.getElementById('popBtn').value;
+      draftData.promotions.popup.code = document.getElementById('popCode').value;
+      set(ref(db, 'draft'), draftData).then(()=>alert('Promotions saved to draft!'));
+    };
+
+    if(document.getElementById('saveEmails')) document.getElementById('saveEmails').onclick = () => {
+      if(!draftData.emails) draftData.emails = {};
+      draftData.emails.customerReply = document.getElementById('tplReply').value;
+      draftData.emails.adminAlert = document.getElementById('tplAdmin').value;
+      set(ref(db, 'draft'), draftData).then(()=>alert('Email templates saved to draft!'));
+    };
+
+    if(document.getElementById('btnBackup')) document.getElementById('btnBackup').onclick = () => {
+      const blob = new Blob([JSON.stringify(draftData, null, 2)], {type: "application/json"});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = `inari_life_backup_${new Date().toISOString().slice(0,10)}.json`; a.click();
+    };
+
+    if(document.getElementById('btnImport')) {
+      document.getElementById('btnImport').onclick = () => document.getElementById('fileIn').click();
+      document.getElementById('fileIn').onchange = (e) => {
+        const file = e.target.files[0];
+        if(!file) return;
+        const reader = new FileReader();
+        reader.onload = (evt) => {
+          try {
+            const j = JSON.parse(evt.target.result);
+            if(!j.products && !j.settings) throw new Error();
+            set(ref(db, 'draft'), j).then(() => alert('Backup restored to Draft successfully!'));
+          } catch(err) {
+            alert('Invalid backup JSON file.');
+          }
+        };
+        reader.readAsText(file);
+      };
     }
   }
 
-  // Editors
-  let editingIndex = null;
-  let editingType = null;
+  // Generic Drawer Editor
+  let editContext = { type: null, index: null, tempImages: [] };
 
   function closeDrawer() { document.getElementById('drawer').classList.remove('open'); }
   document.getElementById('drCancel').onclick = closeDrawer;
 
-  function openProductEditor(i) {
-    editingIndex = i;
-    editingType = 'product';
-    let p = i !== null ? draftData.products[i] : {name:'', price:0, mrp:0, stock:0, short:'', image:'', badge:''};
-    
-    document.getElementById('drBody').innerHTML = `
-      <label>Product Name</label>
-      <input id="pName" value="${p.name}">
-      
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-          <div><label>Selling Price</label><input id="pPrice" type="number" value="${p.price}"></div>
-          <div><label>MRP</label><input id="pMrp" type="number" value="${p.mrp}"></div>
-      </div>
-      
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-          <div><label>Inventory Stock</label><input id="pStock" type="number" value="${p.stock}"></div>
-          <div><label>Badge (Sale, New, Popular)</label><input id="pBadge" value="${p.badge || ''}"></div>
-      </div>
-
-      <label>Short Description</label>
-      <textarea id="pShort">${p.short || ''}</textarea>
-
-      <label>Product Image / Media</label>
-      <img id="imgPreview" class="img-preview" src="${p.image || 'https://via.placeholder.com/150'}" style="display:${p.image ? 'block' : 'none'}">
-      <input type="file" id="pFile">
-      <input type="hidden" id="pImageUrl" value="${p.image || ''}">
-    `;
-
-    document.getElementById('pFile').onchange = (e) => handleUpload(e, 'pImageUrl');
-    document.getElementById('drawer').classList.add('open');
-  }
-
-  function openBannerEditor(i) {
-    editingIndex = i;
-    editingType = 'banner';
-    let b = i !== null ? draftData.banners[i] : {title:'', subtitle:'', image:''};
-    
-    document.getElementById('drBody').innerHTML = `
-      <label>Headline</label>
-      <input id="bTitle" value="${b.title}">
-      <label>Sub-headline</label>
-      <textarea id="bSub">${b.subtitle || ''}</textarea>
-      
-      <label>Banner Image (Ensure 16:9 or similar ratio)</label>
-      <img id="imgPreview" class="img-preview" src="${b.image || 'https://via.placeholder.com/150'}" style="display:${b.image ? 'block' : 'none'}">
-      <input type="file" id="bFile">
-      <input type="hidden" id="bImageUrl" value="${b.image || ''}">
-    `;
-    
-    document.getElementById('bFile').onchange = (e) => handleUpload(e, 'bImageUrl');
-    document.getElementById('drawer').classList.add('open');
-  }
-
-  // Upload Logic directly to Firebase Storage
-  function handleUpload(e, urlInputId) {
-    const file = e.target.files[0];
-    if(!file) return;
-    
-    const storageRef = sRef(storage, 'uploads/' + Date.now() + '_' + file.name);
-    const uploadTask = uploadBytesResumable(storageRef, file);
-    
-    e.target.insertAdjacentHTML('afterend', '<span id="upStat">Uploading...</span>');
-    
-    uploadTask.on('state_changed', null, (err) => alert(err.message), () => {
-      getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-        document.getElementById(urlInputId).value = url;
-        document.getElementById('imgPreview').src = url;
-        document.getElementById('imgPreview').style.display = 'block';
-        document.getElementById('upStat').innerText = 'Uploaded!';
-      });
+  function renderImageGrid() {
+    let html = '';
+    editContext.tempImages.forEach((img, idx) => {
+      html += `
+        <div class="img-wrap">
+          <img src="${img}" onerror="this.src='https://via.placeholder.com/86?text=Image'">
+          <span class="seq-badge">#${idx+1}</span>
+          <button type="button" class="del-img" data-idx="${idx}" title="Remove image">✕</button>
+          ${idx > 0 ? `<button type="button" class="mv-left" data-idx="${idx}" title="Move earlier">&larr;</button>` : ''}
+          ${idx < editContext.tempImages.length - 1 ? `<button type="button" class="mv-right" data-idx="${idx}" title="Move later">&rarr;</button>` : ''}
+        </div>`;
     });
+    const grid = document.getElementById('imgGrid');
+    if(grid) {
+      grid.innerHTML = html;
+      document.querySelectorAll('.del-img').forEach(b => b.onclick = (e) => {
+        editContext.tempImages.splice(Number(e.target.getAttribute('data-idx')), 1);
+        renderImageGrid();
+      });
+      document.querySelectorAll('.mv-left').forEach(b => b.onclick = (e) => {
+        const idx = Number(e.target.getAttribute('data-idx'));
+        const temp = editContext.tempImages[idx];
+        editContext.tempImages[idx] = editContext.tempImages[idx - 1];
+        editContext.tempImages[idx - 1] = temp;
+        renderImageGrid();
+      });
+      document.querySelectorAll('.mv-right').forEach(b => b.onclick = (e) => {
+        const idx = Number(e.target.getAttribute('data-idx'));
+        const temp = editContext.tempImages[idx];
+        editContext.tempImages[idx] = editContext.tempImages[idx + 1];
+        editContext.tempImages[idx + 1] = temp;
+        renderImageGrid();
+      });
+    }
   }
 
-  // Save to Draft
+  window.openEditor = function(type, i) {
+    editContext.type = type;
+    editContext.index = i;
+    
+    let html = '';
+    
+    if(type === 'product') {
+      let p = i !== null ? draftData.products[i] : {name:'', price:0, mrp:0, stock:10, short:'', sku:'', badge:'', category:'home-organization', images:[]};
+      editContext.tempImages = p.images ? [...p.images] : (p.image ? [p.image] : []);
+      
+      const catOptions = (draftData.categories||[]).map(c => `<option value="${c.id}" ${p.category===c.id?'selected':''}>${c.name}</option>`).join('');
+      
+      html = `
+        <label><b>Product Name</b></label>
+        <input id="pName" value="${p.name || ''}" placeholder="e.g. 1-piece Cloth Organizer">
+        
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div><label><b>Category</b></label><select id="pCat">${catOptions}</select></div>
+          <div><label><b>SKU Code</b></label><input id="pSku" value="${p.sku || ''}" placeholder="e.g. 6129_cloth_organizer"></div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
+          <div><label><b>Selling Price (₹)</b></label><input id="pPrice" type="number" value="${p.price || 0}"></div>
+          <div><label><b>MRP (₹)</b></label><input id="pMrp" type="number" value="${p.mrp || 0}"></div>
+          <div><label><b>Inventory Stock</b></label><input id="pStock" type="number" value="${p.stock || 0}"></div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div><label><b>Badge</b> (Sale, Bestseller, New)</label><input id="pBadge" value="${p.badge || ''}"></div>
+          <div><label><b>Amazon Affiliate / Buy URL</b></label><input id="pAmz" value="${p.amazon || ''}" placeholder="https://www.amazon.in/dp/..."></div>
+        </div>
+
+        <label><b>Short Description</b></label>
+        <textarea id="pShort" rows="2">${p.short || ''}</textarea>
+        
+        <label><b>Product Image Gallery (Multi-Image & Sequence)</b></label>
+        <div style="display:flex;gap:8px;">
+          <input id="imgTextInput" placeholder="Paste path (e.g. assets/images/product-1.jpg or URL)" style="margin-bottom:0;">
+          <button type="button" class="btn btn-o" id="addPathBtn" style="white-space:nowrap;">+ Add Path</button>
+        </div>
+        <span class="field-hint">Paste relative paths from your GitHub Image Bank or image URLs. Rearrange using &larr; &rarr; arrows.</span>
+        
+        <div id="imgGrid" class="img-grid"></div>
+        
+        <label style="font-size:12px;margin-top:8px;display:block;">Or upload directly from computer:</label>
+        <input type="file" id="pFiles" multiple accept="image/*">
+        <span id="upStat" style="font-size:12px;color:green;"></span>
+      `;
+      document.getElementById('drTitle').innerText = i !== null ? 'Edit Product' : 'Add New Product';
+      document.getElementById('drBody').innerHTML = html;
+      renderImageGrid();
+
+      document.getElementById('addPathBtn').onclick = () => {
+        const val = document.getElementById('imgTextInput').value.trim();
+        if(val) {
+          editContext.tempImages.push(val);
+          document.getElementById('imgTextInput').value = '';
+          renderImageGrid();
+        }
+      };
+      
+      document.getElementById('pFiles').onchange = async (e) => {
+        document.getElementById('upStat').innerText = 'Uploading...';
+        for(let file of e.target.files) {
+          try {
+            const sRefObj = sRef(storage, 'uploads/' + Date.now() + '_' + file.name);
+            await uploadBytesResumable(sRefObj, file);
+            const url = await getDownloadURL(sRefObj);
+            editContext.tempImages.push(url);
+          } catch(err) {
+            alert('Upload note: ' + err.message + '. Please use the "+ Add Path" button with assets/images/');
+          }
+        }
+        document.getElementById('upStat').innerText = '';
+        renderImageGrid();
+      };
+    } 
+    else if(type === 'category') {
+      let c = i !== null ? draftData.categories[i] : {id:'', name:'', icon:'leaf', blurb:'', enabled:true};
+      html = `
+        <label><b>Category Slug / ID (URL path)</b></label>
+        <input id="cId" value="${c.id || ''}" placeholder="e.g. storage-travel">
+        <label><b>Display Name</b></label>
+        <input id="cName" value="${c.name || ''}" placeholder="e.g. Storage & Travel">
+        <label><b>Blurb / Subtitle</b></label>
+        <input id="cBlurb" value="${c.blurb || ''}" placeholder="e.g. Everyday practical essentials">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div><label><b>Icon Name</b> (leaf, truck, grid, spark, bowl, star)</label><input id="cIcon" value="${c.icon || 'leaf'}"></div>
+          <div><label><b>Visibility</b></label>
+            <select id="cEn"><option value="1" ${c.enabled!==false?'selected':''}>Active</option><option value="0" ${c.enabled===false?'selected':''}>Hidden</option></select>
+          </div>
+        </div>
+      `;
+      document.getElementById('drTitle').innerText = i !== null ? 'Edit Category' : 'Add Category';
+      document.getElementById('drBody').innerHTML = html;
+    }
+    else if(type === 'banner') {
+      let b = i !== null ? draftData.banners[i] : {title:'', subtitle:'', eyebrow:'', ctaText:'Shop the collection', ctaLink:'#/products', theme:'forest', image:''};
+      editContext.tempImages = b.image ? [b.image] : [];
+      
+      html = `
+        <label><b>Eyebrow / Kicker Tag</b></label>
+        <input id="bEye" value="${b.eyebrow || ''}" placeholder="e.g. Home & Travel · 2026">
+        <label><b>Headline</b></label>
+        <input id="bTitle" value="${b.title || ''}" placeholder="e.g. Smart storage, for everyday living.">
+        <label><b>Sub-headline</b></label>
+        <textarea id="bSub" rows="2" placeholder="Short description">${b.subtitle || ''}</textarea>
+        
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div><label><b>Button Text</b></label><input id="bCta" value="${b.ctaText || 'Shop now'}"></div>
+          <div><label><b>Button Link</b></label><input id="bLink" value="${b.ctaLink || '#/products'}"></div>
+        </div>
+
+        <label><b>Banner Image (Path or URL)</b></label>
+        <input id="imgTextInput" placeholder="e.g. assets/images/hero-banner.jpg" value="${b.image || ''}">
+        <span class="field-hint">Paste your image path from GitHub Image Bank (e.g. <b>assets/images/my-banner.jpg</b>)</span>
+        
+        <div id="imgGrid" class="img-grid"></div>
+        
+        <label style="font-size:12px;margin-top:6px;display:block;">Or upload image from computer:</label>
+        <input type="file" id="pFiles" accept="image/*">
+        <span id="upStat" style="font-size:12px;color:green;"></span>
+      `;
+      document.getElementById('drTitle').innerText = i !== null ? 'Edit Banner' : 'Add Banner';
+      document.getElementById('drBody').innerHTML = html;
+      renderImageGrid();
+
+      document.getElementById('imgTextInput').oninput = (e) => {
+        const val = e.target.value.trim();
+        editContext.tempImages = val ? [val] : [];
+        renderImageGrid();
+      };
+      
+      document.getElementById('pFiles').onchange = async (e) => {
+        document.getElementById('upStat').innerText = 'Uploading...';
+        const file = e.target.files[0];
+        if(file) {
+          try {
+            const sRefObj = sRef(storage, 'uploads/' + Date.now() + '_' + file.name);
+            await uploadBytesResumable(sRefObj, file);
+            const url = await getDownloadURL(sRefObj);
+            editContext.tempImages = [url];
+            document.getElementById('imgTextInput').value = url;
+          } catch(err) {
+            alert('Upload notice: ' + err.message + '. Please use the path text field above.');
+          }
+        }
+        document.getElementById('upStat').innerText = '';
+        renderImageGrid();
+      };
+    }
+    else if(type === 'offer') {
+      let o = i !== null ? draftData.offers[i] : {code:'', title:'', detail:'', expiry:'', kind:'Launch', enabled:true};
+      html = `
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div><label><b>Coupon Code</b></label><input id="oCode" value="${o.code || ''}" placeholder="e.g. SAVE10"></div>
+          <div><label><b>Badge / Kind</b></label><input id="oKind" value="${o.kind || 'Offer'}" placeholder="e.g. Launch, Festive"></div>
+        </div>
+        <label><b>Offer Title</b></label>
+        <input id="oTitle" value="${o.title || ''}" placeholder="e.g. Flat 10% off your first order">
+        <label><b>Offer Details / Terms</b></label>
+        <textarea id="oDet" rows="2">${o.detail || ''}</textarea>
+        <label><b>Expiry Date (YYYY-MM-DD)</b></label>
+        <input id="oExp" type="date" value="${o.expiry || ''}">
+      `;
+      document.getElementById('drTitle').innerText = i !== null ? 'Edit Coupon' : 'Add Coupon';
+      document.getElementById('drBody').innerHTML = html;
+    }
+    else if(type === 'video') {
+      let vItem = i !== null ? draftData.videos[i] : {title:'', youtubeId:'', enabled:true};
+      html = `
+        <label><b>Video Title</b></label><input id="vTitle" value="${vItem.title || ''}" placeholder="e.g. How to organize storage containers">
+        <label><b>YouTube Video ID (11 characters)</b></label><input id="vId" value="${vItem.youtubeId || ''}" placeholder="e.g. dQw4w9WgXcQ">
+        <label><b>Status</b></label>
+        <select id="vEn"><option value="1" ${vItem.enabled!==false?'selected':''}>Active</option><option value="0" ${vItem.enabled===false?'selected':''}>Hidden</option></select>
+      `;
+      document.getElementById('drTitle').innerText = i !== null ? 'Edit Video' : 'Add Video';
+      document.getElementById('drBody').innerHTML = html;
+    }
+    else if(type === 'testi') {
+      let tItem = i !== null ? draftData.testimonials[i] : {name:'', city:'', text:'', stars:5, enabled:true};
+      html = `
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div><label><b>Customer Name</b></label><input id="tName" value="${tItem.name || ''}"></div>
+          <div><label><b>City / Location</b></label><input id="tCity" value="${tItem.city || 'Greater Noida'}"></div>
+        </div>
+        <label><b>Rating Stars (1 to 5)</b></label><input id="tStars" type="number" min="1" max="5" value="${tItem.stars || 5}">
+        <label><b>Review Text</b></label><textarea id="tText" rows="3">${tItem.text || ''}</textarea>
+      `;
+      document.getElementById('drTitle').innerText = i !== null ? 'Edit Testimonial' : 'Add Testimonial';
+      document.getElementById('drBody').innerHTML = html;
+    }
+
+    document.getElementById('drawer').classList.add('open');
+  };
+
   document.getElementById('drSave').onclick = () => {
-    if(editingType === 'product') {
+    let t = editContext.type;
+    let i = editContext.index;
+    
+    if(t === 'product') {
        let newP = {
-           name: document.getElementById('pName').value,
-           price: Number(document.getElementById('pPrice').value),
-           mrp: Number(document.getElementById('pMrp').value),
-           stock: Number(document.getElementById('pStock').value),
-           badge: document.getElementById('pBadge').value,
-           short: document.getElementById('pShort').value,
-           image: document.getElementById('pImageUrl').value
+         name: document.getElementById('pName').value.trim(),
+         category: document.getElementById('pCat').value,
+         sku: document.getElementById('pSku').value.trim(),
+         price: Number(document.getElementById('pPrice').value),
+         mrp: Number(document.getElementById('pMrp').value),
+         stock: Number(document.getElementById('pStock').value),
+         badge: document.getElementById('pBadge').value.trim(),
+         amazon: document.getElementById('pAmz').value.trim(),
+         short: document.getElementById('pShort').value.trim(),
+         images: editContext.tempImages,
+         image: editContext.tempImages[0] || ''
        };
-       if(editingIndex !== null) draftData.products[editingIndex] = {...draftData.products[editingIndex], ...newP};
+       if(i !== null) draftData.products[i] = {...draftData.products[i], ...newP};
        else draftData.products.push(newP);
-       
-       set(ref(db, 'draft/products'), draftData.products);
-    } else if (editingType === 'banner') {
-       let newB = {
-           title: document.getElementById('bTitle').value,
-           subtitle: document.getElementById('bSub').value,
-           image: document.getElementById('bImageUrl').value
+    }
+    else if(t === 'category') {
+       let newC = {
+         id: document.getElementById('cId').value.trim(),
+         name: document.getElementById('cName').value.trim(),
+         blurb: document.getElementById('cBlurb').value.trim(),
+         icon: document.getElementById('cIcon').value.trim(),
+         enabled: document.getElementById('cEn').value === '1'
        };
-       if(editingIndex !== null) draftData.banners[editingIndex] = {...draftData.banners[editingIndex], ...newB};
-       else draftData.banners.push(newB);
+       if(!draftData.categories) draftData.categories = [];
+       if(i !== null) draftData.categories[i] = {...draftData.categories[i], ...newC};
+       else draftData.categories.push(newC);
+    }
+    else if(t === 'banner') {
+       const directText = document.getElementById('imgTextInput') ? document.getElementById('imgTextInput').value.trim() : '';
+       const chosenImg = directText || (editContext.tempImages.length > 0 ? editContext.tempImages[0] : '');
        
-       set(ref(db, 'draft/banners'), draftData.banners);
+       let newB = {
+         eyebrow: document.getElementById('bEye').value.trim(),
+         title: document.getElementById('bTitle').value.trim(),
+         subtitle: document.getElementById('bSub').value.trim(),
+         ctaText: document.getElementById('bCta').value.trim(),
+         ctaLink: document.getElementById('bLink').value.trim(),
+         image: chosenImg,
+         enabled: true
+       };
+       if(!draftData.banners) draftData.banners = [];
+       if(i !== null) draftData.banners[i] = {...draftData.banners[i], ...newB};
+       else draftData.banners.push(newB);
     }
-    closeDrawer();
+    else if(t === 'offer') {
+       let newO = {
+         code: document.getElementById('oCode').value.trim(),
+         kind: document.getElementById('oKind').value.trim(),
+         title: document.getElementById('oTitle').value.trim(),
+         detail: document.getElementById('oDet').value.trim(),
+         expiry: document.getElementById('oExp').value,
+         enabled: true
+       };
+       if(!draftData.offers) draftData.offers = [];
+       if(i !== null) draftData.offers[i] = {...draftData.offers[i], ...newO};
+       else draftData.offers.push(newO);
+    }
+    else if(t === 'video') {
+       let newV = {
+         title: document.getElementById('vTitle').value.trim(),
+         youtubeId: document.getElementById('vId').value.trim(),
+         enabled: document.getElementById('vEn').value === '1'
+       };
+       if(!draftData.videos) draftData.videos = [];
+       if(i !== null) draftData.videos[i] = {...draftData.videos[i], ...newV};
+       else draftData.videos.push(newV);
+    }
+    else if(t === 'testi') {
+       let newT = {
+         name: document.getElementById('tName').value.trim(),
+         city: document.getElementById('tCity').value.trim(),
+         stars: Number(document.getElementById('tStars').value),
+         text: document.getElementById('tText').value.trim(),
+         enabled: true
+       };
+       if(!draftData.testimonials) draftData.testimonials = [];
+       if(i !== null) draftData.testimonials[i] = {...draftData.testimonials[i], ...newT};
+       else draftData.testimonials.push(newT);
+    }
+    
+    set(ref(db, 'draft'), draftData).then(() => {
+      closeDrawer();
+      renderView();
+    });
   };
 
-  // Publish Logic
   document.getElementById('btnPublish').onclick = () => {
-    if(confirm("This will push all draft changes to the live website. Continue?")) {
-        set(ref(db, 'live'), draftData).then(() => {
-            alert("Published successfully! Refresh your storefront to see changes.");
-        }).catch(err => alert("Publish error: " + err.message));
+    if(confirm("Publish all Draft changes live to the website? Changes will take effect immediately for all visitors upon page refresh.")) {
+      set(ref(db, 'live'), draftData).then(() => alert("🎉 Changes published live successfully!"));
     }
   };
-
 </script>
 </body>
 </html>
