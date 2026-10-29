@@ -50,6 +50,7 @@ button, input, select, textarea { font-family:inherit; font-size:inherit; }
 .btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:10px 18px; border-radius:8px; font-size:13.5px; font-weight:600; cursor:pointer; border:1px solid transparent; transition:.15s; text-decoration:none; }
 .btn-p { background:var(--forest); color:#fff; }
 .btn-p:hover { background:var(--forest-2); }
+.btn-p:disabled { opacity:0.6; cursor:not-allowed; }
 .btn-o { background:#fff; border-color:var(--line); color:var(--ink-2); }
 .btn-o:hover { border-color:var(--forest); color:var(--forest); }
 .btn-g { background:var(--gold); color:#fff; }
@@ -66,7 +67,7 @@ button, input, select, textarea { font-family:inherit; font-size:inherit; }
 
 /* Form controls */
 label { display:block; font-size:12.5px; font-weight:600; color:var(--ink-2); margin-bottom:5px; }
-input[type="text"], input[type="number"], input[type="date"], input[type="email"], select, textarea {
+input[type="text"], input[type="number"], input[type="date"], input[type="email"], input[type="password"], select, textarea {
   width:100%; padding:9.5px 12px; border:1px solid var(--line); border-radius:8px; margin-bottom:14px; outline:none; transition:.15s; background:#fff;
 }
 input:focus, select:focus, textarea:focus { border-color:var(--forest); box-shadow:0 0 0 3px rgba(28,42,67,.08); }
@@ -113,12 +114,14 @@ tr:hover td { background:#fafbfc; }
   <div class="gate-box">
     <div class="gate-logo">INARI LIFE</div>
     <div class="gate-sub">Control Center — Secure Cloud Access</div>
-    <label>Admin Email</label>
-    <input id="email" type="email" placeholder="admin@inarilife.com" autocomplete="username">
-    <label>Password</label>
-    <input id="pw" type="password" placeholder="••••••••" autocomplete="current-password">
-    <button class="btn btn-p" style="width:100%" id="loginBtn">Authenticate & Enter</button>
-    <p id="loginErr" style="color:var(--bad);font-size:12px;margin-top:12px;text-align:center;"></p>
+    <form id="loginForm" onsubmit="event.preventDefault(); window.doLogin();">
+      <label>Admin Email</label>
+      <input id="email" type="email" placeholder="admin@inarilife.com" autocomplete="username" required>
+      <label>Password</label>
+      <input id="pw" type="password" placeholder="••••••••" autocomplete="current-password" required>
+      <button type="submit" class="btn btn-p" style="width:100%;margin-top:4px;" id="loginBtn">Authenticate & Enter</button>
+      <p id="loginErr" style="color:var(--bad);font-size:12.5px;margin-top:14px;text-align:center;font-weight:600;min-height:18px;"></p>
+    </form>
   </div>
 </div>
 
@@ -228,6 +231,39 @@ tr:hover td { background:#fafbfc; }
   };
   let liveEnquiries = [];
 
+  // Expose doLogin to window so clicking or pressing enter never fails silently
+  window.doLogin = async function() {
+    const btn = document.getElementById('loginBtn');
+    const errP = document.getElementById('loginErr');
+    const emailVal = document.getElementById('email').value.trim();
+    const pwVal = document.getElementById('pw').value.trim();
+
+    errP.innerText = '';
+
+    if (!emailVal || !pwVal) {
+      errP.innerText = 'Please enter both email and password.';
+      return;
+    }
+
+    btn.disabled = true;
+    btn.innerText = 'Authenticating...';
+
+    try {
+      await signInWithEmailAndPassword(auth, emailVal, pwVal);
+      // onAuthStateChanged will automatically unlock shell
+    } catch (err) {
+      btn.disabled = false;
+      btn.innerText = 'Authenticate & Enter';
+      console.error('Firebase Auth Error:', err);
+      let msg = err.message || 'Login failed';
+      if (err.code === 'auth/invalid-credential') msg = 'Invalid email or password. Please verify credentials.';
+      else if (err.code === 'auth/user-not-found') msg = 'No user found with this email.';
+      else if (err.code === 'auth/wrong-password') msg = 'Incorrect password.';
+      else if (err.code === 'auth/unauthorized-domain') msg = 'Unauthorized domain. Please add indrasahay.github.io to Firebase Console.';
+      errP.innerText = msg;
+    }
+  };
+
   onAuthStateChanged(auth, (user) => {
     if (user) {
       document.getElementById('gate').style.display = 'none';
@@ -237,13 +273,11 @@ tr:hover td { background:#fafbfc; }
     } else {
       document.getElementById('gate').style.display = 'grid';
       document.getElementById('shell').style.display = 'none';
+      const btn = document.getElementById('loginBtn');
+      if(btn) { btn.disabled = false; btn.innerText = 'Authenticate & Enter'; }
     }
   });
 
-  document.getElementById('loginBtn').onclick = () => {
-    signInWithEmailAndPassword(auth, document.getElementById('email').value, document.getElementById('pw').value)
-      .catch(err => document.getElementById('loginErr').innerText = err.message);
-  };
   document.getElementById('logout').onclick = () => signOut(auth);
 
   function loadDraftData() {
