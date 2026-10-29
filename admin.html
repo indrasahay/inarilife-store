@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Inari Life — E-Commerce Control Center v3.0</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Standard Firebase SDKs (Compat/UMD - No ES Module failures in Safari) -->
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
+
 <style>
 :root {
   --forest:#1C2A43; --forest-2:#283A59; --forest-light:#eef3f9;
@@ -12,7 +19,6 @@
   --ink:#1B1A17; --ink-2:#4A473F; --ink-3:#7C786D;
   --line:rgba(28,42,67,.12);
   --ok:#2F7D4F; --warn:#D37A33; --bad:#A32B2B; --gold:#D37A33;
-  --r:10px;
 }
 * { box-sizing:border-box; margin:0; padding:0; }
 body { font-family:'Inter', sans-serif; background:#F5F6F9; color:var(--ink); font-size:14px; line-height:1.5; }
@@ -114,7 +120,7 @@ tr:hover td { background:#fafbfc; }
   <div class="gate-box">
     <div class="gate-logo">INARI LIFE</div>
     <div class="gate-sub">Control Center — Secure Cloud Access</div>
-    <form id="loginForm" onsubmit="event.preventDefault(); window.doLogin();">
+    <form id="loginForm" onsubmit="event.preventDefault(); doLogin();">
       <label>Admin Email</label>
       <input id="email" type="email" placeholder="admin@inarilife.com" autocomplete="username" required>
       <label>Password</label>
@@ -196,13 +202,9 @@ tr:hover td { background:#fafbfc; }
   </div>
 </div>
 
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-  import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-  import { getDatabase, ref, onValue, set, get, push } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
-  import { getStorage, ref as sRef, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
-
-  const firebaseConfig = {
+<script>
+  // Standard Synchronous Firebase Initialization (Compat UMD - zero module deferral issues)
+  var firebaseConfig = {
     apiKey: "AIzaSyDWeKTJeS3jncsALs6Ub6PRJw54W3mBPws",
     authDomain: "inari-life.firebaseapp.com",
     databaseURL: "https://inari-life-default-rtdb.firebaseio.com",
@@ -212,12 +214,22 @@ tr:hover td { background:#fafbfc; }
     appId: "1:862496820163:web:470581a2eff13802efcb76"
   };
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getDatabase(app);
-  const storage = getStorage(app);
+  var app, auth, db, storage;
+  try {
+    if (!firebase.apps.length) {
+      app = firebase.initializeApp(firebaseConfig);
+    } else {
+      app = firebase.app();
+    }
+    auth = firebase.auth();
+    db = firebase.database();
+    storage = firebase.storage();
+  } catch(e) {
+    console.error("Firebase Init Error:", e);
+    alert("Firebase failed to initialize. Please check connection.");
+  }
 
-  let draftData = {
+  var draftData = {
     products: [],
     categories: [],
     banners: [],
@@ -229,14 +241,14 @@ tr:hover td { background:#fafbfc; }
     promotions: { popup: { enabled: false, title: "", body: "", button: "Claim code", code: "FIRST10" }, strip: { enabled: true, text: "" } },
     emails: { customerReply: "", adminAlert: "" }
   };
-  let liveEnquiries = [];
+  var liveEnquiries = [];
 
-  // Expose doLogin to window so clicking or pressing enter never fails silently
-  window.doLogin = async function() {
-    const btn = document.getElementById('loginBtn');
-    const errP = document.getElementById('loginErr');
-    const emailVal = document.getElementById('email').value.trim();
-    const pwVal = document.getElementById('pw').value.trim();
+  // Plain synchronous window function
+  window.doLogin = function() {
+    var btn = document.getElementById('loginBtn');
+    var errP = document.getElementById('loginErr');
+    var emailVal = (document.getElementById('email').value || '').trim();
+    var pwVal = (document.getElementById('pw').value || '').trim();
 
     errP.innerText = '';
 
@@ -245,44 +257,54 @@ tr:hover td { background:#fafbfc; }
       return;
     }
 
+    if (!auth) {
+      errP.innerText = 'Firebase Auth not initialized. Check internet connection.';
+      return;
+    }
+
     btn.disabled = true;
     btn.innerText = 'Authenticating...';
 
-    try {
-      await signInWithEmailAndPassword(auth, emailVal, pwVal);
-      // onAuthStateChanged will automatically unlock shell
-    } catch (err) {
-      btn.disabled = false;
-      btn.innerText = 'Authenticate & Enter';
-      console.error('Firebase Auth Error:', err);
-      let msg = err.message || 'Login failed';
-      if (err.code === 'auth/invalid-credential') msg = 'Invalid email or password. Please verify credentials.';
-      else if (err.code === 'auth/user-not-found') msg = 'No user found with this email.';
-      else if (err.code === 'auth/wrong-password') msg = 'Incorrect password.';
-      else if (err.code === 'auth/unauthorized-domain') msg = 'Unauthorized domain. Please add indrasahay.github.io to Firebase Console.';
-      errP.innerText = msg;
-    }
+    auth.signInWithEmailAndPassword(emailVal, pwVal)
+      .then(function(userCred) {
+        btn.innerText = 'Success! Loading...';
+      })
+      .catch(function(err) {
+        btn.disabled = false;
+        btn.innerText = 'Authenticate & Enter';
+        console.error('Firebase Auth Error:', err);
+        var msg = err.message || 'Login failed';
+        if (err.code === 'auth/invalid-credential') msg = 'Invalid email or password. Please verify in Firebase Console.';
+        else if (err.code === 'auth/user-not-found') msg = 'No user found with this email.';
+        else if (err.code === 'auth/wrong-password') msg = 'Incorrect password.';
+        else if (err.code === 'auth/unauthorized-domain') msg = 'Domain not authorized. Add indrasahay.github.io to Firebase Authorized Domains.';
+        errP.innerText = msg;
+      });
   };
 
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      document.getElementById('gate').style.display = 'none';
-      document.getElementById('shell').style.display = 'grid';
-      loadDraftData();
-      loadLiveEnquiries();
-    } else {
-      document.getElementById('gate').style.display = 'grid';
-      document.getElementById('shell').style.display = 'none';
-      const btn = document.getElementById('loginBtn');
-      if(btn) { btn.disabled = false; btn.innerText = 'Authenticate & Enter'; }
-    }
-  });
+  if (auth) {
+    auth.onAuthStateChanged(function(user) {
+      if (user) {
+        document.getElementById('gate').style.display = 'none';
+        document.getElementById('shell').style.display = 'grid';
+        loadDraftData();
+        loadLiveEnquiries();
+      } else {
+        document.getElementById('gate').style.display = 'grid';
+        document.getElementById('shell').style.display = 'none';
+        var btn = document.getElementById('loginBtn');
+        if (btn) { btn.disabled = false; btn.innerText = 'Authenticate & Enter'; }
+      }
+    });
+  }
 
-  document.getElementById('logout').onclick = () => signOut(auth);
+  document.getElementById('logout').onclick = function() {
+    if (auth) auth.signOut();
+  };
 
   function loadDraftData() {
-    onValue(ref(db, 'draft'), (snapshot) => {
-      const data = snapshot.val();
+    db.ref('draft').on('value', function(snapshot) {
+      var data = snapshot.val();
       if (data) {
         draftData = Object.assign(draftData, data);
         if(!draftData.products) draftData.products = [];
@@ -303,24 +325,24 @@ tr:hover td { background:#fafbfc; }
   }
 
   function loadLiveEnquiries() {
-    onValue(ref(db, 'live/enquiries'), (snapshot) => {
-      const data = snapshot.val();
+    db.ref('live/enquiries').on('value', function(snapshot) {
+      var data = snapshot.val();
       if (data) {
-        liveEnquiries = Object.keys(data).map(k => ({id:k, ...data[k]})).reverse();
+        liveEnquiries = Object.keys(data).map(function(k) { return Object.assign({id:k}, data[k]); }).reverse();
       } else {
         liveEnquiries = [];
       }
-      const b = document.getElementById('salesBadge');
+      var b = document.getElementById('salesBadge');
       if(b) b.innerText = liveEnquiries.length;
       if(currentView === 'sales' || currentView === 'dash') renderView();
     });
   }
 
-  let currentView = 'dash';
-  document.getElementById('nav').addEventListener('click', (e) => {
-    const btn = e.target.closest('button');
-    if(btn && btn.getAttribute('data-v')) {
-      document.querySelectorAll('#nav button').forEach(b => b.classList.remove('active'));
+  var currentView = 'dash';
+  document.getElementById('nav').addEventListener('click', function(e) {
+    var btn = e.target.closest('button');
+    if (btn && btn.getAttribute('data-v')) {
+      document.querySelectorAll('#nav button').forEach(function(b) { b.classList.remove('active'); });
       btn.classList.add('active');
       currentView = btn.getAttribute('data-v');
       document.getElementById('viewTitle').innerText = btn.innerText.replace(/^[^\w]+/, '').trim();
@@ -329,12 +351,12 @@ tr:hover td { background:#fafbfc; }
   });
 
   function renderView() {
-    const v = document.getElementById('view');
-    let html = '';
+    var v = document.getElementById('view');
+    var html = '';
 
     // 1. DASHBOARD
     if(currentView === 'dash') {
-      const inStock = draftData.products.filter(p => Number(p.stock) > 0).length;
+      var inStock = draftData.products.filter(function(p) { return Number(p.stock) > 0; }).length;
       html = `
         <div class="grid-4" style="margin-bottom:24px;">
           <div class="card" style="margin:0;">
@@ -386,15 +408,16 @@ tr:hover td { background:#fafbfc; }
           <table>
             <thead><tr><th>Timestamp</th><th>Customer</th><th>Contact</th><th>Inquiry Message</th><th>Quick Action</th></tr></thead>
             <tbody>
-              ${liveEnquiries.slice(0, 5).map(eq => `
+              ${liveEnquiries.slice(0, 5).map(function(eq) {
+                return `
                 <tr>
                   <td>${new Date(eq.timestamp || Date.now()).toLocaleDateString('en-IN', {day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}</td>
                   <td><b>${eq.name || 'Anonymous'}</b></td>
                   <td>${eq.contact || eq.email || '—'}</td>
                   <td>${(eq.message || eq.details || '—').slice(0, 60)}...</td>
                   <td><a href="https://wa.me/${String(eq.contact||'').replace(/\D/g,'')}" target="_blank" class="btn btn-o btn-sm">WhatsApp</a></td>
-                </tr>
-              `).join('') || '<tr><td colspan="5" style="text-align:center;color:#999;padding:24px;">No customer inquiries recorded yet.</td></tr>'}
+                </tr>`;
+              }).join('') || '<tr><td colspan="5" style="text-align:center;color:#999;padding:24px;">No customer inquiries recorded yet.</td></tr>'}
             </tbody>
           </table>
         </div>
@@ -415,7 +438,8 @@ tr:hover td { background:#fafbfc; }
           <table>
             <thead><tr><th>Received Date</th><th>Name</th><th>Email / Phone</th><th>Message / Request</th><th>Contact Customer</th></tr></thead>
             <tbody>
-              ${liveEnquiries.map(eq => `
+              ${liveEnquiries.map(function(eq) {
+                return `
                 <tr>
                   <td>${new Date(eq.timestamp || Date.now()).toLocaleDateString('en-IN', {day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'})}</td>
                   <td><b>${eq.name || 'Anonymous'}</b></td>
@@ -424,8 +448,8 @@ tr:hover td { background:#fafbfc; }
                   <td>
                     ${eq.contact ? `<a href="https://wa.me/${String(eq.contact).replace(/\D/g,'')}" target="_blank" class="btn btn-o btn-sm">💬 Reply on WhatsApp</a>` : '—'}
                   </td>
-                </tr>
-              `).join('') || '<tr><td colspan="5" style="text-align:center;color:#999;padding:34px;">No inquiries submitted yet. When customers submit the form on index.html, they appear here live.</td></tr>'}
+                </tr>`;
+              }).join('') || '<tr><td colspan="5" style="text-align:center;color:#999;padding:34px;">No inquiries submitted yet. When customers submit the form on index.html, they appear here live.</td></tr>'}
             </tbody>
           </table>
         </div>
@@ -446,10 +470,10 @@ tr:hover td { background:#fafbfc; }
           <table>
             <thead><tr><th>Image</th><th>Product Title</th><th>Category</th><th>SKU</th><th>Price & MRP</th><th>Stock</th><th>Actions</th></tr></thead>
             <tbody>
-              ${draftData.products.map((p, i) => {
-                const img = (p.images && p.images.length > 0) ? p.images[0] : (p.image || 'https://via.placeholder.com/60');
-                const imgCount = (p.images && p.images.length) ? p.images.length : (p.image ? 1 : 0);
-                const disc = p.mrp > p.price ? Math.round(((p.mrp - p.price)/p.mrp)*100) + '% off' : '';
+              ${draftData.products.map(function(p, i) {
+                var img = (p.images && p.images.length > 0) ? p.images[0] : (p.image || 'https://via.placeholder.com/60');
+                var imgCount = (p.images && p.images.length) ? p.images.length : (p.image ? 1 : 0);
+                var disc = p.mrp > p.price ? Math.round(((p.mrp - p.price)/p.mrp)*100) + '% off' : '';
                 return `
                   <tr>
                     <td>
@@ -500,7 +524,8 @@ tr:hover td { background:#fafbfc; }
           <table>
             <thead><tr><th>Slug URL</th><th>Category Display Name</th><th>Description / Blurb</th><th>Icon</th><th>Visibility</th><th>Actions</th></tr></thead>
             <tbody>
-              ${draftData.categories.map((c, i) => `
+              ${draftData.categories.map(function(c, i) {
+                return `
                 <tr>
                   <td><code>#/${c.id}</code></td>
                   <td><b>${c.name}</b></td>
@@ -513,8 +538,8 @@ tr:hover td { background:#fafbfc; }
                       <button class="btn btn-del btn-sm del-btn" data-type="category" data-i="${i}">✕</button>
                     </div>
                   </td>
-                </tr>
-              `).join('')}
+                </tr>`;
+              }).join('')}
             </tbody>
           </table>
         </div>
@@ -535,7 +560,8 @@ tr:hover td { background:#fafbfc; }
           <table>
             <thead><tr><th>Banner Image</th><th>Kicker / Headline</th><th>Subtitle</th><th>CTA Button</th><th>Actions</th></tr></thead>
             <tbody>
-              ${draftData.banners.map((b, i) => `
+              ${draftData.banners.map(function(b, i) {
+                return `
                 <tr>
                   <td><img src="${b.image || 'https://via.placeholder.com/130x65'}" width="130" height="65" style="border-radius:6px;object-fit:cover;" onerror="this.src='https://via.placeholder.com/130x65'"></td>
                   <td>
@@ -550,8 +576,8 @@ tr:hover td { background:#fafbfc; }
                       <button class="btn btn-del btn-sm del-btn" data-type="banner" data-i="${i}">✕</button>
                     </div>
                   </td>
-                </tr>
-              `).join('') || '<tr><td colspan="5" style="text-align:center;color:#999;padding:30px;">No banners configured. Click "+ Add Banner Slider".</td></tr>'}
+                </tr>`;
+              }).join('') || '<tr><td colspan="5" style="text-align:center;color:#999;padding:30px;">No banners configured. Click "+ Add Banner Slider".</td></tr>'}
             </tbody>
           </table>
         </div>
@@ -560,8 +586,8 @@ tr:hover td { background:#fafbfc; }
 
     // 6. PROMO POPUP & STRIP
     else if(currentView === 'popup') {
-      const pop = draftData.promotions.popup || {};
-      const ann = draftData.settings.announcement || "";
+      var pop = draftData.promotions.popup || {};
+      var ann = draftData.settings.announcement || "";
       html = `
         <div class="card">
           <div class="card-head">
@@ -611,7 +637,8 @@ tr:hover td { background:#fafbfc; }
           <table>
             <thead><tr><th>Coupon Code</th><th>Badge Kind</th><th>Title</th><th>Terms & Details</th><th>Expiry</th><th>Actions</th></tr></thead>
             <tbody>
-              ${draftData.offers.map((o, i) => `
+              ${draftData.offers.map(function(o, i) {
+                return `
                 <tr>
                   <td><b style="font-family:monospace;font-size:14px;background:#f0f2f5;padding:4px 9px;border-radius:6px;color:var(--forest);">${o.code}</b></td>
                   <td><span class="badge badge-neutral">${o.kind || 'Offer'}</span></td>
@@ -624,8 +651,8 @@ tr:hover td { background:#fafbfc; }
                       <button class="btn btn-del btn-sm del-btn" data-type="offer" data-i="${i}">✕</button>
                     </div>
                   </td>
-                </tr>
-              `).join('') || '<tr><td colspan="6" style="text-align:center;padding:30px;color:#999;">No offers created yet.</td></tr>'}
+                </tr>`;
+              }).join('') || '<tr><td colspan="6" style="text-align:center;padding:30px;color:#999;">No offers created yet.</td></tr>'}
             </tbody>
           </table>
         </div>
@@ -646,7 +673,8 @@ tr:hover td { background:#fafbfc; }
           <table>
             <thead><tr><th>Thumbnail</th><th>Video Headline</th><th>YouTube Video ID</th><th>Status</th><th>Actions</th></tr></thead>
             <tbody>
-              ${draftData.videos.map((vItem, i) => `
+              ${draftData.videos.map(function(vItem, i) {
+                return `
                 <tr>
                   <td><img src="https://i.ytimg.com/vi/${vItem.youtubeId}/hqdefault.jpg" width="110" height="62" style="border-radius:6px;object-fit:cover;" onerror="this.src='https://via.placeholder.com/110x62'"></td>
                   <td><b>${vItem.title}</b></td>
@@ -658,8 +686,8 @@ tr:hover td { background:#fafbfc; }
                       <button class="btn btn-del btn-sm del-btn" data-type="video" data-i="${i}">✕</button>
                     </div>
                   </td>
-                </tr>
-              `).join('') || '<tr><td colspan="5" style="text-align:center;padding:30px;color:#999;">No videos added yet.</td></tr>'}
+                </tr>`;
+              }).join('') || '<tr><td colspan="5" style="text-align:center;padding:30px;color:#999;">No videos added yet.</td></tr>'}
             </tbody>
           </table>
         </div>
@@ -680,7 +708,8 @@ tr:hover td { background:#fafbfc; }
           <table>
             <thead><tr><th>Customer Name</th><th>City</th><th>Star Rating</th><th>Review Body</th><th>Actions</th></tr></thead>
             <tbody>
-              ${draftData.testimonials.map((tItem, i) => `
+              ${draftData.testimonials.map(function(tItem, i) {
+                return `
                 <tr>
                   <td><b>${tItem.name}</b></td>
                   <td>${tItem.city || 'Verified Customer'}</td>
@@ -692,8 +721,8 @@ tr:hover td { background:#fafbfc; }
                       <button class="btn btn-del btn-sm del-btn" data-type="testi" data-i="${i}">✕</button>
                     </div>
                   </td>
-                </tr>
-              `).join('') || '<tr><td colspan="5" style="text-align:center;padding:30px;color:#999;">No testimonials added yet.</td></tr>'}
+                </tr>`;
+              }).join('') || '<tr><td colspan="5" style="text-align:center;padding:30px;color:#999;">No testimonials added yet.</td></tr>'}
             </tbody>
           </table>
         </div>
@@ -702,7 +731,7 @@ tr:hover td { background:#fafbfc; }
 
     // 10. DELIVERY & PIN CODES
     else if(currentView === 'delivery') {
-      const pins = (draftData.delivery.pincodes||[]).map(z => typeof z === 'object' ? z.pin : z).join(', ');
+      var pins = (draftData.delivery.pincodes||[]).map(function(z) { return typeof z === 'object' ? z.pin : z; }).join(', ');
       html = `
         <div class="card">
           <div class="card-head">
@@ -739,7 +768,7 @@ tr:hover td { background:#fafbfc; }
 
     // 11. SITE SETTINGS & FOOTER
     else if(currentView === 'settings') {
-      const s = draftData.settings || {};
+      var s = draftData.settings || {};
       html = `
         <div class="card">
           <div class="card-head">
@@ -778,7 +807,7 @@ tr:hover td { background:#fafbfc; }
 
     // 12. EMAIL TEMPLATES & ALERTS
     else if(currentView === 'emails') {
-      const em = draftData.emails || {};
+      var em = draftData.emails || {};
       html = `
         <div class="card">
           <div class="card-head">
@@ -843,14 +872,14 @@ Message: {{message}}'}</textarea>
 
   function attachEvents() {
     // Edit & Delete Handlers
-    document.querySelectorAll('.edit-btn').forEach(b => {
-      b.onclick = (e) => openEditor(e.target.getAttribute('data-type'), Number(e.target.getAttribute('data-i')));
+    document.querySelectorAll('.edit-btn').forEach(function(b) {
+      b.onclick = function(e) { openEditor(e.target.getAttribute('data-type'), Number(e.target.getAttribute('data-i'))); };
     });
 
-    document.querySelectorAll('.del-btn').forEach(b => {
-      b.onclick = (e) => {
-        const type = e.target.getAttribute('data-type');
-        const i = Number(e.target.getAttribute('data-i'));
+    document.querySelectorAll('.del-btn').forEach(function(b) {
+      b.onclick = function(e) {
+        var type = e.target.getAttribute('data-type');
+        var i = Number(e.target.getAttribute('data-i'));
         if(confirm(`Are you sure you want to remove this ${type}? This affects your Draft database.`)) {
           if(type === 'product') draftData.products.splice(i, 1);
           if(type === 'category') draftData.categories.splice(i, 1);
@@ -858,40 +887,40 @@ Message: {{message}}'}</textarea>
           if(type === 'offer') draftData.offers.splice(i, 1);
           if(type === 'video') draftData.videos.splice(i, 1);
           if(type === 'testi') draftData.testimonials.splice(i, 1);
-          set(ref(db, 'draft'), draftData).then(() => renderView());
+          db.ref('draft').set(draftData).then(function() { renderView(); });
         }
       };
     });
 
     // Add Buttons
-    if(document.getElementById('addProdBtn')) document.getElementById('addProdBtn').onclick = () => openEditor('product', null);
-    if(document.getElementById('addCatBtn')) document.getElementById('addCatBtn').onclick = () => openEditor('category', null);
-    if(document.getElementById('addBannerBtn')) document.getElementById('addBannerBtn').onclick = () => openEditor('banner', null);
-    if(document.getElementById('addOffBtn')) document.getElementById('addOffBtn').onclick = () => openEditor('offer', null);
-    if(document.getElementById('addVidBtn')) document.getElementById('addVidBtn').onclick = () => openEditor('video', null);
-    if(document.getElementById('addTestiBtn')) document.getElementById('addTestiBtn').onclick = () => openEditor('testi', null);
+    if(document.getElementById('addProdBtn')) document.getElementById('addProdBtn').onclick = function() { openEditor('product', null); };
+    if(document.getElementById('addCatBtn')) document.getElementById('addCatBtn').onclick = function() { openEditor('category', null); };
+    if(document.getElementById('addBannerBtn')) document.getElementById('addBannerBtn').onclick = function() { openEditor('banner', null); };
+    if(document.getElementById('addOffBtn')) document.getElementById('addOffBtn').onclick = function() { openEditor('offer', null); };
+    if(document.getElementById('addVidBtn')) document.getElementById('addVidBtn').onclick = function() { openEditor('video', null); };
+    if(document.getElementById('addTestiBtn')) document.getElementById('addTestiBtn').onclick = function() { openEditor('testi', null); };
 
     // Save Section Handlers
-    if(document.getElementById('savePop')) document.getElementById('savePop').onclick = () => {
+    if(document.getElementById('savePop')) document.getElementById('savePop').onclick = function() {
       draftData.settings.announcement = document.getElementById('setAnn').value;
       draftData.promotions.popup.enabled = document.getElementById('popEn').value === '1';
       draftData.promotions.popup.title = document.getElementById('popTitle').value;
       draftData.promotions.popup.body = document.getElementById('popBody').value;
       draftData.promotions.popup.button = document.getElementById('popBtn').value;
       draftData.promotions.popup.code = document.getElementById('popCode').value;
-      set(ref(db, 'draft'), draftData).then(() => alert('Announcement & Popup saved to Draft!'));
+      db.ref('draft').set(draftData).then(function() { alert('Announcement & Popup saved to Draft!'); });
     };
 
-    if(document.getElementById('saveDel')) document.getElementById('saveDel').onclick = () => {
+    if(document.getElementById('saveDel')) document.getElementById('saveDel').onclick = function() {
       draftData.settings.shipCharge = Number(document.getElementById('setShipC').value);
       draftData.settings.freeShipAbove = Number(document.getElementById('setShipF').value);
       draftData.settings.codLimit = Number(document.getElementById('setCod').value);
       draftData.delivery.dispatch = document.getElementById('setDispatch').value;
-      draftData.delivery.pincodes = document.getElementById('setPins').value.split(',').map(s=>({pin:s.trim(), area:'India', days:3, cod:true})).filter(z=>z.pin);
-      set(ref(db, 'draft'), draftData).then(() => alert('Delivery & PIN settings saved to Draft!'));
+      draftData.delivery.pincodes = document.getElementById('setPins').value.split(',').map(function(s) { return {pin:s.trim(), area:'India', days:3, cod:true}; }).filter(function(z) { return z.pin; });
+      db.ref('draft').set(draftData).then(function() { alert('Delivery & PIN settings saved to Draft!'); });
     };
 
-    if(document.getElementById('saveSettings')) document.getElementById('saveSettings').onclick = () => {
+    if(document.getElementById('saveSettings')) document.getElementById('saveSettings').onclick = function() {
       draftData.settings.brand = document.getElementById('setBrand').value;
       draftData.settings.tagline = document.getElementById('setTag').value;
       draftData.settings.email = document.getElementById('setEmail').value;
@@ -903,33 +932,33 @@ Message: {{message}}'}</textarea>
       draftData.settings.facebook = document.getElementById('setFb').value;
       draftData.settings.youtube = document.getElementById('setYt').value;
       draftData.settings.amazonDisclaimer = document.getElementById('setAmz').value;
-      set(ref(db, 'draft'), draftData).then(() => alert('Global store settings saved to Draft!'));
+      db.ref('draft').set(draftData).then(function() { alert('Global store settings saved to Draft!'); });
     };
 
-    if(document.getElementById('saveEmails')) document.getElementById('saveEmails').onclick = () => {
+    if(document.getElementById('saveEmails')) document.getElementById('saveEmails').onclick = function() {
       draftData.emails.customerReply = document.getElementById('tplReply').value;
       draftData.emails.adminAlert = document.getElementById('tplAdmin').value;
-      set(ref(db, 'draft'), draftData).then(() => alert('Email templates saved to Draft!'));
+      db.ref('draft').set(draftData).then(function() { alert('Email templates saved to Draft!'); });
     };
 
-    if(document.getElementById('btnBackup')) document.getElementById('btnBackup').onclick = () => {
-      const blob = new Blob([JSON.stringify(draftData, null, 2)], {type: "application/json"});
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
+    if(document.getElementById('btnBackup')) document.getElementById('btnBackup').onclick = function() {
+      var blob = new Blob([JSON.stringify(draftData, null, 2)], {type: "application/json"});
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
       a.href = url; a.download = `inari_life_backup_${new Date().toISOString().slice(0,10)}.json`; a.click();
     };
 
     if(document.getElementById('btnImport')) {
-      document.getElementById('btnImport').onclick = () => document.getElementById('fileIn').click();
-      document.getElementById('fileIn').onchange = (e) => {
-        const file = e.target.files[0];
+      document.getElementById('btnImport').onclick = function() { document.getElementById('fileIn').click(); };
+      document.getElementById('fileIn').onchange = function(e) {
+        var file = e.target.files[0];
         if(!file) return;
-        const reader = new FileReader();
-        reader.onload = (evt) => {
+        var reader = new FileReader();
+        reader.onload = function(evt) {
           try {
-            const j = JSON.parse(evt.target.result);
+            var j = JSON.parse(evt.target.result);
             if(!j.products && !j.settings) throw new Error();
-            set(ref(db, 'draft'), j).then(() => alert('JSON Backup imported to Draft successfully!'));
+            db.ref('draft').set(j).then(function() { alert('JSON Backup imported to Draft successfully!'); });
           } catch(err) {
             alert('Invalid backup JSON file.');
           }
@@ -938,20 +967,20 @@ Message: {{message}}'}</textarea>
       };
     }
 
-    const dashPublish = document.getElementById('btnPublishDash');
-    if(dashPublish) dashPublish.onclick = () => document.getElementById('btnPublish').click();
+    var dashPublish = document.getElementById('btnPublishDash');
+    if(dashPublish) dashPublish.onclick = function() { document.getElementById('btnPublish').click(); };
   }
 
   // Generic Drawer Editor
-  let editContext = { type: null, index: null, tempImages: [] };
+  var editContext = { type: null, index: null, tempImages: [] };
 
   function closeDrawer() { document.getElementById('drawer').classList.remove('open'); }
   document.getElementById('drCancel').onclick = closeDrawer;
   document.getElementById('drCloseX').onclick = closeDrawer;
 
   function renderImageGrid() {
-    let html = '';
-    editContext.tempImages.forEach((img, idx) => {
+    var html = '';
+    editContext.tempImages.forEach(function(img, idx) {
       html += `
         <div class="img-tile">
           <img src="${img}" onerror="this.src='https://via.placeholder.com/92?text=Image'">
@@ -963,26 +992,32 @@ Message: {{message}}'}</textarea>
           </div>
         </div>`;
     });
-    const grid = document.getElementById('imgGrid');
+    var grid = document.getElementById('imgGrid');
     if(grid) {
       grid.innerHTML = html;
-      document.querySelectorAll('.del').forEach(b => b.onclick = (e) => {
-        editContext.tempImages.splice(Number(e.target.getAttribute('data-idx')), 1);
-        renderImageGrid();
+      document.querySelectorAll('.del').forEach(function(b) {
+        b.onclick = function(e) {
+          editContext.tempImages.splice(Number(e.target.getAttribute('data-idx')), 1);
+          renderImageGrid();
+        };
       });
-      document.querySelectorAll('.mv-l').forEach(b => b.onclick = (e) => {
-        const idx = Number(e.target.getAttribute('data-idx'));
-        const temp = editContext.tempImages[idx];
-        editContext.tempImages[idx] = editContext.tempImages[idx - 1];
-        editContext.tempImages[idx - 1] = temp;
-        renderImageGrid();
+      document.querySelectorAll('.mv-l').forEach(function(b) {
+        b.onclick = function(e) {
+          var idx = Number(e.target.getAttribute('data-idx'));
+          var temp = editContext.tempImages[idx];
+          editContext.tempImages[idx] = editContext.tempImages[idx - 1];
+          editContext.tempImages[idx - 1] = temp;
+          renderImageGrid();
+        };
       });
-      document.querySelectorAll('.mv-r').forEach(b => b.onclick = (e) => {
-        const idx = Number(e.target.getAttribute('data-idx'));
-        const temp = editContext.tempImages[idx];
-        editContext.tempImages[idx] = editContext.tempImages[idx + 1];
-        editContext.tempImages[idx + 1] = temp;
-        renderImageGrid();
+      document.querySelectorAll('.mv-r').forEach(function(b) {
+        b.onclick = function(e) {
+          var idx = Number(e.target.getAttribute('data-idx'));
+          var temp = editContext.tempImages[idx];
+          editContext.tempImages[idx] = editContext.tempImages[idx + 1];
+          editContext.tempImages[idx + 1] = temp;
+          renderImageGrid();
+        };
       });
     }
   }
@@ -990,13 +1025,15 @@ Message: {{message}}'}</textarea>
   window.openEditor = function(type, i) {
     editContext.type = type;
     editContext.index = i;
-    let html = '';
+    var html = '';
 
     // PRODUCT DRAWER
     if(type === 'product') {
-      let p = i !== null ? draftData.products[i] : { name:'', price:0, mrp:0, stock:25, short:'', sku:'', badge:'', category:'home-organization', amazon:'', images:[] };
-      editContext.tempImages = p.images ? [...p.images] : (p.image ? [p.image] : []);
-      const catOpts = (draftData.categories||[]).map(c => `<option value="${c.id}" ${p.category===c.id?'selected':''}>${c.name}</option>`).join('');
+      var p = i !== null ? draftData.products[i] : { name:'', price:0, mrp:0, stock:25, short:'', sku:'', badge:'', category:'home-organization', amazon:'', images:[] };
+      editContext.tempImages = p.images ? p.images.slice() : (p.image ? [p.image] : []);
+      var catOpts = (draftData.categories||[]).map(function(c) {
+        return `<option value="${c.id}" ${p.category===c.id?'selected':''}>${c.name}</option>`;
+      }).join('');
 
       html = `
         <label>Product Display Name</label>
@@ -1051,8 +1088,8 @@ Message: {{message}}'}</textarea>
       document.getElementById('drBody').innerHTML = html;
       renderImageGrid();
 
-      document.getElementById('addPathBtn').onclick = () => {
-        const val = document.getElementById('imgTextInput').value.trim();
+      document.getElementById('addPathBtn').onclick = function() {
+        var val = document.getElementById('imgTextInput').value.trim();
         if(val) {
           editContext.tempImages.push(val);
           document.getElementById('imgTextInput').value = '';
@@ -1060,26 +1097,34 @@ Message: {{message}}'}</textarea>
         }
       };
 
-      document.getElementById('pFiles').onchange = async (e) => {
+      document.getElementById('pFiles').onchange = function(e) {
         document.getElementById('upStat').innerText = 'Uploading...';
-        for(let file of e.target.files) {
-          try {
-            const fileRef = sRef(storage, 'uploads/' + Date.now() + '_' + file.name);
-            await uploadBytesResumable(fileRef, file);
-            const url = await getDownloadURL(fileRef);
-            editContext.tempImages.push(url);
-          } catch(err) {
-            alert('Upload notice: ' + err.message + '. Please use the "+ Add Path" button with assets/images/');
+        var files = Array.from(e.target.files);
+        var uploadNext = function(idx) {
+          if (idx >= files.length) {
+            document.getElementById('upStat').innerText = '';
+            renderImageGrid();
+            return;
           }
-        }
-        document.getElementById('upStat').innerText = '';
-        renderImageGrid();
+          var file = files[idx];
+          var fileRef = storage.ref('uploads/' + Date.now() + '_' + file.name);
+          fileRef.put(file).then(function(snapshot) {
+            return snapshot.ref.getDownloadURL();
+          }).then(function(url) {
+            editContext.tempImages.push(url);
+            uploadNext(idx + 1);
+          }).catch(function(err) {
+            alert('Upload notice: ' + err.message + '. Please use the "+ Add Path" button with assets/images/');
+            uploadNext(idx + 1);
+          });
+        };
+        uploadNext(0);
       };
     }
 
     // CATEGORY DRAWER
     else if(type === 'category') {
-      let c = i !== null ? draftData.categories[i] : { id:'', name:'', blurb:'', icon:'grid', enabled:true };
+      var c = i !== null ? draftData.categories[i] : { id:'', name:'', blurb:'', icon:'grid', enabled:true };
       html = `
         <label>Category Slug / URL Identifier</label>
         <input id="cId" value="${c.id || ''}" placeholder="e.g. storage-travel">
@@ -1104,7 +1149,7 @@ Message: {{message}}'}</textarea>
 
     // BANNER DRAWER
     else if(type === 'banner') {
-      let b = i !== null ? draftData.banners[i] : { eyebrow:'Home & Travel · 2026', title:'', subtitle:'', ctaText:'Shop the collection', ctaLink:'#/products', image:'' };
+      var b = i !== null ? draftData.banners[i] : { eyebrow:'Home & Travel · 2026', title:'', subtitle:'', ctaText:'Shop the collection', ctaLink:'#/products', image:'' };
       editContext.tempImages = b.image ? [b.image] : [];
       html = `
         <label>Kicker / Eyebrow Header</label>
@@ -1132,34 +1177,35 @@ Message: {{message}}'}</textarea>
       document.getElementById('drBody').innerHTML = html;
       renderImageGrid();
 
-      document.getElementById('imgTextInput').oninput = (e) => {
-        const val = e.target.value.trim();
+      document.getElementById('imgTextInput').oninput = function(e) {
+        var val = e.target.value.trim();
         editContext.tempImages = val ? [val] : [];
         renderImageGrid();
       };
 
-      document.getElementById('pFiles').onchange = async (e) => {
+      document.getElementById('pFiles').onchange = function(e) {
         document.getElementById('upStat').innerText = 'Uploading...';
-        const file = e.target.files[0];
+        var file = e.target.files[0];
         if(file) {
-          try {
-            const fileRef = sRef(storage, 'uploads/' + Date.now() + '_' + file.name);
-            await uploadBytesResumable(fileRef, file);
-            const url = await getDownloadURL(fileRef);
+          var fileRef = storage.ref('uploads/' + Date.now() + '_' + file.name);
+          fileRef.put(file).then(function(snapshot) {
+            return snapshot.ref.getDownloadURL();
+          }).then(function(url) {
             editContext.tempImages = [url];
             document.getElementById('imgTextInput').value = url;
-          } catch(err) {
+            document.getElementById('upStat').innerText = '';
+            renderImageGrid();
+          }).catch(function(err) {
             alert('Upload notice: ' + err.message + '. Please use the path text field above.');
-          }
+            document.getElementById('upStat').innerText = '';
+          });
         }
-        document.getElementById('upStat').innerText = '';
-        renderImageGrid();
       };
     }
 
     // OFFER DRAWER
     else if(type === 'offer') {
-      let o = i !== null ? draftData.offers[i] : { code:'', kind:'Launch', title:'', detail:'', expiry:'' };
+      var o = i !== null ? draftData.offers[i] : { code:'', kind:'Launch', title:'', detail:'', expiry:'' };
       html = `
         <div class="grid-2">
           <div><label>Coupon Code</label><input id="oCode" value="${o.code || ''}" placeholder="e.g. FIRST10"></div>
@@ -1178,7 +1224,7 @@ Message: {{message}}'}</textarea>
 
     // VIDEO DRAWER
     else if(type === 'video') {
-      let vItem = i !== null ? draftData.videos[i] : { title:'', youtubeId:'', enabled:true };
+      var vItem = i !== null ? draftData.videos[i] : { title:'', youtubeId:'', enabled:true };
       html = `
         <label>Video Title</label>
         <input id="vTitle" value="${vItem.title || ''}" placeholder="e.g. How to organize storage containers">
@@ -1196,7 +1242,7 @@ Message: {{message}}'}</textarea>
 
     // TESTIMONIAL DRAWER
     else if(type === 'testi') {
-      let tItem = i !== null ? draftData.testimonials[i] : { name:'', city:'', text:'', stars:5 };
+      var tItem = i !== null ? draftData.testimonials[i] : { name:'', city:'', text:'', stars:5 };
       html = `
         <div class="grid-2">
           <div><label>Customer Name</label><input id="tName" value="${tItem.name || ''}"></div>
@@ -1215,12 +1261,12 @@ Message: {{message}}'}</textarea>
   };
 
   // Drawer Save Logic
-  document.getElementById('drSave').onclick = () => {
-    const t = editContext.type;
-    const i = editContext.index;
+  document.getElementById('drSave').onclick = function() {
+    var t = editContext.type;
+    var i = editContext.index;
 
     if(t === 'product') {
-      const newP = {
+      var newP = {
         name: document.getElementById('pName').value.trim(),
         category: document.getElementById('pCat').value,
         sku: document.getElementById('pSku').value.trim(),
@@ -1233,24 +1279,24 @@ Message: {{message}}'}</textarea>
         images: editContext.tempImages,
         image: editContext.tempImages[0] || ''
       };
-      if(i !== null) draftData.products[i] = {...draftData.products[i], ...newP};
+      if(i !== null) draftData.products[i] = Object.assign({}, draftData.products[i], newP);
       else draftData.products.push(newP);
     }
     else if(t === 'category') {
-      const newC = {
+      var newC = {
         id: document.getElementById('cId').value.trim(),
         name: document.getElementById('cName').value.trim(),
         blurb: document.getElementById('cBlurb').value.trim(),
         icon: document.getElementById('cIcon').value.trim(),
         enabled: document.getElementById('cEn').value === '1'
       };
-      if(i !== null) draftData.categories[i] = {...draftData.categories[i], ...newC};
+      if(i !== null) draftData.categories[i] = Object.assign({}, draftData.categories[i], newC);
       else draftData.categories.push(newC);
     }
     else if(t === 'banner') {
-      const directText = document.getElementById('imgTextInput') ? document.getElementById('imgTextInput').value.trim() : '';
-      const chosenImg = directText || (editContext.tempImages.length > 0 ? editContext.tempImages[0] : '');
-      const newB = {
+      var directText = document.getElementById('imgTextInput') ? document.getElementById('imgTextInput').value.trim() : '';
+      var chosenImg = directText || (editContext.tempImages.length > 0 ? editContext.tempImages[0] : '');
+      var newB = {
         eyebrow: document.getElementById('bEye').value.trim(),
         title: document.getElementById('bTitle').value.trim(),
         subtitle: document.getElementById('bSub').value.trim(),
@@ -1259,11 +1305,11 @@ Message: {{message}}'}</textarea>
         image: chosenImg,
         enabled: true
       };
-      if(i !== null) draftData.banners[i] = {...draftData.banners[i], ...newB};
+      if(i !== null) draftData.banners[i] = Object.assign({}, draftData.banners[i], newB);
       else draftData.banners.push(newB);
     }
     else if(t === 'offer') {
-      const newO = {
+      var newO = {
         code: document.getElementById('oCode').value.trim(),
         kind: document.getElementById('oKind').value.trim(),
         title: document.getElementById('oTitle').value.trim(),
@@ -1271,42 +1317,42 @@ Message: {{message}}'}</textarea>
         expiry: document.getElementById('oExp').value,
         enabled: true
       };
-      if(i !== null) draftData.offers[i] = {...draftData.offers[i], ...newO};
+      if(i !== null) draftData.offers[i] = Object.assign({}, draftData.offers[i], newO);
       else draftData.offers.push(newO);
     }
     else if(t === 'video') {
-      const newV = {
+      var newV = {
         title: document.getElementById('vTitle').value.trim(),
         youtubeId: document.getElementById('vId').value.trim(),
         enabled: document.getElementById('vEn').value === '1'
       };
-      if(i !== null) draftData.videos[i] = {...draftData.videos[i], ...newV};
+      if(i !== null) draftData.videos[i] = Object.assign({}, draftData.videos[i], newV);
       else draftData.videos.push(newV);
     }
     else if(t === 'testi') {
-      const newT = {
+      var newT = {
         name: document.getElementById('tName').value.trim(),
         city: document.getElementById('tCity').value.trim(),
         stars: Number(document.getElementById('tStars').value),
         text: document.getElementById('tText').value.trim(),
         enabled: true
       };
-      if(i !== null) draftData.testimonials[i] = {...draftData.testimonials[i], ...newT};
+      if(i !== null) draftData.testimonials[i] = Object.assign({}, draftData.testimonials[i], newT);
       else draftData.testimonials.push(newT);
     }
 
-    set(ref(db, 'draft'), draftData).then(() => {
+    db.ref('draft').set(draftData).then(function() {
       closeDrawer();
       renderView();
     });
   };
 
   // Publish to Live
-  document.getElementById('btnPublish').onclick = () => {
+  document.getElementById('btnPublish').onclick = function() {
     if(confirm("Publish all Draft modifications to Live? Your customers will see the changes immediately upon page refresh.")) {
-      set(ref(db, 'live'), draftData).then(() => {
+      db.ref('live').set(draftData).then(function() {
         alert("🎉 Successfully Published! Changes are now live on your storefront.");
-      }).catch(err => alert("Publish error: " + err.message));
+      }).catch(function(err) { alert("Publish error: " + err.message); });
     }
   };
 </script>
