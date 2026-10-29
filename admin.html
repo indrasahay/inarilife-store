@@ -3,14 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Inari Life — E-Commerce Control Center v3.0</title>
+<title>Inari Life — E-Commerce Control Center</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-<!-- Standard Firebase SDKs (Compat/UMD - No ES Module failures in Safari) -->
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
 
 <style>
 :root {
@@ -26,7 +20,7 @@ button, input, select, textarea { font-family:inherit; font-size:inherit; }
 
 /* Gate */
 .gate { position:fixed; inset:0; background:radial-gradient(circle at 50% 30%, #283A59, #1C2A43); display:grid; place-items:center; z-index:1000; padding:20px; }
-.gate-box { background:#fff; border-radius:16px; padding:38px 34px; max-width:420px; width:100%; box-shadow:0 24px 60px rgba(0,0,0,.35); }
+.gate-box { background:#fff; border-radius:16px; padding:38px 34px; max-width:420px; width:100%; box-shadow:0 24px 60px rgba(0,0,0,.35); position:relative; }
 .gate-logo { font-size:20px; font-weight:800; letter-spacing:2px; color:var(--forest); margin-bottom:4px; text-transform:uppercase; }
 .gate-sub { color:var(--ink-3); font-size:13px; margin-bottom:24px; }
 .gate input { width:100%; padding:11px 14px; border:1px solid var(--line); border-radius:8px; margin-bottom:14px; outline:none; transition:.2s; }
@@ -56,6 +50,7 @@ button, input, select, textarea { font-family:inherit; font-size:inherit; }
 .btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:10px 18px; border-radius:8px; font-size:13.5px; font-weight:600; cursor:pointer; border:1px solid transparent; transition:.15s; text-decoration:none; }
 .btn-p { background:var(--forest); color:#fff; }
 .btn-p:hover { background:var(--forest-2); }
+.btn-p:active { transform:scale(0.98); }
 .btn-p:disabled { opacity:0.6; cursor:not-allowed; }
 .btn-o { background:#fff; border-color:var(--line); color:var(--ink-2); }
 .btn-o:hover { border-color:var(--forest); color:var(--forest); }
@@ -112,6 +107,12 @@ tr:hover td { background:#fafbfc; }
 .drawer-b { padding:24px; overflow-y:auto; flex:1; }
 .drawer-f { padding:16px 24px; border-top:1px solid var(--line); display:flex; justify-content:flex-end; gap:10px; background:#fafbfc; }
 </style>
+
+<!-- Firebase SDKs loaded with async/defer fallback -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
 </head>
 <body>
 
@@ -120,14 +121,19 @@ tr:hover td { background:#fafbfc; }
   <div class="gate-box">
     <div class="gate-logo">INARI LIFE</div>
     <div class="gate-sub">Control Center — Secure Cloud Access</div>
-    <form id="loginForm" onsubmit="event.preventDefault(); doLogin();">
+    
+    <div id="cdnNotice" style="display:none;background:#fff3cd;color:#856404;padding:8px 12px;border-radius:6px;font-size:12px;margin-bottom:14px;border:1px solid #ffeeba;">
+      Connecting to authentication servers...
+    </div>
+
+    <div>
       <label>Admin Email</label>
-      <input id="email" type="email" placeholder="admin@inarilife.com" autocomplete="username" required>
+      <input id="email" type="email" placeholder="admin@inarilife.com" autocomplete="username">
       <label>Password</label>
-      <input id="pw" type="password" placeholder="••••••••" autocomplete="current-password" required>
-      <button type="submit" class="btn btn-p" style="width:100%;margin-top:4px;" id="loginBtn">Authenticate & Enter</button>
+      <input id="pw" type="password" placeholder="••••••••" autocomplete="current-password">
+      <button type="button" class="btn btn-p" style="width:100%;margin-top:4px;" id="loginBtn">Authenticate & Enter</button>
       <p id="loginErr" style="color:var(--bad);font-size:12.5px;margin-top:14px;text-align:center;font-weight:600;min-height:18px;"></p>
-    </form>
+    </div>
   </div>
 </div>
 
@@ -203,7 +209,7 @@ tr:hover td { background:#fafbfc; }
 </div>
 
 <script>
-  // Standard Synchronous Firebase Initialization (Compat UMD - zero module deferral issues)
+  // Immediate inline definition - executes immediately without waiting for any external resource
   var firebaseConfig = {
     apiKey: "AIzaSyDWeKTJeS3jncsALs6Ub6PRJw54W3mBPws",
     authDomain: "inari-life.firebaseapp.com",
@@ -214,28 +220,34 @@ tr:hover td { background:#fafbfc; }
     appId: "1:862496820163:web:470581a2eff13802efcb76"
   };
 
-  var app, auth, db, storage;
-  try {
-    if (!firebase.apps.length) {
-      app = firebase.initializeApp(firebaseConfig);
-    } else {
-      app = firebase.app();
+  var app = null, auth = null, db = null, storage = null;
+
+  function initFirebase() {
+    if (typeof window.firebase !== 'undefined') {
+      try {
+        if (!window.firebase.apps.length) {
+          app = window.firebase.initializeApp(firebaseConfig);
+        } else {
+          app = window.firebase.app();
+        }
+        auth = window.firebase.auth();
+        db = window.firebase.database();
+        storage = window.firebase.storage();
+        return true;
+      } catch (e) {
+        console.error("Firebase init failed:", e);
+        return false;
+      }
     }
-    auth = firebase.auth();
-    db = firebase.database();
-    storage = firebase.storage();
-  } catch(e) {
-    console.error("Firebase Init Error:", e);
-    alert("Firebase failed to initialize. Please check connection.");
+    return false;
   }
 
+  // Attempt initial setup
+  initFirebase();
+
   var draftData = {
-    products: [],
-    categories: [],
-    banners: [],
-    offers: [],
-    videos: [],
-    testimonials: [],
+    products: [], categories: [], banners: [], offers: [],
+    videos: [], testimonials: [],
     delivery: { pincodes: [], shipCharge: 49, freeShipAbove: 499, codLimit: 5000, dispatch: "Dispatched within 24–48 working hours" },
     settings: {},
     promotions: { popup: { enabled: false, title: "", body: "", button: "Claim code", code: "FIRST10" }, strip: { enabled: true, text: "" } },
@@ -243,66 +255,97 @@ tr:hover td { background:#fafbfc; }
   };
   var liveEnquiries = [];
 
-  // Plain synchronous window function
-  window.doLogin = function() {
+  // Plain click handler attached immediately
+  document.getElementById('loginBtn').addEventListener('click', function(e) {
+    e.preventDefault();
     var btn = document.getElementById('loginBtn');
     var errP = document.getElementById('loginErr');
+    
+    // Instant visual feedback: user knows button received the click
+    btn.style.opacity = '0.7';
+    btn.innerText = 'Checking credentials...';
+    errP.innerText = '';
+
     var emailVal = (document.getElementById('email').value || '').trim();
     var pwVal = (document.getElementById('pw').value || '').trim();
 
-    errP.innerText = '';
-
     if (!emailVal || !pwVal) {
+      btn.style.opacity = '1';
+      btn.innerText = 'Authenticate & Enter';
       errP.innerText = 'Please enter both email and password.';
       return;
     }
 
     if (!auth) {
-      errP.innerText = 'Firebase Auth not initialized. Check internet connection.';
-      return;
+      var ok = initFirebase();
+      if (!ok || !auth) {
+        btn.style.opacity = '1';
+        btn.innerText = 'Authenticate & Enter';
+        errP.innerHTML = 'Could not load Firebase. Please check your internet connection or disable Safari content blockers.';
+        return;
+      }
     }
 
     btn.disabled = true;
-    btn.innerText = 'Authenticating...';
 
     auth.signInWithEmailAndPassword(emailVal, pwVal)
       .then(function(userCred) {
-        btn.innerText = 'Success! Loading...';
+        btn.innerText = 'Success! Opening...';
       })
       .catch(function(err) {
         btn.disabled = false;
+        btn.style.opacity = '1';
         btn.innerText = 'Authenticate & Enter';
         console.error('Firebase Auth Error:', err);
         var msg = err.message || 'Login failed';
-        if (err.code === 'auth/invalid-credential') msg = 'Invalid email or password. Please verify in Firebase Console.';
-        else if (err.code === 'auth/user-not-found') msg = 'No user found with this email.';
-        else if (err.code === 'auth/wrong-password') msg = 'Incorrect password.';
-        else if (err.code === 'auth/unauthorized-domain') msg = 'Domain not authorized. Add indrasahay.github.io to Firebase Authorized Domains.';
+        if (err.code === 'auth/invalid-credential' || err.code === 'auth/wrong-password') {
+          msg = 'Incorrect email or password. Please verify in Firebase Console.';
+        } else if (err.code === 'auth/user-not-found') {
+          msg = 'No user registered with this email.';
+        } else if (err.code === 'auth/unauthorized-domain') {
+          msg = 'Domain not authorized. Please add indrasahay.github.io to Firebase Authorized Domains.';
+        }
         errP.innerText = msg;
       });
-  };
+  });
 
-  if (auth) {
-    auth.onAuthStateChanged(function(user) {
-      if (user) {
-        document.getElementById('gate').style.display = 'none';
-        document.getElementById('shell').style.display = 'grid';
-        loadDraftData();
-        loadLiveEnquiries();
-      } else {
-        document.getElementById('gate').style.display = 'grid';
-        document.getElementById('shell').style.display = 'none';
-        var btn = document.getElementById('loginBtn');
-        if (btn) { btn.disabled = false; btn.innerText = 'Authenticate & Enter'; }
-      }
-    });
+  // Enter key trigger on password field
+  document.getElementById('pw').addEventListener('keyup', function(e) {
+    if (e.key === 'Enter') {
+      document.getElementById('loginBtn').click();
+    }
+  });
+
+  // Auth state listener
+  function checkAuthState() {
+    if (auth) {
+      auth.onAuthStateChanged(function(user) {
+        if (user) {
+          document.getElementById('gate').style.display = 'none';
+          document.getElementById('shell').style.display = 'grid';
+          loadDraftData();
+          loadLiveEnquiries();
+        } else {
+          document.getElementById('gate').style.display = 'grid';
+          document.getElementById('shell').style.display = 'none';
+          var btn = document.getElementById('loginBtn');
+          if (btn) { btn.disabled = false; btn.style.opacity = '1'; btn.innerText = 'Authenticate & Enter'; }
+        }
+      });
+    } else {
+      setTimeout(function() {
+        if (initFirebase()) checkAuthState();
+      }, 500);
+    }
   }
+  checkAuthState();
 
   document.getElementById('logout').onclick = function() {
     if (auth) auth.signOut();
   };
 
   function loadDraftData() {
+    if (!db) return;
     db.ref('draft').on('value', function(snapshot) {
       var data = snapshot.val();
       if (data) {
@@ -325,6 +368,7 @@ tr:hover td { background:#fafbfc; }
   }
 
   function loadLiveEnquiries() {
+    if (!db) return;
     db.ref('live/enquiries').on('value', function(snapshot) {
       var data = snapshot.val();
       if (data) {
@@ -820,19 +864,11 @@ tr:hover td { background:#fafbfc; }
             💡 <b>Serverless Integration Note:</b> Because GitHub Pages is purely client-side, automatic emails are triggered via the free Firebase Extension <i>"Trigger Email"</i> or a webhook provider (e.g. EmailJS / Brevo). These templates are read by the messaging worker.
           </div>
           <label><b>Customer Acknowledgment Auto-Reply Template</b></label>
-          <textarea id="tplReply" rows="5" style="font-family:monospace;font-size:12.5px;">${em.customerReply || 'Hi {{name}},
-
-Thank you for reaching out to Inari Life. We have received your inquiry regarding {{item}}. Our care team will review your message and reply within 24 business hours.
-
-Warm regards,
-Inari Life Team'}</textarea>
+          <textarea id="tplReply" rows="5" style="font-family:monospace;font-size:12.5px;">${em.customerReply || 'Hi {{name}},\n\nThank you for reaching out to Inari Life. We have received your inquiry regarding {{item}}. Our care team will review your message and reply within 24 business hours.\n\nWarm regards,\nInari Life Team'}</textarea>
           <span class="hint">Available template variables: <code>{{name}}</code>, <code>{{contact}}</code>, <code>{{item}}</code>, <code>{{message}}</code></span>
           
           <label style="margin-top:14px;"><b>Admin Instant Lead Alert Template</b></label>
-          <textarea id="tplAdmin" rows="4" style="font-family:monospace;font-size:12.5px;">${em.adminAlert || '🚨 NEW CUSTOMER INQUIRY RECEIVED
-Customer: {{name}}
-Phone/Email: {{contact}}
-Message: {{message}}'}</textarea>
+          <textarea id="tplAdmin" rows="4" style="font-family:monospace;font-size:12.5px;">${em.adminAlert || '🚨 NEW CUSTOMER INQUIRY RECEIVED\nCustomer: {{name}}\nPhone/Email: {{contact}}\nMessage: {{message}}'}</textarea>
           
           <button class="btn btn-p" id="saveEmails" style="margin-top:10px;">Save Email Templates</button>
         </div>
@@ -887,7 +923,7 @@ Message: {{message}}'}</textarea>
           if(type === 'offer') draftData.offers.splice(i, 1);
           if(type === 'video') draftData.videos.splice(i, 1);
           if(type === 'testi') draftData.testimonials.splice(i, 1);
-          db.ref('draft').set(draftData).then(function() { renderView(); });
+          if (db) db.ref('draft').set(draftData).then(function() { renderView(); });
         }
       };
     });
@@ -908,7 +944,7 @@ Message: {{message}}'}</textarea>
       draftData.promotions.popup.body = document.getElementById('popBody').value;
       draftData.promotions.popup.button = document.getElementById('popBtn').value;
       draftData.promotions.popup.code = document.getElementById('popCode').value;
-      db.ref('draft').set(draftData).then(function() { alert('Announcement & Popup saved to Draft!'); });
+      if (db) db.ref('draft').set(draftData).then(function() { alert('Announcement & Popup saved to Draft!'); });
     };
 
     if(document.getElementById('saveDel')) document.getElementById('saveDel').onclick = function() {
@@ -917,7 +953,7 @@ Message: {{message}}'}</textarea>
       draftData.settings.codLimit = Number(document.getElementById('setCod').value);
       draftData.delivery.dispatch = document.getElementById('setDispatch').value;
       draftData.delivery.pincodes = document.getElementById('setPins').value.split(',').map(function(s) { return {pin:s.trim(), area:'India', days:3, cod:true}; }).filter(function(z) { return z.pin; });
-      db.ref('draft').set(draftData).then(function() { alert('Delivery & PIN settings saved to Draft!'); });
+      if (db) db.ref('draft').set(draftData).then(function() { alert('Delivery & PIN settings saved to Draft!'); });
     };
 
     if(document.getElementById('saveSettings')) document.getElementById('saveSettings').onclick = function() {
@@ -932,13 +968,13 @@ Message: {{message}}'}</textarea>
       draftData.settings.facebook = document.getElementById('setFb').value;
       draftData.settings.youtube = document.getElementById('setYt').value;
       draftData.settings.amazonDisclaimer = document.getElementById('setAmz').value;
-      db.ref('draft').set(draftData).then(function() { alert('Global store settings saved to Draft!'); });
+      if (db) db.ref('draft').set(draftData).then(function() { alert('Global store settings saved to Draft!'); });
     };
 
     if(document.getElementById('saveEmails')) document.getElementById('saveEmails').onclick = function() {
       draftData.emails.customerReply = document.getElementById('tplReply').value;
       draftData.emails.adminAlert = document.getElementById('tplAdmin').value;
-      db.ref('draft').set(draftData).then(function() { alert('Email templates saved to Draft!'); });
+      if (db) db.ref('draft').set(draftData).then(function() { alert('Email templates saved to Draft!'); });
     };
 
     if(document.getElementById('btnBackup')) document.getElementById('btnBackup').onclick = function() {
@@ -958,7 +994,7 @@ Message: {{message}}'}</textarea>
           try {
             var j = JSON.parse(evt.target.result);
             if(!j.products && !j.settings) throw new Error();
-            db.ref('draft').set(j).then(function() { alert('JSON Backup imported to Draft successfully!'); });
+            if (db) db.ref('draft').set(j).then(function() { alert('JSON Backup imported to Draft successfully!'); });
           } catch(err) {
             alert('Invalid backup JSON file.');
           }
@@ -1098,6 +1134,7 @@ Message: {{message}}'}</textarea>
       };
 
       document.getElementById('pFiles').onchange = function(e) {
+        if (!storage) { alert("Storage is not initialized. Please paste path above."); return; }
         document.getElementById('upStat').innerText = 'Uploading...';
         var files = Array.from(e.target.files);
         var uploadNext = function(idx) {
@@ -1184,6 +1221,7 @@ Message: {{message}}'}</textarea>
       };
 
       document.getElementById('pFiles').onchange = function(e) {
+        if (!storage) { alert("Storage not initialized. Please paste path above."); return; }
         document.getElementById('upStat').innerText = 'Uploading...';
         var file = e.target.files[0];
         if(file) {
@@ -1341,14 +1379,20 @@ Message: {{message}}'}</textarea>
       else draftData.testimonials.push(newT);
     }
 
-    db.ref('draft').set(draftData).then(function() {
+    if (db) {
+      db.ref('draft').set(draftData).then(function() {
+        closeDrawer();
+        renderView();
+      });
+    } else {
       closeDrawer();
       renderView();
-    });
+    }
   };
 
   // Publish to Live
   document.getElementById('btnPublish').onclick = function() {
+    if (!db) { alert("Database not initialized."); return; }
     if(confirm("Publish all Draft modifications to Live? Your customers will see the changes immediately upon page refresh.")) {
       db.ref('live').set(draftData).then(function() {
         alert("🎉 Successfully Published! Changes are now live on your storefront.");
