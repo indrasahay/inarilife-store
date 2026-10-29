@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Inari Life - Control Panel v2</title>
+<title>Inari Life - Control Panel</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--forest:#1C2A43;--forest-2:#283A59;--sand:#F4F6F8;--cream:#FFFFFF;--ink:#1B1A17;--ink2:#4A473F;--line:rgba(28,42,67,.14);--ok:#2F7D4F;--warn:#D37A33;--bad:#A32B2B;--gold:#D37A33}
@@ -11,7 +11,7 @@
 body{margin:0;font-family:Inter,sans-serif;background:#F2EEE4;color:var(--ink);font-size:14px;}
 .gate{position:fixed;inset:0;background:var(--forest);display:grid;place-items:center;z-index:500;padding:20px;}
 .gate-box{background:var(--cream);border-radius:16px;padding:34px 30px;max-width:400px;width:100%;}
-input,select,textarea{width:100%;padding:9px;margin-bottom:12px;border:1px solid var(--line);border-radius:8px;}
+input,select,textarea{width:100%;padding:9px;margin-bottom:12px;border:1px solid var(--line);border-radius:8px;font-family:inherit;}
 .btn{padding:9px 15px;border-radius:8px;font-weight:600;cursor:pointer;border:none;display:inline-flex;gap:8px;align-items:center;}
 .btn-p{background:var(--forest);color:#fff;}
 .btn-o{border:1px solid var(--line);background:#fff;color:var(--ink2);}
@@ -32,10 +32,11 @@ th{font-weight:600;color:var(--ink2);}
 .drawer-in{position:absolute;right:0;top:0;bottom:0;width:550px;background:#fff;display:flex;flex-direction:column;}
 .drawer-b{padding:20px;overflow-y:auto;flex:1;}
 .drawer-f{padding:14px 20px;border-top:1px solid var(--line);display:flex;gap:10px;justify-content:flex-end;background:#f9f9f9;}
-.img-grid{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;}
-.img-wrap{position:relative;width:80px;height:80px;border-radius:6px;border:1px solid var(--line);overflow:hidden;}
+.img-grid{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0;}
+.img-wrap{position:relative;width:80px;height:80px;border-radius:6px;border:1px solid var(--line);overflow:hidden;background:#fafafa;}
 .img-wrap img{width:100%;height:100%;object-fit:cover;}
 .img-wrap button{position:absolute;top:2px;right:2px;background:red;color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:10px;padding:2px 6px;}
+.field-hint{font-size:12px;color:#777;margin-top:-8px;margin-bottom:12px;}
 </style>
 </head>
 <body>
@@ -189,7 +190,7 @@ th{font-weight:600;color:var(--ink2);}
         <table><thead><tr><th>Image</th><th>Name</th><th>SKU</th><th>Price</th><th>Stock</th><th>Actions</th></tr></thead><tbody>`;
       (draftData.products||[]).forEach((p, i) => {
         let img = p.images && p.images.length > 0 ? p.images[0] : (p.image || 'https://via.placeholder.com/50');
-        html += `<tr><td><img src="${img}" width="50" style="border-radius:4px"></td>
+        html += `<tr><td><img src="${img}" width="50" style="border-radius:4px" onerror="this.src='https://via.placeholder.com/50'"></td>
           <td><b>${p.name || 'Unnamed'}</b></td><td>${p.sku || ''}</td><td>₹${p.price || 0}</td><td>${p.stock || 0}</td>
           <td><button class="btn btn-sm btn-o edit-btn" data-type="product" data-i="${i}">Edit</button></td></tr>`;
       });
@@ -214,7 +215,7 @@ th{font-weight:600;color:var(--ink2);}
           <table><thead><tr><th>Image</th><th>Headline</th><th>Actions</th></tr></thead><tbody>`;
       (draftData.banners||[]).forEach((b, i) => {
         html += `<tr>
-          <td><img src="${b.image || 'https://via.placeholder.com/100x50'}" width="100" style="border-radius:4px"></td>
+          <td><img src="${b.image || 'https://via.placeholder.com/100x50'}" width="100" style="border-radius:4px" onerror="this.src='https://via.placeholder.com/100x50'"></td>
           <td>${b.title || 'Untitled'}</td>
           <td><button class="btn btn-sm btn-o edit-btn" data-type="banner" data-i="${i}">Edit</button></td>
         </tr>`;
@@ -342,13 +343,18 @@ th{font-weight:600;color:var(--ink2);}
   function renderImageGrid() {
       let html = '';
       editContext.tempImages.forEach((img, idx) => {
-          html += `<div class="img-wrap"><img src="${img}"><button type="button" class="del-img" data-idx="${idx}">X</button></div>`;
+          html += `<div class="img-wrap"><img src="${img}" onerror="this.src='https://via.placeholder.com/80?text=Image'"><button type="button" class="del-img" data-idx="${idx}">✕</button></div>`;
       });
-      document.getElementById('imgGrid').innerHTML = html;
-      document.querySelectorAll('.del-img').forEach(b => b.onclick = (e) => {
-          editContext.tempImages.splice(e.target.getAttribute('data-idx'), 1);
-          renderImageGrid();
-      });
+      const grid = document.getElementById('imgGrid');
+      if(grid) {
+        grid.innerHTML = html;
+        document.querySelectorAll('.del-img').forEach(b => b.onclick = (e) => {
+            editContext.tempImages.splice(e.target.getAttribute('data-idx'), 1);
+            renderImageGrid();
+            const textIn = document.getElementById('imgTextInput');
+            if(textIn) textIn.value = editContext.tempImages[0] || '';
+        });
+      }
   }
 
   window.openEditor = function(type, i) {
@@ -370,21 +376,43 @@ th{font-weight:600;color:var(--ink2);}
         <label>Stock</label><input id="pStock" type="number" value="${p.stock}">
         <label>Description</label><textarea id="pShort">${p.short || ''}</textarea>
         
-        <label>Images (Drag/Drop or select multiple to upload)</label>
+        <label>Product Images</label>
+        <label style="font-weight:normal;font-size:12px;">Type or Paste image path/URL below:</label>
+        <div style="display:flex;gap:8px;">
+          <input id="imgTextInput" placeholder="e.g. assets/images/product.jpg or https://..." style="margin-bottom:6px;">
+          <button type="button" class="btn btn-o" id="addPathBtn" style="height:38px;">+ Add</button>
+        </div>
+        <div class="field-hint">Paste relative path from your GitHub Image Bank (e.g. assets/images/my-file.jpg)</div>
+        
         <div id="imgGrid" class="img-grid"></div>
+        
+        <label style="font-weight:normal;font-size:12px;margin-top:10px;display:block;">Or upload directly from computer:</label>
         <input type="file" id="pFiles" multiple accept="image/*">
-        <span id="upStat"></span>
+        <span id="upStat" style="font-size:12px;color:green;"></span>
       `;
       document.getElementById('drBody').innerHTML = html;
       renderImageGrid();
+
+      document.getElementById('addPathBtn').onclick = () => {
+        const val = document.getElementById('imgTextInput').value.trim();
+        if(val) {
+          editContext.tempImages.push(val);
+          document.getElementById('imgTextInput').value = '';
+          renderImageGrid();
+        }
+      };
       
       document.getElementById('pFiles').onchange = async (e) => {
           document.getElementById('upStat').innerText = 'Uploading...';
           for(let file of e.target.files) {
-              const sRefObj = sRef(storage, 'uploads/' + Date.now() + '_' + file.name);
-              await uploadBytesResumable(sRefObj, file);
-              const url = await getDownloadURL(sRefObj);
-              editContext.tempImages.push(url);
+              try {
+                const sRefObj = sRef(storage, 'uploads/' + Date.now() + '_' + file.name);
+                await uploadBytesResumable(sRefObj, file);
+                const url = await getDownloadURL(sRefObj);
+                editContext.tempImages.push(url);
+              } catch(err) {
+                alert('Storage upload failed: ' + err.message + '. Please use the paste path option above.');
+              }
           }
           document.getElementById('upStat').innerText = '';
           renderImageGrid();
@@ -408,22 +436,40 @@ th{font-weight:600;color:var(--ink2);}
       html = `
         <label>Headline</label><input id="bTitle" value="${b.title || ''}">
         <label>Sub-headline</label><textarea id="bSub">${b.subtitle || ''}</textarea>
-        <label>Banner Image</label>
+        
+        <label>Banner Image Path / URL</label>
+        <input id="imgTextInput" placeholder="e.g. assets/images/hero-banner.jpg or https://..." value="${b.image || ''}">
+        <div class="field-hint">Paste relative path from your GitHub Image Bank (e.g. <b>assets/images/your-banner.jpg</b>)</div>
+        
         <div id="imgGrid" class="img-grid"></div>
+        
+        <label style="font-weight:normal;font-size:12px;margin-top:10px;display:block;">Or upload directly from computer:</label>
         <input type="file" id="pFiles" accept="image/*">
-        <span id="upStat"></span>
+        <span id="upStat" style="font-size:12px;color:green;"></span>
       `;
       document.getElementById('drBody').innerHTML = html;
       renderImageGrid();
+
+      // Whenever typing in input, update preview live
+      document.getElementById('imgTextInput').oninput = (e) => {
+        const val = e.target.value.trim();
+        editContext.tempImages = val ? [val] : [];
+        renderImageGrid();
+      };
       
       document.getElementById('pFiles').onchange = async (e) => {
           document.getElementById('upStat').innerText = 'Uploading...';
           const file = e.target.files[0];
           if(file) {
-              const sRefObj = sRef(storage, 'uploads/' + Date.now() + '_' + file.name);
-              await uploadBytesResumable(sRefObj, file);
-              const url = await getDownloadURL(sRefObj);
-              editContext.tempImages = [url];
+              try {
+                const sRefObj = sRef(storage, 'uploads/' + Date.now() + '_' + file.name);
+                await uploadBytesResumable(sRefObj, file);
+                const url = await getDownloadURL(sRefObj);
+                editContext.tempImages = [url];
+                document.getElementById('imgTextInput').value = url;
+              } catch(err) {
+                alert('Storage upload failed: ' + err.message + '. Please use the text field above to paste your GitHub Image Bank path.');
+              }
           }
           document.getElementById('upStat').innerText = '';
           renderImageGrid();
@@ -471,10 +517,13 @@ th{font-weight:600;color:var(--ink2);}
        else draftData.categories.push(newC);
     }
     else if(t === 'banner') {
+       const directText = document.getElementById('imgTextInput') ? document.getElementById('imgTextInput').value.trim() : '';
+       const chosenImg = directText || (editContext.tempImages.length > 0 ? editContext.tempImages[0] : '');
+       
        let newB = {
            title: document.getElementById('bTitle').value,
            subtitle: document.getElementById('bSub').value,
-           image: editContext.tempImages.length > 0 ? editContext.tempImages[0] : ''
+           image: chosenImg
        };
        if(!draftData.banners) draftData.banners = [];
        if(i !== null) draftData.banners[i] = {...draftData.banners[i], ...newB};
